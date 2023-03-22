@@ -106,4 +106,17 @@ public class Flight {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "flightID=" + flightID +
+                ", origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", flightTime=" + flightTime +
+                ", duration=" + duration +
+                ", ticketPrice=" + ticketPrice +
+                ", airline=" + airline +
+                '}';
+    }
 }
