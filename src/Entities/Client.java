@@ -10,6 +10,8 @@ public abstract class Client {
     private String email;
     private String password;
 
+    ArrayList<Booking> bookings = new ArrayList<>();
+
     public void setId(int id) {
         this.id = id;
     }
@@ -57,12 +59,20 @@ public abstract class Client {
         this.password = password;
     }
 
-    public void setBooking(ArrayList<String> booking) {
-        this.booking = booking;
+    public void setBooking(ArrayList<Booking> bookings) {
+        this.bookings = bookings;
     }
 
-    ArrayList<String> booking = new ArrayList<String>();
-
+    boolean addBook(Booking booking) {
+        if (booking != null) {
+            bookings.add(booking);
+            return true;
+        }
+        return false;
+    }
+    boolean deleteBooking (Booking booking) {
+        return bookings.remove(booking);
+    }
 
 
 }
