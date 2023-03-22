@@ -1,5 +1,5 @@
 package Model;
 
 public class AdminDB {
-    private String adminFile;
+    private String adminFileDB;
 }
