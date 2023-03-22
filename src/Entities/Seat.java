@@ -29,6 +29,8 @@ public class Seat {
         this.classType = classType;
     }
 
-    public void book(){}
-    public void cancelBook(){};
+    public void book(){
+        this.isBooked = true;
+    }
+    public void cancelBook(){this.isBooked = false;};
 }
