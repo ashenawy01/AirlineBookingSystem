@@ -3,7 +3,7 @@ package Entities;
 
 import java.util.ArrayList;
 
-public abstract class Client {
+public  class Client {
     private  int id;
     private String firstName;
     private String lastName;
