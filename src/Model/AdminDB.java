@@ -1,6 +1,7 @@
 package Model;
 
 import Entities.Admin;
+import Entities.Employee;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class AdminDB implements UsersDatabase {
         }
     }
 
-    public boolean addAdmin (Admin admin) {
+    public boolean addAdmin (Employee admin) {
 
         if (admin == null) {
             return false;

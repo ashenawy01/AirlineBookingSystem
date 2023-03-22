@@ -35,6 +35,7 @@ public class Admin extends Employee implements Serializable {
     @Override
     public String toString() {
         return "Admin{" +
+                "name : " + this.getLastName()  + " "+
                 "isGlobal=" + isGlobal +
                 ", isActive=" + isActive +
                 '}';
