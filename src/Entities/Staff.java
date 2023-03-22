@@ -43,7 +43,7 @@ public class Staff extends  Employee{
 
 
 
-    /* add a flight to the array */
+    /* Adds a flight to the array */
     public void addFlight(Flight flight){
      managedFlights.add(flight);
     }

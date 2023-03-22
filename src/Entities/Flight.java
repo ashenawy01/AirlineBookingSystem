@@ -85,19 +85,22 @@ public class Flight {
         this.seats = seats;
     }
 
-    public boolean addSeat(Seat seat){
-        if (seat != null){
+    public boolean addSeat(Seat seat) //This function adds a seat to array
+    {
+        if (seat != null){ // To check if seat is not empty
             seats.add(seat);
             return true;
         }
         return false;
     }
 
-    public boolean removeSeat(Seat seat){
+    public boolean removeSeat(Seat seat) //This function deletes a seat from array
+    {
         return seats.remove(seat);
     }
 
-    public boolean bookSeat(String seatNumber){
+    public boolean bookSeat(String seatNumber) //This function book a seat into Database
+    {
         for (Seat seat : seats){
             if( seat.getSeatNumber() == seatNumber){
                 seat.book();
