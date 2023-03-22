@@ -37,4 +37,14 @@ public class Booking {
     public TreeSet<Flight> getFlights() {
         return flights;
     }
+
+    boolean addFlight(Flight flight) {
+        if (flight != null) {
+            flights.add(flight);
+            return true;
+        }
+        return false;
+    }
+
+
 }
