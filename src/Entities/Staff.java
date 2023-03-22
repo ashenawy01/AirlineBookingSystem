@@ -32,6 +32,13 @@ public class Staff extends  Employee{
         this.department = department;
     }
 
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "jobTitle='" + jobTitle + '\'' +
+                ", department=" + department +
+                '}';
+    }
 
     /* add a flight to the array */
     public void addFlight(Flight flight){
