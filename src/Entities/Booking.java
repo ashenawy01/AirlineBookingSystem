@@ -1,10 +1,12 @@
 package Entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-public class Booking {
+public class Booking implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int bookingID;
     private int clintID;
@@ -12,6 +14,7 @@ public class Booking {
     private int  travelers;
     private TreeSet<Flight> flights = new TreeSet<>();
 
+    public Booking() {}
     public int getClintID() {
         return clintID;
     }

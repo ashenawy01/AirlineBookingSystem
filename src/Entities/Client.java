@@ -1,15 +1,18 @@
 package Entities;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public  class Client {
+public  class Client implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private  int id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-
+    public Client() {}
     ArrayList<Booking> bookings = new ArrayList<>();
 
     public void setId(int id) {

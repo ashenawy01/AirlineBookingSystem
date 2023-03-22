@@ -1,12 +1,16 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Staff extends  Employee{
+public class Staff extends  Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String jobTitle;
     private Department department;
     private ArrayList<Flight> managedFlights = new ArrayList<>();
 
+    public Staff() {}
     public Staff(String firstName, String lastName, String email, String password, ArrayList<Flight> managedFlights) {
         super(firstName, lastName, email, password);
         this.managedFlights = managedFlights;

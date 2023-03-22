@@ -6,6 +6,7 @@ public class Payment {
     private int clientID;
     private int bookingID;
 
+    public Payment() {}
     public Payment(int id, double amount, int clientID, int bookingID) {
         this.id = id;
         this.amount = amount;

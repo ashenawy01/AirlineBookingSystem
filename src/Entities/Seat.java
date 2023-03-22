@@ -7,6 +7,7 @@ public class Seat {
     private ClassType classType;
     private boolean isBooked;
 
+    public Seat() {}
     public Seat(String seatNumber, ClassType classType) {
         this.seatNumber = seatNumber;
         this.classType = classType;

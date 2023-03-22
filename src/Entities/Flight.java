@@ -2,10 +2,13 @@ package Entities;
 
 import Model.FlightDB;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.TreeSet;
 
-public class Flight {
+public class Flight implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int flightID;
     private String origin;
     private String destination;
@@ -14,7 +17,7 @@ public class Flight {
     private double ticketPrice;
     private Airline airline;
     private TreeSet<Seat> seats;
-
+    public Flight() {}
     public Flight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, TreeSet<Seat> seats) {
         this.origin = origin;
         this.destination = destination;
