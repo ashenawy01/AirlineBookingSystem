@@ -38,15 +38,15 @@ public class Booking {
         return flights;
     }
 
-    boolean addFlight(Flight flight) {
-        if (flight != null) {
+    boolean addFlight(Flight flight) { //This function adds flight to database
+        if (flight != null) { // Checks if flight is not empty
             flights.add(flight);
             return true;
         }
         return false;
     }
 
-    boolean deleteFlight  (Flight flight) {
+    boolean deleteFlight  (Flight flight) { // This function removes flight from database
         return flights.remove(flights);
     }
 

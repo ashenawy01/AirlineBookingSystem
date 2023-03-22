@@ -22,7 +22,7 @@ private  boolean isActive;
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(boolean active) { //Change activity of admin to active
         isActive = active;
     }
 
