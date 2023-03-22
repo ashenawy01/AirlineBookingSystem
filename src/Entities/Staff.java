@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Staff extends  Employee{
     private String jobTitle;
     private Department department;
-    private ArrayList<Flight> managedFlights;
+    private ArrayList<Flight> managedFlights = new ArrayList<Flight>();
 
     public Staff(String firstName, String lastName, String email, String password, ArrayList<Flight> managedFlights) {
         super(firstName, lastName, email, password);
