@@ -1,14 +1,20 @@
 package Entities;
 
-public class Admin extends Employee {
-private boolean isGlobal;
-private  boolean isActive;
+import java.io.Serializable;
+
+public class Admin extends Employee implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private boolean isGlobal;
+    private  boolean isActive;
 
     public Admin(String firstName, String lastName, String email, String password, boolean isGlobal, boolean isActive) {
         super(firstName, lastName, email, password);
         this.isGlobal = isGlobal;
         this.isActive = isActive;
     }
+    public Admin() {}
 
     public boolean isGlobal() {
         return isGlobal;

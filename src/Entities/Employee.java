@@ -17,7 +17,11 @@ public abstract class Employee {
         this.email = email;
         this.password = password;
     }
+    public Employee() {}
 
+    public void setID(int ID) {
+        this.ID = ID;
+    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

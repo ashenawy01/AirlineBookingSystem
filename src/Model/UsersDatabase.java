@@ -1,5 +1,7 @@
 package Model;
 
+import Entities.Admin;
+
 import java.util.ArrayList;
 
 public interface UsersDatabase {
@@ -9,7 +11,7 @@ public interface UsersDatabase {
 
     // retrieve all accounts of a specific database  in an arrayList
     // of object (Admin, Staff or Client) of these accounts
-    ArrayList<Object> retrieveAll();
+    ArrayList<Admin> retrieveAll();
 
     // Finding a specific user from his id
     // this function should be implemented (private)
