@@ -85,7 +85,7 @@ public class Flight {
         this.seats = seats;
     }
 
-    public boolean addSeat(Seat seat) //This function adds a seat to Database
+    public boolean addSeat(Seat seat) //This function adds a seat to array
     {
         if (seat != null){ // To check if seat is not empty
             seats.add(seat);
@@ -94,7 +94,7 @@ public class Flight {
         return false;
     }
 
-    public boolean removeSeat(Seat seat) //This function deletes a seat
+    public boolean removeSeat(Seat seat) //This function deletes a seat from array
     {
         return seats.remove(seat);
     }
