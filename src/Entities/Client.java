@@ -12,8 +12,15 @@ public  class Client implements Serializable {
     private String lastName;
     private String email;
     private String password;
-    public Client() {}
     ArrayList<Booking> bookings = new ArrayList<>();
+
+    public Client() {}
+    public Client(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -39,12 +46,7 @@ public  class Client implements Serializable {
         return password;
     }
 
-    public Client(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-    }
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

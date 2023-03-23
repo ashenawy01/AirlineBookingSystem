@@ -1,8 +1,6 @@
-import Entities.Admin;
-import Entities.Department;
-import Entities.Employee;
-import Entities.Staff;
+import Entities.*;
 import Model.AdminDB;
+import Model.ClientDB;
 import Model.StaffDB;
 
 import java.util.ArrayList;
@@ -11,7 +9,28 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
+        Client client1 = new Client("A", "B", "c", "d");
+        Client client2 = new Client("B", "B", "c", "d");
+        Client client3 = new Client("C", "B", "c", "d");
 //
+        ClientDB clientDB = new ClientDB();
+        clientDB.createClientsDB();
+        System.out.println(clientDB.addClient(client1, true));
+        System.out.println(clientDB.addClient(client2, true));
+        System.out.println(clientDB.addClient(client3, true));
+        System.out.println("Try tp login : " + clientDB.findAccount("c", "d"));
+
+        for (Object o : clientDB.retrieveAll()) {
+            Client clientN = (Client) o;
+            System.out.println(clientN.getFirstName() + " - " + clientN.getId());
+        }
+        clientDB.deleteAccount(2);
+        for (Object o : clientDB.retrieveAll()) {
+            Client clientN = (Client) o;
+            System.out.println(clientN.getFirstName() + " - " + clientN.getId());
+        }
+        
+        
 //        Staff staff = new Staff("A", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff1 = new Staff("BB", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff2 = new Staff("CCC", "B", "c", "d", "Blela", Department.CustomerService);
