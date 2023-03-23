@@ -1,13 +1,57 @@
 import Entities.*;
 import Model.AdminDB;
 import Model.ClientDB;
+import Model.FlightDB;
 import Model.StaffDB;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.TreeSet;
 
 public class Main {
     public static void main(String[] args) {
+//
+//        TreeSet<Seat> seats = new TreeSet<>();
+//        seats.add(new Seat("A1", ClassType.Economy));
+//        seats.add(new Seat("A2", ClassType.FirstClass));
+//        seats.add(new Seat("A3", ClassType.Business));
+//
+//        TreeSet<Seat> newSeats = new TreeSet<>();
+//        newSeats.add(new Seat("A1", ClassType.Economy));
+//        newSeats.add(new Seat("A2", ClassType.FirstClass));
+//        newSeats.add(new Seat("A3", ClassType.Business));
+//
+//        Flight flight1  = new Flight("A", "b",
+//                LocalDateTime.of(2023, 3, 23, 10, 30),
+//                3.5f, 2552,  Airline.American_Airlines,  seats);
+//
+//        Flight flight2  = new Flight("B", "b",
+//                LocalDateTime.of(2023, 3, 23, 10, 30),
+//                3.5f, 2552,  Airline.Egypt_Air,  newSeats);
+//
+//        flight1.bookSeat("A1");
+//        flight2.bookSeat("A2");
+//
+//
+//        FlightDB flightDB = new FlightDB();
+//        flightDB.resetDatabase();
+//        flightDB.addObject(flight1, true);
+//        flightDB.addObject(flight2, true);
+//        Flight myFlight = (Flight) flightDB.retrieveAll().get(0);
+//        Flight mySecFlight = (Flight) flightDB.retrieveAll().get(1);
+//        System.out.println(myFlight);
+//        System.out.println(myFlight.getSeats());
+//        System.out.println(mySecFlight);
+//        System.out.println(mySecFlight.getSeats());
+//
+//        flightDB.deleteFlight(1);
+//        System.out.println(flightDB.retrieveAll());
+//        flightDB.updateFlight(2, flight1);
+//        System.out.println(flightDB.retrieveAll());
+
+
+
 
 //        Client client1 = new Client("A", "B", "c", "d");
 //        Client client2 = new Client("B", "B", "c", "d");
@@ -31,6 +75,13 @@ public class Main {
 //        }
 //
 //
+
+
+
+
+
+
+
 //        Staff staff = new Staff("A", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff1 = new Staff("BB", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff2 = new Staff("CCC", "B", "c", "d", "Blela", Department.CustomerService);
@@ -58,6 +109,14 @@ public class Main {
 //        Admin admin3 = new Admin("C", "s", "s", "d",  true,false);
 //
 //
+
+
+
+
+
+
+
+
 //        AdminDB adminDB = new AdminDB();
 //        staffDB.resetDatabase();
 //

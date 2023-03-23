@@ -1,10 +1,7 @@
 package Model;
 
 import Entities.Flight;
-import Entities.Flight;
-
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FlightDB implements IDatabase {
@@ -46,7 +43,6 @@ public class FlightDB implements IDatabase {
             if (isNew) {
                 flight.setFlightID(generateID());
             }
-
             // Write the flight object to the file
             oos.writeObject(flight);
             return true;
@@ -96,6 +92,65 @@ public class FlightDB implements IDatabase {
 
         newID = flight.getFlightID() + 1;
         return newID;
+    }
+    
+    Flight findFlight (int flightID) {
+        Flight flight;
+        for(Object obj : retrieveAll()){
+            flight = (Flight) obj;
+            if (flight.getFlightID() == flightID) {
+                return flight;
+            }
+        }
+        return null;
+    }
+    
+    public boolean deleteFlight (int flightID) {
+        // Find the unwanted account
+        Flight unWantdFlight = (Flight) findFlight(flightID);
+        if (unWantdFlight == null) {
+            return false; // not existed
+        }
+        // retrieve all objects
+        ArrayList<Object> existedAccounts = retrieveAll();
+        resetDatabase(); // Reset the database
+        // re-adding all the old objects except the unwanted one
+        Flight flight;
+        for (Object o : existedAccounts) {
+            flight = (Flight) o;
+            if (flight.getFlightID() != unWantdFlight.getFlightID()) {
+                addObject(flight, false);
+            }
+        }
+        return true;
+    }
+
+    public boolean updateFlight (int flightID, Flight newFlight) {
+        Flight oldFlight =  (Flight) findFlight(flightID);
+        // Check if is existed
+        if (oldFlight == null) {
+            return false;
+        }
+        // set the same id fo the new update
+        newFlight.setFlightID(flightID);
+        // retrieve all objects
+        ArrayList<Object> existedAccounts = retrieveAll();
+        // reset database file (delete all objects)
+        resetDatabase();
+
+        // re-adding all objects again to the database file
+        Flight flight;
+        for (Object o : existedAccounts) {
+            flight = (Flight) o;
+            if (flight.getFlightID() == oldFlight.getFlightID()) {
+                addObject(newFlight, false); // adding the updated object
+            }
+            else {
+                addObject(flight, false); // adding the old objects
+            }
+        }
+        return true;
+
     }
 
 }

@@ -1,8 +1,10 @@
 package Entities;
 
-import com.sun.jdi.ClassType;
 
-public class Seat {
+import java.io.Serializable;
+import java.util.Comparator;
+
+public class Seat implements Serializable,  Comparable<Seat>, Comparator<Seat>  {
     private String seatNumber;
     private ClassType classType;
     private boolean isBooked;
@@ -34,4 +36,24 @@ public class Seat {
         this.isBooked = true;
     }
     public void cancelBook(){this.isBooked = false;};
+    @Override
+    public int compareTo(Seat other) {
+        // compare the seats by their seat numbers
+        return this.getSeatNumber().compareTo(other.getSeatNumber());
+    }
+
+    @Override
+    public int compare(Seat seat1, Seat seat2) {
+        // compare two seats by their seat numbers
+        return seat1.getSeatNumber().compareTo(seat2.getSeatNumber());
+    }
+
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "seatNumber='" + seatNumber + '\'' +
+                ", classType=" + classType +
+                ", isBooked=" + isBooked +
+                '}';
+    }
 }
