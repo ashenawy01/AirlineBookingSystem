@@ -14,10 +14,10 @@ public class Main {
 //        Client client3 = new Client("C", "B", "c", "d");
 ////
 //        ClientDB clientDB = new ClientDB();
-//        clientDB.createClientsDB();
-//        System.out.println(clientDB.addClient(client1, true));
-//        System.out.println(clientDB.addClient(client2, true));
-//        System.out.println(clientDB.addClient(client3, true));
+//        clientDB.resetDatabase();
+//        System.out.println(clientDB.addObject(client1, true));
+//        System.out.println(clientDB.addObject(client2, true));
+//        System.out.println(clientDB.addObject(client3, true));
 //        System.out.println("Try tp login : " + clientDB.findAccount("c", "d"));
 //
 //        for (Object o : clientDB.retrieveAll()) {
@@ -29,18 +29,18 @@ public class Main {
 //            Client clientN = (Client) o;
 //            System.out.println(clientN.getFirstName() + " - " + clientN.getId());
 //        }
-        
-        
+//
+//
 //        Staff staff = new Staff("A", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff1 = new Staff("BB", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff2 = new Staff("CCC", "B", "c", "d", "Blela", Department.CustomerService);
 //
 //        StaffDB staffDB = new StaffDB();
-//        staffDB.createStaffsDB();
+//        staffDB.resetDatabase();
 //
-//        System.out.println(staffDB.addStaff(staff, true));
-//        System.out.println(staffDB.addStaff(staff1, true));
-//        System.out.println(staffDB.addStaff(staff2, true));
+//        System.out.println(staffDB.addObject(staff, true));
+//        System.out.println(staffDB.addObject(staff1, true));
+//        System.out.println(staffDB.addObject(staff2, true));
 //        System.out.println("Try tp login : " + staffDB.findAccount("c", "d"));
 //
 //        for (Object o : staffDB.retrieveAll()) {
@@ -52,30 +52,30 @@ public class Main {
 //            Staff staffN = (Staff) o;
 //            System.out.println(staffN.getFirstName() + " - " + staffN.getID());
 //        }
-        
-        Admin admin = new Admin("A", "s", "s", "d",  true,false);
-        Admin admin2 = new Admin("B", "s", "s", "d",  true,false);
-        Admin admin3 = new Admin("C", "s", "s", "d",  true,false);
-
-
-        AdminDB staffDB = new AdminDB();
-        staffDB.resetDatabase();
-
-
-        System.out.println(staffDB.addObject(admin, true));
-        System.out.println(staffDB.addObject(admin2, true));
-        System.out.println(staffDB.addObject(admin3, true));
-
-
-        System.out.println("Try tp login : " + staffDB.findAccount("s", "d"));
-        for (Object o : staffDB.retrieveAll()) {
-            Admin admin1 = (Admin) o;
-            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
-        }
-        staffDB.deleteAccount(1);
-        for (Object o : staffDB.retrieveAll()) {
-            Admin admin1 = (Admin) o;
-            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
-        }
+//
+//        Admin admin = new Admin("A", "s", "s", "d",  true,false);
+//        Admin admin2 = new Admin("B", "s", "s", "d",  true,false);
+//        Admin admin3 = new Admin("C", "s", "s", "d",  true,false);
+//
+//
+//        AdminDB adminDB = new AdminDB();
+//        staffDB.resetDatabase();
+//
+//
+//        System.out.println(staffDB.addObject(admin, true));
+//        System.out.println(staffDB.addObject(admin2, true));
+//        System.out.println(staffDB.addObject(admin3, true));
+//
+//
+//        System.out.println("Try tp login : " + staffDB.findAccount("s", "d"));
+//        for (Object o : staffDB.retrieveAll()) {
+//            Admin admin1 = (Admin) o;
+//            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
+//        }
+//        staffDB.deleteAccount(1);
+//        for (Object o : staffDB.retrieveAll()) {
+//            Admin admin1 = (Admin) o;
+//            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
+//        }
     }
 }
