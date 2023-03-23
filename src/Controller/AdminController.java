@@ -10,18 +10,14 @@ public class AdminController {
     private Admin admin;
 
 
-    public AdminController(Admin admin) {
-        this.admin = admin;
-    }
-
     //Function to sign in for only admins
     //it will return admin object
     public Admin signin(String Email, String pass) {
-        AdminDB admindb=new AdminDB(); // a new object of adminDB is created
         //first...the email and the password should be not null
         Admin admin=(Admin) admindb.findAccount(Email,pass);
         if(admin != null){ //In case admin is not null, system will welcome admin and print out their employees.
             System.out.println("Welcome " + admin.getFirstName());
+            this.admin = admin;
             return admin;
         }
         else {System.out.println("Incorrect username or password"); // sign in is failed
@@ -43,16 +39,20 @@ public class AdminController {
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
             return null;
         }else {
-            Admin admin=new Admin( firstName, lastName, email, password,isGlobal, isActive); // A new admin is added to the database
-            if(admindb.addObject(admin,true)){ // to check admin is added.
-                System.out.println("welcome admin"+" "+admin.getFirstName());
-                return admin;
-            }
-            else{
-                System.out.println("Error with database connection, please try again");
-                return null;
+            if (this.admin.isActive()) {
+                Admin admin=new Admin( firstName, lastName, email, password,isGlobal, isActive); // A new admin is added to the database
+                if(admindb.addObject(admin,true)){ // to check admin is added.
+                    System.out.println("welcome admin"+" "+admin.getFirstName());
+                    return admin;
+                }
+                else{
+                    System.out.println("Error with database connection, please try again");
+                }
+            } else  {
+                System.out.println("sorry! your account is not active");
             }
         }
+        return null;
     }
     public Staff CreateStaff(String firstName, String lastName, String email, String password, String jobTitle, Department department, ArrayList<Flight> managedFlights){
         if(firstName.isEmpty()|| firstName.length()<2){ // In case firstname is not null or less than 2 characters
@@ -68,15 +68,17 @@ public class AdminController {
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
             return null;
         } else {
-            Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department, managedFlights);
-            if(staffdb.addObject(staff,true)){ // To check object is added to database successfully
-                System.out.println("added successfully");
-                return staff;
-            }else System.out.println("Error with database connection, please try again");
-            return null;
-
-
+            if (this.admin.isActive()) {
+                Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department, managedFlights);
+                if(staffdb.addObject(staff,true)){ // To check object is added to database successfully
+                    System.out.println("added successfully");
+                    return staff;
+                }else System.out.println("Error with database connection, please try again");
+            } else  {
+                System.out.println("sorry! your account is not active");
+            }
         }
+        return null;
     }
     public boolean DeleteEmployee(int empID,boolean isAdmin){
         if(admindb.findAccount(empID)!=null){ // to see if account exists in database
