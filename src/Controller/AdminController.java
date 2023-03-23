@@ -67,7 +67,6 @@ public class AdminController {
     }
 
 
-    //to check the validation of the email
 
 }
 
