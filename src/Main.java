@@ -86,53 +86,52 @@ public class Main {
 //        Staff staff1 = new Staff("BB", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff2 = new Staff("CCC", "B", "c", "d", "Blela", Department.CustomerService);
 //
-//        StaffDB staffDB = new StaffDB();
-//        staffDB.resetDatabase();
+//        StaffDB adminDB = new StaffDB();
+//        adminDB.resetDatabase();
 //
-//        System.out.println(staffDB.addObject(staff, true));
-//        System.out.println(staffDB.addObject(staff1, true));
-//        System.out.println(staffDB.addObject(staff2, true));
-//        System.out.println("Try tp login : " + staffDB.findAccount("c", "d"));
+//        System.out.println(adminDB.addObject(staff, true));
+//        System.out.println(adminDB.addObject(staff1, true));
+//        System.out.println(adminDB.addObject(staff2, true));
+//        System.out.println("Try tp login : " + adminDB.findAccount("c", "d"));
 //
-//        for (Object o : staffDB.retrieveAll()) {
+//        for (Object o : adminDB.retrieveAll()) {
 //            Staff staffN = (Staff) o;
 //            System.out.println(staffN.getFirstName() + " - " + staffN.getID());
 //        }
-//        staffDB.deleteAccount(1);
-//        for (Object o : staffDB.retrieveAll()) {
+//        adminDB.deleteAccount(1);
+//        for (Object o : adminDB.retrieveAll()) {
 //            Staff staffN = (Staff) o;
 //            System.out.println(staffN.getFirstName() + " - " + staffN.getID());
 //        }
 //
-//        Admin admin = new Admin("A", "s", "s", "d",  true,false);
-//        Admin admin2 = new Admin("B", "s", "s", "d",  true,false);
-//        Admin admin3 = new Admin("C", "s", "s", "d",  true,false);
+
+
+
+
+
+
+
+
+
+
+
+        Admin admin = new Admin("Abdelrhman", "Ali", "ae123@bue.com", "aA123",  true,true);
+
+        AdminDB adminDB = new AdminDB();
+        adminDB.resetDatabase();
+
+
+        System.out.println(adminDB.addObject(admin, true));
+
+        System.out.println(adminDB.retrieveAll());
 //
-//
-
-
-
-
-
-
-
-
-//        AdminDB adminDB = new AdminDB();
-//        staffDB.resetDatabase();
-//
-//
-//        System.out.println(staffDB.addObject(admin, true));
-//        System.out.println(staffDB.addObject(admin2, true));
-//        System.out.println(staffDB.addObject(admin3, true));
-//
-//
-//        System.out.println("Try tp login : " + staffDB.findAccount("s", "d"));
-//        for (Object o : staffDB.retrieveAll()) {
+//        System.out.println("Try tp login : " + adminDB.findAccount("s", "d"));
+//        for (Object o : adminDB.retrieveAll()) {
 //            Admin admin1 = (Admin) o;
 //            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
 //        }
-//        staffDB.deleteAccount(1);
-//        for (Object o : staffDB.retrieveAll()) {
+//        adminDB.deleteAccount(1);
+//        for (Object o : adminDB.retrieveAll()) {
 //            Admin admin1 = (Admin) o;
 //            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
 //        }

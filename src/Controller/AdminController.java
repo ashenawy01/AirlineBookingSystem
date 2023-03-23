@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 public class AdminController {
 
-    private AdminDB admindb;
-    private StaffDB staffdb;
+    private static AdminDB admindb = new AdminDB();
+    private static StaffDB staffdb = new StaffDB();
     private Admin admin;
 
 
@@ -16,6 +16,7 @@ public class AdminController {
     public Admin signin(String Email, String pass) {
         //first...the email and the password should be not null
         Admin admin=(Admin) admindb.findAccount(Email,pass);
+
         if(admin != null){ //In case admin is not null, system will welcome admin and print out their employees.
             System.out.println("Welcome " + admin.getFirstName());
             this.admin = admin;
@@ -55,7 +56,7 @@ public class AdminController {
         }
         return null;
     }
-    public Staff CreateStaff(String firstName, String lastName, String email, String password, String jobTitle, Department department, ArrayList<Flight> managedFlights){
+    public Staff CreateStaff(String firstName, String lastName, String email, String password, String jobTitle, Department department){
         if(firstName.isEmpty()|| firstName.length()<2){ // In case firstname is not null or less than 2 characters
             System.out.println("Error! Please, Enter a valid name");
             return null;
@@ -74,7 +75,7 @@ public class AdminController {
             return null;
         } else {
             if (this.admin.isActive()) {
-                Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department, managedFlights);
+                Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department);
                 if(staffdb.addObject(staff,true)){ // To check object is added to database successfully
                     System.out.println("added successfully");
                     return staff;
