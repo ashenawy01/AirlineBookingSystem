@@ -81,7 +81,6 @@ public class Main {
 
 
 
-
 //        Staff staff = new Staff("A", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff1 = new Staff("BB", "B", "c", "d", "Blela", Department.CustomerService);
 //        Staff staff2 = new Staff("CCC", "B", "c", "d", "Blela", Department.CustomerService);
@@ -108,22 +107,15 @@ public class Main {
 
 
 
-
-
-
-
-
-
-
-        Admin admin = new Admin("Abdelrhman", "Ali", "ae123@bue.com", "aA123",  true,true);
-
-        AdminDB adminDB = new AdminDB();
-        adminDB.resetDatabase();
-
-
-        System.out.println(adminDB.addObject(admin, true));
-
-        System.out.println(adminDB.retrieveAll());
+//        Admin admin = new Admin("Abdelrhman", "Ali", "ae123@bue.com", "aA123",  true,true);
+//
+//        AdminDB adminDB = new AdminDB();
+//        adminDB.resetDatabase();
+//
+//
+//        System.out.println(adminDB.addObject(admin, true));
+//
+//        System.out.println(adminDB.retrieveAll());
 //
 //        System.out.println("Try tp login : " + adminDB.findAccount("s", "d"));
 //        for (Object o : adminDB.retrieveAll()) {
