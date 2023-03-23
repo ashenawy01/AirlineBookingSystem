@@ -9,9 +9,7 @@ public class FlightController {
     private FlightDB flightDB=new FlightDB();
     private Flight flight=new Flight();
     ArrayList<Flight> flights=new ArrayList<Flight>();
-    LocalDateTime today= java.time.LocalDateTime.now();
     public ArrayList<Flight> findFlights(String origin, String destination, LocalDateTime flightTime, float duration, ClassType classType){
-        if (flightTime.isAfter(today)) {
             ArrayList<Flight> Addtolist = new ArrayList<Flight>();
             for (int i = 0; i < flights.size(); i++) {
                 Flight obj = flights.get(i);
@@ -48,7 +46,6 @@ public class FlightController {
                 System.out.println("Sorry...there is no available Flights ");
                 return null;
             }
-        }else {System.out.println("the date you entered is invalid "); return null;}
     }
     public Flight FlightDetails(int flightID) {
         for (int i = 0; i < flights.size(); i++) {
@@ -81,6 +78,7 @@ public class FlightController {
         return false;
     }
     public Flight AddFlight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, TreeSet<Seat> seats){
+        LocalDateTime today= java.time.LocalDateTime.now();
         if (flightTime.isAfter(today)) {
         Flight flight =new Flight(origin, destination, flightTime, duration, ticketPrice, airline, seats);
         flights.add(flight);

@@ -2,7 +2,6 @@ package Controller;
 import Entities.*;
 import Model.AdminDB;
 import Model.StaffDB;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 public class AdminController {
 
@@ -37,7 +36,7 @@ public class AdminController {
         }else if (email==null){ // In case email is null
             System.out.println("Error! Please, Enter a valid Email");
             return null;
-        } else if (password.isEmpty() || password.length() < 3 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { //In case user didnt input password correctly
+        } else if (password.isEmpty() || password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { //In case user didnt input password correctly
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
             return null;
         }else {
@@ -70,7 +69,7 @@ public class AdminController {
             System.out.println("Error! Please, Enter a valid Email ");
             return null;
         }
-        else if (password.isEmpty() || password.length() < 3 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
+        else if (password.isEmpty() || password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
             return null;
         } else {
