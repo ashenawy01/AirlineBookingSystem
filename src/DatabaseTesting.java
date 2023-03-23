@@ -1,42 +1,34 @@
-import Entities.*;
-import Model.*;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.TreeSet;
-
-public class Main {
+public class DatabaseTesting {
     public static void main(String[] args) {
-
-        TreeSet<Seat> seats = new TreeSet<>();
-        seats.add(new Seat("A1", ClassType.Economy));
-        seats.add(new Seat("A2", ClassType.FirstClass));
-        seats.add(new Seat("A3", ClassType.Business));
-
-        TreeSet<Seat> newSeats = new TreeSet<>();
-        newSeats.add(new Seat("A1", ClassType.Economy));
-        newSeats.add(new Seat("A2", ClassType.FirstClass));
-        newSeats.add(new Seat("A3", ClassType.Business));
-
-        Flight flight1  = new Flight("A", "b",
-                LocalDateTime.of(2023, 3, 23, 10, 30),
-                3.5f, 2552,  Airline.American_Airlines,  seats);
-
-        Flight flight2  = new Flight("B", "b",
-                LocalDateTime.of(2023, 3, 23, 10, 30),
-                3.5f, 2552,  Airline.Egypt_Air,  newSeats);
-
-        flight1.bookSeat("A1");
-        flight2.bookSeat("A2");
-
-
-        FlightDB flightDB = new FlightDB();
-        flightDB.resetDatabase();
-        flightDB.addObject(flight1, true);
-        flightDB.addObject(flight2, true);
-        Flight myFlight = (Flight) flightDB.retrieveAll().get(0);
-        Flight mySecFlight = (Flight) flightDB.retrieveAll().get(1);
+//
+//        TreeSet<Seat> seats = new TreeSet<>();
+//        seats.add(new Seat("A1", ClassType.Economy));
+//        seats.add(new Seat("A2", ClassType.FirstClass));
+//        seats.add(new Seat("A3", ClassType.Business));
+//
+//        TreeSet<Seat> newSeats = new TreeSet<>();
+//        newSeats.add(new Seat("A1", ClassType.Economy));
+//        newSeats.add(new Seat("A2", ClassType.FirstClass));
+//        newSeats.add(new Seat("A3", ClassType.Business));
+//
+//        Flight flight1  = new Flight("A", "b",
+//                LocalDateTime.of(2023, 3, 23, 10, 30),
+//                3.5f, 2552,  Airline.American_Airlines,  seats);
+//
+//        Flight flight2  = new Flight("B", "b",
+//                LocalDateTime.of(2023, 3, 23, 10, 30),
+//                3.5f, 2552,  Airline.Egypt_Air,  newSeats);
+//
+//        flight1.bookSeat("A1");
+//        flight2.bookSeat("A2");
+//
+//
+//        FlightDB flightDB = new FlightDB();
+//        flightDB.resetDatabase();
+//        flightDB.addObject(flight1, true);
+//        flightDB.addObject(flight2, true);
+//        Flight myFlight = (Flight) flightDB.retrieveAll().get(0);
+//        Flight mySecFlight = (Flight) flightDB.retrieveAll().get(1);
 //        System.out.println(myFlight);
 //        System.out.println(myFlight.getSeats());
 //        System.out.println(mySecFlight);
@@ -48,33 +40,33 @@ public class Main {
 //        System.out.println(flightDB.retrieveAll());
 
 
-        TreeSet<Flight> treeSetB = new TreeSet<>();
-
-        treeSetB.add(myFlight);
-        treeSetB.add(mySecFlight);
-
-        Booking booking = new Booking(2,
-                LocalDateTime.of(2023, 3, 23, 10, 30),
-                5);
-        Booking booking2 = new Booking(3,
-                LocalDateTime.of(2022, 3, 23, 10, 30),
-                5, treeSetB);
-
-        BookingDB bookingDB = new BookingDB();
-        bookingDB.resetDatabase();
-        bookingDB.addObject(booking, true);
-        bookingDB.addObject(booking2, true);
-
-        System.out.println("\n================================================\n");
-        System.out.println(bookingDB.retrieveAll());
-        System.out.println("\n================================================\n");
-        Booking lastBooking = (Booking) bookingDB.retrieveAll().get(1);
-        System.out.println(lastBooking.getFlights());
-        System.out.println("\n================================================\n");
-        bookingDB.deleteBooking(2);
-        System.out.println(bookingDB.retrieveAll());
-        bookingDB.updateBooking(1, booking2);
-        System.out.println(bookingDB.retrieveAll());
+//        TreeSet<Flight> treeSetB = new TreeSet<>();
+//
+//        treeSetB.add(myFlight);
+//        treeSetB.add(mySecFlight);
+//
+//        Booking booking = new Booking(2,
+//                LocalDateTime.of(2023, 3, 23, 10, 30),
+//                5);
+//        Booking booking2 = new Booking(3,
+//                LocalDateTime.of(2022, 3, 23, 10, 30),
+//                5, treeSetB);
+//
+//        BookingDB bookingDB = new BookingDB();
+//        bookingDB.resetDatabase();
+//        bookingDB.addObject(booking, true);
+//        bookingDB.addObject(booking2, true);
+//
+//        System.out.println("\n================================================\n");
+//        System.out.println(bookingDB.retrieveAll());
+//        System.out.println("\n================================================\n");
+//        Booking lastBooking = (Booking) bookingDB.retrieveAll().get(1);
+//        System.out.println(lastBooking.getFlights());
+//        System.out.println("\n================================================\n");
+//        bookingDB.deleteBooking(2);
+//        System.out.println(bookingDB.retrieveAll());
+//        bookingDB.updateBooking(1, booking2);
+//        System.out.println(bookingDB.retrieveAll());
 
 
 //        Client client1 = new Client("A", "B", "c", "d");
