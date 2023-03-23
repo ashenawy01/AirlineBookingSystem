@@ -59,7 +59,7 @@ public class Main {
 
 
         AdminDB staffDB = new AdminDB();
-        staffDB.createAdminsDB();
+        staffDB.resetDatabase();
 
 
         System.out.println(staffDB.addObject(admin, true));

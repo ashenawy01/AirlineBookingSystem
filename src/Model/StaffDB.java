@@ -12,7 +12,7 @@ public class StaffDB implements UsersDatabase, IDatabase {
 
     // This function will be called once only to create the file that stores Staff objects
     // Reset database (clear the file)
-    public void createStaffsDB () {
+    public void resetDatabase () {
         // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new BufferedOutputStream(new FileOutputStream(staffDBFile), 8192)) ) {
@@ -67,7 +67,7 @@ public class StaffDB implements UsersDatabase, IDatabase {
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
         // reset database file (delete all objects)
-        createStaffsDB();
+        resetDatabase();
 
         // re-adding all objects again to the database file
         Staff staff;
@@ -118,7 +118,7 @@ public class StaffDB implements UsersDatabase, IDatabase {
         }
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
-        createStaffsDB(); // Reset the database
+        resetDatabase(); // Reset the database
         // re-adding all the old objects except the unwanted one
         Staff staff;
         for (Object o : existedAccounts) {

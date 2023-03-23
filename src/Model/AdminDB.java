@@ -12,7 +12,8 @@ public class AdminDB implements UsersDatabase, IDatabase {
 
     // This function will be called once only to create the file that stores Admin objects
     // Reset database (clear the file)
-    public void createAdminsDB () {
+    @Override
+    public void resetDatabase () {
        // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new BufferedOutputStream(new FileOutputStream(adminDBFile), 8192)) ) {
@@ -68,7 +69,7 @@ public class AdminDB implements UsersDatabase, IDatabase {
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
         // reset database file (delete all objects)
-        createAdminsDB();
+        resetDatabase();
 
         // re-adding all objects again to the database file
         Admin admin;
@@ -119,7 +120,7 @@ public class AdminDB implements UsersDatabase, IDatabase {
         }
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
-        createAdminsDB(); // Reset the database
+        resetDatabase(); // Reset the database
         // re-adding all the old objects except the unwanted one
         Admin admin;
         for (Object o : existedAccounts) {

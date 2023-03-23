@@ -13,7 +13,7 @@ public class ClientDB implements UsersDatabase, IDatabase {
 
     // This function will be called once only to create the file that stores Client objects
     // Reset database (clear the file)
-    public void createClientsDB () {
+    public void resetDatabase () {
         // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new BufferedOutputStream(new FileOutputStream(clientDBFile), 8192)) ) {
@@ -69,7 +69,7 @@ public class ClientDB implements UsersDatabase, IDatabase {
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
         // reset database file (delete all objects)
-        createClientsDB();
+        resetDatabase();
 
         // re-adding all objects again to the database file
         Client client;
@@ -120,7 +120,7 @@ public class ClientDB implements UsersDatabase, IDatabase {
         }
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
-        createClientsDB(); // Reset the database
+        resetDatabase(); // Reset the database
         // re-adding all the old objects except the unwanted one
         Client client;
         for (Object o : existedAccounts) {

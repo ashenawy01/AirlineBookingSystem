@@ -1,12 +1,9 @@
 package Model;
 
 import Entities.Flight;
-import Entities.Staff;
+import Entities.Flight;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -17,7 +14,8 @@ public class FlightDB implements IDatabase {
 
     // This function will be called once only to create the file that stores Flight objects
     // Reset database (clear the file)
-    public void createFlightDB () {
+    @Override
+    public void resetDatabase () {
         // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new BufferedOutputStream(new FileOutputStream(flightDBFile), 8192)) ) {
@@ -61,7 +59,25 @@ public class FlightDB implements IDatabase {
 
     @Override
     public ArrayList<Object> retrieveAll() {
-        return null;
+        ArrayList<Object> flights = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new BufferedInputStream(new FileInputStream(flightDBFile)))) {
+            // Read all flight objects from the file and add them to the flights list
+            // the loop will end once the "readObject()" function throw EOFException
+            while (true) {
+                Flight flight = (Flight) ois.readObject();
+                flights.add(flight);
+            }
+
+        } catch (EOFException e) {
+            // return all flights objects
+            return flights;
+        } catch (Exception e) {
+            // Print stack trace for any exceptions
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     @Override
@@ -76,9 +92,9 @@ public class FlightDB implements IDatabase {
             return firstID; // assign first user id the first id value
         }
         // Last added user
-        Staff staff = (Staff) retrieveAll().get(size - 1);
+        Flight flight = (Flight) retrieveAll().get(size - 1);
 
-        newID = staff.getID() + 1;
+        newID = flight.getFlightID() + 1;
         return newID;
     }
 

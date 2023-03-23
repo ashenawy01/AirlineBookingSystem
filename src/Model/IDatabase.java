@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 
 public interface IDatabase {
+
+    public void resetDatabase();
     // Helper function to generate ID for each user as a unique identifier
     // it returns the last id in the database + 1
     int generateID ();
