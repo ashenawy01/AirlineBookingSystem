@@ -14,6 +14,33 @@ public abstract class Client {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Client(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -36,7 +63,6 @@ public abstract class Client {
 
     ArrayList<String> booking = new ArrayList<String>();
 
-    public Client(int id) {
-        this.id = id;
-    }
+
+
 }
