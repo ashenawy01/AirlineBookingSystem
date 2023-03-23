@@ -11,9 +11,18 @@ public class Staff extends  Employee implements Serializable {
     private ArrayList<Flight> managedFlights = new ArrayList<>();
 
     public Staff() {}
-    public Staff(String firstName, String lastName, String email, String password, ArrayList<Flight> managedFlights) {
+
+    public Staff(String firstName, String lastName, String email, String password, String jobTitle, Department department, ArrayList<Flight> managedFlights) {
         super(firstName, lastName, email, password);
+        this.jobTitle = jobTitle;
+        this.department = department;
         this.managedFlights = managedFlights;
+    }
+
+    public Staff(String firstName, String lastName, String email, String password, String jobTitle, Department department) {
+        super(firstName, lastName, email, password);
+        this.jobTitle = jobTitle;
+        this.department = department;
     }
 
     /* setters and getters */
