@@ -1,5 +1,7 @@
 package Entities;
 
+import Model.FlightDB;
+
 import java.time.LocalDateTime;
 import java.util.TreeSet;
 
@@ -83,9 +85,38 @@ public class Flight {
         this.seats = seats;
     }
 
-    public boolean addSeat(seat){}
+    public boolean addSeat(Seat seat){
+        if (seat != null){
+            seats.add(seat);
+            return true;
+        }
+        return false;
+    }
 
-    public boolean removeSeat(seat){}
+    public boolean removeSeat(Seat seat){
+        return seats.remove(seat);
+    }
 
-    public boolean bookSeat(seat){}
+    public boolean bookSeat(String seatNumber){
+        for (Seat seat : seats){
+            if( seat.getSeatNumber() == seatNumber){
+                seat.book();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "flightID=" + flightID +
+                ", origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", flightTime=" + flightTime +
+                ", duration=" + duration +
+                ", ticketPrice=" + ticketPrice +
+                ", airline=" + airline +
+                '}';
+    }
 }

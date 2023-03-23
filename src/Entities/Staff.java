@@ -12,6 +12,7 @@ public class Staff extends  Employee{
         this.managedFlights = managedFlights;
     }
 
+    /* setters and getters */
     public String getJobTitle() {
         return jobTitle;
     }
@@ -39,6 +40,8 @@ public class Staff extends  Employee{
                 ", department=" + department +
                 '}';
     }
+
+
 
     /* add a flight to the array */
     public void addFlight(Flight flight){
