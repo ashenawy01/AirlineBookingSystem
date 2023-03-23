@@ -1,6 +1,9 @@
+package Testing;
+
 public class DatabaseTesting {
     public static void main(String[] args) {
-//
+
+
 //        TreeSet<Seat> seats = new TreeSet<>();
 //        seats.add(new Seat("A1", ClassType.Economy));
 //        seats.add(new Seat("A2", ClassType.FirstClass));
