@@ -3,6 +3,7 @@ import Entities.*;
 import Model.AdminDB;
 import Model.StaffDB;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 public class AdminController {
 
     private AdminDB admindb;
@@ -64,7 +65,11 @@ public class AdminController {
         }else if (email==null){ // In case email is not null
             System.out.println("Error! Please, Enter a valid Email");
             return null;
-        } else if (password.isEmpty() || password.length() < 3 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
+        }else if(!isValid(email)){
+            System.out.println("Error! Please, Enter a valid Email ");
+            return null;
+        }
+        else if (password.isEmpty() || password.length() < 3 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
             return null;
         } else {
@@ -91,6 +96,18 @@ public class AdminController {
             }
             else return false; // in case admin account is not global
         }else return false; // in case account is not found
+    }
+    public static boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
     }
 }
 
