@@ -1,8 +1,5 @@
 import Entities.*;
-import Model.AdminDB;
-import Model.ClientDB;
-import Model.FlightDB;
-import Model.StaffDB;
+import Model.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,20 +37,44 @@ public class Main {
         flightDB.addObject(flight2, true);
         Flight myFlight = (Flight) flightDB.retrieveAll().get(0);
         Flight mySecFlight = (Flight) flightDB.retrieveAll().get(1);
-        System.out.println(myFlight);
-        System.out.println(myFlight.getSeats());
-        System.out.println(mySecFlight);
-        System.out.println(mySecFlight.getSeats());
+//        System.out.println(myFlight);
+//        System.out.println(myFlight.getSeats());
+//        System.out.println(mySecFlight);
+//        System.out.println(mySecFlight.getSeats());
 
-        flightDB.deleteFlight(1);
-        System.out.println(flightDB.retrieveAll());
-        flightDB.updateFlight(2, flight1);
-        System.out.println(flightDB.retrieveAll());
+//        flightDB.deleteFlight(1);
+//        System.out.println(flightDB.retrieveAll());
+//        flightDB.updateFlight(2, flight1);
+//        System.out.println(flightDB.retrieveAll());
 
-        Booking booking = new Booking(2, 1,
+
+        TreeSet<Flight> treeSetB = new TreeSet<>();
+
+        treeSetB.add(myFlight);
+        treeSetB.add(mySecFlight);
+
+        Booking booking = new Booking(2,
                 LocalDateTime.of(2023, 3, 23, 10, 30),
-                5)
+                5);
+        Booking booking2 = new Booking(3,
+                LocalDateTime.of(2022, 3, 23, 10, 30),
+                5, treeSetB);
 
+        BookingDB bookingDB = new BookingDB();
+        bookingDB.resetDatabase();
+        bookingDB.addObject(booking, true);
+        bookingDB.addObject(booking2, true);
+
+        System.out.println("\n================================================\n");
+        System.out.println(bookingDB.retrieveAll());
+        System.out.println("\n================================================\n");
+        Booking lastBooking = (Booking) bookingDB.retrieveAll().get(1);
+        System.out.println(lastBooking.getFlights());
+        System.out.println("\n================================================\n");
+        bookingDB.deleteBooking(2);
+        System.out.println(bookingDB.retrieveAll());
+        bookingDB.updateBooking(1, booking2);
+        System.out.println(bookingDB.retrieveAll());
 
 
 //        Client client1 = new Client("A", "B", "c", "d");
