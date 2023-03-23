@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class AdminDB implements UsersDatabase {
     private static final String adminDBFile = "adminFile.bin";
+    private final int firstID = 1;
 
     // This function will be called once only to create the file that stores Admin objects
     public void createAdminsDB () {
@@ -37,6 +38,9 @@ public class AdminDB implements UsersDatabase {
                 reset();
             }
         }) {
+            // giving ID to the new user
+            admin.setID(generateID());
+
             // Write the admin object to the file
             oos.writeObject(admin);
             return true;
@@ -73,13 +77,33 @@ public class AdminDB implements UsersDatabase {
 
     @Override
     public boolean deleteAccount(int userID) {
-        return false;
+        Admin unWantdAdmin = (Admin) findAccount(userID);
+        if (unWantdAdmin == null) {
+            return false; // not existed
+        }
+        ArrayList<Object> existedAccounts = retrieveAll();
+        createAdminsDB();
+        Admin admin;
+        for (Object o : existedAccounts) {
+            admin = (Admin) o;
+            if (admin != unWantdAdmin) {
+                addAdmin(admin);
+            }
+        }
+        return true;
     }
 
-
-
+    // Find Admin account by its ID
     @Override
     public Object findAccount(int userId) {
+
+        Admin admin;
+        for(Object obj : retrieveAll()){
+             admin = (Admin) obj;
+             if (admin.getID() == userId) {
+                 return admin;
+             }
+        }
         return null;
     }
 
@@ -90,6 +114,19 @@ public class AdminDB implements UsersDatabase {
 
     @Override
     public int generateID() {
-        return 0;
+        // newID for the next user
+        int newID;
+        // last added user position
+        int size = retrieveAll().size();
+
+        // Check if it is the first entered user
+        if (size < 1) {
+            return firstID; // assign first user id the first id value
+        }
+        // Last added user
+        Admin admin = (Admin) retrieveAll().get(size - 1);
+
+        newID = admin.getID() + 1;
+        return newID;
     }
 }

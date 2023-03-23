@@ -22,7 +22,7 @@ public class Main {
 
         for (Object o : adminDB.retrieveAll()) {
             Admin admin1 = (Admin) o;
-            System.out.println(admin1.getFirstName());
+            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
         }
     }
 }

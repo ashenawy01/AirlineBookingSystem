@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public abstract class Employee implements Serializable {
     private int ID;
@@ -65,5 +66,17 @@ public abstract class Employee implements Serializable {
 
     public int getCreatedByID() {
         return createdByID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee employee)) return false;
+        return ID == employee.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 }
