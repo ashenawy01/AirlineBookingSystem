@@ -98,6 +98,8 @@ public class AdminController {
             else return false; // in case admin account is not global
         }else return false; // in case account is not found
     }
+
+    //t check email validation
     public static boolean isValid(String email)
     {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
