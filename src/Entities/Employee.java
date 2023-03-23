@@ -1,6 +1,6 @@
 package Entities;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public abstract class Employee {
     private int ID;
@@ -8,7 +8,7 @@ public abstract class Employee {
     private String lastName;
     private String email;
     private String password;
-    private Timestamp createdAT;
+    private LocalDateTime createdAT;
     private int createdByID;
 
     public Employee(String firstName, String lastName, String email, String password) {
@@ -54,7 +54,7 @@ public abstract class Employee {
         return password;
     }
 
-    public Timestamp getCreatedAT() {
+    public LocalDateTime getCreatedAT() {
         return createdAT;
     }
 
