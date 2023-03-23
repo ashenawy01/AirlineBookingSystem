@@ -43,7 +43,7 @@ public class BookingDB implements IDatabase {
         }) {
             // giving ID to the new user
             if (isNew) {
-                booking.setID(generateID());
+                booking.setBookingID(generateID());
             }
 
             // Write the booking object to the file

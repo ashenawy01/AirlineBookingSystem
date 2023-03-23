@@ -23,6 +23,10 @@ public class Booking implements Serializable {
         return date;
     }
 
+    public void setBookingID(int bookingID) {
+        this.bookingID = bookingID;
+    }
+
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
