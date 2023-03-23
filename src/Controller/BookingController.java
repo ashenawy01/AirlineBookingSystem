@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-public class FlightController {
+public class BookingController {
     private FlightDB flightDB=new FlightDB();
     private Flight flight=new Flight();
     ArrayList<Flight> flights=new ArrayList<Flight>();
-    public ArrayList<Flight> findFlights(String origin, String destination, LocalDateTime flightTime, float duration, ClassType classType){
+    public ArrayList<Flight> findBooking(String origin, String destination, LocalDateTime flightTime, float duration){
             ArrayList<Flight> Addtolist = new ArrayList<Flight>();
             for (int i = 0; i < flights.size(); i++) {
                 Flight obj = flights.get(i);
