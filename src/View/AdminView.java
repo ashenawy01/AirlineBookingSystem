@@ -76,6 +76,7 @@ public class AdminView {
                     }
                 }
                 case 5 -> {
+                    System.out.println("Goodbye !!");
                     return;
                 }
             }
