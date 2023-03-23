@@ -74,10 +74,10 @@ public class StaffDB implements UsersDatabase, IDatabase {
         for (Object o : existedAccounts) {
             staff = (Staff) o;
             if (staff.getID() == oldStaff.getID()) {
-                addStaff(newStaff, false); // adding the updated object
+                addObject(newStaff, false); // adding the updated object
             }
             else {
-                addStaff(staff, false); // adding the old objects
+                addObject(staff, false); // adding the old objects
             }
         }
         return true;
@@ -124,7 +124,7 @@ public class StaffDB implements UsersDatabase, IDatabase {
         for (Object o : existedAccounts) {
             staff = (Staff) o;
             if (staff.getID() != unWantdStaff.getID()) {
-                addStaff(staff, false);
+                addObject(staff, false);
             }
         }
         return true;
