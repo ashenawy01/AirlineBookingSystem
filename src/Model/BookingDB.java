@@ -129,4 +129,31 @@ public class BookingDB implements IDatabase {
         return true;
     }
 
+    public boolean updateBooking(int bookingID, Booking newBooking){
+        Booking oldBooking = (Booking) findBooking(bookingID);
+        // Check if is existed
+        if(oldBooking == null){
+            return false;
+        }
+        // set the same id for the new update
+        newBooking.setBookingID(bookingID);
+        // retrieve all object
+        ArrayList<Object> existingBooking = retrieveAll();
+        // reset database file (delete all objects)
+        resetDatabase();
+        // re-adding all the old objects except the unwanted one
+        Booking booking;
+        for (Object o : existingBooking){
+            booking = (Booking) o;
+            if(booking.getBookingID() != oldBooking.getBookingID()){
+                addObject(newBooking, false); //adding the updated booking
+            }
+            else{
+                addObject(booking, false); //adding all the old bookings
+            }
+        }
+        return true;
+
+    }
+
 }

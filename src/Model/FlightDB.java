@@ -131,7 +131,7 @@ public class FlightDB implements IDatabase {
         if (oldFlight == null) {
             return false;
         }
-        // set the same id fo the new update
+        // set the same id for the new update
         newFlight.setFlightID(flightID);
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
