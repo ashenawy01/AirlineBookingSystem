@@ -11,6 +11,7 @@ public class AdminDB implements UsersDatabase {
     private final int firstID = 1;
 
     // This function will be called once only to create the file that stores Admin objects
+    // Reset database (clear the file)
     public void createAdminsDB () {
        // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
@@ -22,7 +23,7 @@ public class AdminDB implements UsersDatabase {
     }
 
     // Append an object of Admin to the database file
-    public boolean addAdmin (Admin admin) {
+    public boolean addAdmin (Admin admin, boolean isNew) {
 
         // return false if the parameter object is null
         if (admin == null) {
@@ -39,7 +40,9 @@ public class AdminDB implements UsersDatabase {
             }
         }) {
             // giving ID to the new user
-            admin.setID(generateID());
+            if (isNew) {
+                admin.setID(generateID());
+            }
 
             // Write the admin object to the file
             oos.writeObject(admin);
@@ -49,6 +52,34 @@ public class AdminDB implements UsersDatabase {
             e.printStackTrace();
             return false;
         }
+    }
+    // update an object with a new one with the same id
+    public boolean updateAdmin (int adminID, Admin newAdmin) {
+        Admin oldAdmin =  (Admin) findAccount(adminID);
+        // Check if is existed
+        if (oldAdmin == null) {
+            return false;
+        }
+        // set the same id fo the new update
+        newAdmin.setID(adminID);
+        // retrieve all objects
+        ArrayList<Object> existedAccounts = retrieveAll();
+        // reset database file (delete all objects)
+        createAdminsDB();
+
+        // re-adding all objects again to the database file
+        Admin admin;
+        for (Object o : existedAccounts) {
+            admin = (Admin) o;
+            if (admin.getID() == oldAdmin.getID()) {
+                addAdmin(newAdmin, false); // adding the updated object
+            }
+            else {
+                addAdmin(admin, false); // adding the old objects
+            }
+        }
+        return true;
+
     }
 
     // retrieving all stored objects in the database file in an ArrayList of Admin objects
@@ -75,19 +106,23 @@ public class AdminDB implements UsersDatabase {
         }
     }
 
+    // Deleting a specific account by its id
     @Override
     public boolean deleteAccount(int userID) {
+        // Find the unwanted account
         Admin unWantdAdmin = (Admin) findAccount(userID);
         if (unWantdAdmin == null) {
             return false; // not existed
         }
+        // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
-        createAdminsDB();
+        createAdminsDB(); // Reset the database
+        // re-adding all the old objects except the unwanted one
         Admin admin;
         for (Object o : existedAccounts) {
             admin = (Admin) o;
-            if (admin != unWantdAdmin) {
-                addAdmin(admin);
+            if (admin.getID() != unWantdAdmin.getID()) {
+                addAdmin(admin, false);
             }
         }
         return true;
@@ -107,11 +142,20 @@ public class AdminDB implements UsersDatabase {
         return null;
     }
 
+    // Find Admin account by its email and password
     @Override
     public Object findAccount(String email, String pass) {
+        Admin admin;
+        for(Object obj : retrieveAll()){
+            admin = (Admin) obj;
+            if (admin.getEmail().equals(email) && admin.getPassword().equals(pass)) {
+                return admin;
+            }
+        }
         return null;
     }
 
+    // Generate new id for the new user
     @Override
     public int generateID() {
         // newID for the next user
