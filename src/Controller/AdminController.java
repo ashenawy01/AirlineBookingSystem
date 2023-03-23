@@ -15,11 +15,11 @@ public class AdminController {
     //Function to sign in for only admins
     //it will return admin object
     public Admin signin(String Email, String pass) {
-        AdminDB admindb=new AdminDB();
-        ArrayList<Object> staff;
+        AdminDB admindb=new AdminDB(); // a new object of adminDB is created
+        ArrayList<Object> staff; // an arraylist of staff is created
         //first...the email and the password should be not null
         Admin admin=(Admin) admindb.findAccount(Email,pass);
-        if(admin != null){
+        if(admin != null){ //In case admin is not null, system will welcome admin and print out their employees.
             System.out.println("Welcome " + admin.getFirstName());
             System.out.println("\nYour employee");
             staff=admindb.retrieveAll();
@@ -28,26 +28,26 @@ public class AdminController {
             }
             return admin;
         }
-        else {System.out.println("Incorrect username or password");
+        else {System.out.println("Incorrect username or password"); // sign in is failed
             return null;}
 
     }
     public Admin CreateAdmin(String firstName, String lastName, String email, String password, boolean isGlobal, boolean isActive){
         if(firstName.isEmpty()|| firstName.length()<2){
-            System.out.println("Error! Please, Enter a valid name");
+            System.out.println("Error! Please, Enter a valid name"); // In case firstname is null or less than 2 chracters.
             return null;
         }else if(lastName.isEmpty()|| lastName.length()<2){
-            System.out.println("Error! Please, Enter a valid name");
+            System.out.println("Error! Please, Enter a valid name"); // In case Lasttname is null or less than 2 chracters.
             return null;
-        }else if (email==null){
+        }else if (email==null){ // In case email is null
             System.out.println("Error! Please, Enter a valid Email");
             return null;
-        } else if (password.isEmpty() || password.length() < 3 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) {
+        } else if (password.isEmpty() || password.length() < 3 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { //In case user didnt input password correctly
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
             return null;
         }else {
-            Admin admin=new Admin( firstName, lastName, email, password,isGlobal, isActive);
-            if(admindb.addObject(admin,true)){
+            Admin admin=new Admin( firstName, lastName, email, password,isGlobal, isActive); // A new admin is added to the database
+            if(admindb.addObject(admin,true)){ // to check admin is added.
                 System.out.println("welcome admin"+" "+admin.getFirstName());
                 return admin;
             }
@@ -58,21 +58,21 @@ public class AdminController {
         }
     }
     public Staff CreateStaff(String firstName, String lastName, String email, String password, String jobTitle, Department department, ArrayList<Flight> managedFlights){
-        if(firstName.isEmpty()|| firstName.length()<2){
+        if(firstName.isEmpty()|| firstName.length()<2){ // In case firstname is not null or less than 2 characters
             System.out.println("Error! Please, Enter a valid name");
             return null;
-        }else if(lastName.isEmpty()|| lastName.length()<2){
+        }else if(lastName.isEmpty()|| lastName.length()<2){ // In case lastName is not null or less than 2 characters
             System.out.println("Error! Please, Enter a valid name");
             return null;
-        }else if (email==null){
+        }else if (email==null){ // In case email is not null
             System.out.println("Error! Please, Enter a valid Email");
             return null;
-        } else if (password.isEmpty() || password.length() < 3 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) {
+        } else if (password.isEmpty() || password.length() < 3 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
             return null;
         } else {
             Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department, managedFlights);
-            if(staffdb.addObject(staff,true)){
+            if(staffdb.addObject(staff,true)){ // To check object is added to database successfully
                 System.out.println("added successfully");
                 return staff;
             }else System.out.println("Error with database connection, please try again");
