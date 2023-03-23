@@ -68,14 +68,6 @@ public class AdminController {
 
 
     //to check the validation of the email
-    public static boolean isValid(String Email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
 
-        Pattern pat = Pattern.compile(emailRegex);
-        return pat.matcher(Email).matches();
-    }
 }
 
