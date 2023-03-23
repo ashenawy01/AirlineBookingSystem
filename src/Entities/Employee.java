@@ -1,8 +1,9 @@
 package Entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public abstract class Employee {
+public abstract class Employee implements Serializable {
     private int ID;
     private String firstName;
     private String lastName;

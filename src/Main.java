@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
-        Employee admin = new Admin("A", "s", "s", "d",  true,false);
+        Admin admin = new Admin("A", "s", "s", "d",  true,false);
 
 
         AdminDB adminDB = new AdminDB();
@@ -16,6 +16,13 @@ public class Main {
 
 
         System.out.println(adminDB.addAdmin(admin));
-        System.out.println(adminDB.retrieveAll().get(0).getFirstName());
+        System.out.println(adminDB.addAdmin(admin));
+        System.out.println(adminDB.addAdmin(admin));
+
+
+        for (Object o : adminDB.retrieveAll()) {
+            Admin admin1 = (Admin) o;
+            System.out.println(admin1.getFirstName());
+        }
     }
 }

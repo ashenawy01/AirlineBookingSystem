@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class AdminDB implements UsersDatabase {
     private static final String adminDBFile = "adminFile.bin";
 
+    // This function will be called once only to create the file that stores Admin objects
     public void createAdminsDB () {
        // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
@@ -19,12 +20,15 @@ public class AdminDB implements UsersDatabase {
         }
     }
 
-    public boolean addAdmin (Employee admin) {
+    // Append an object of Admin to the database file
+    public boolean addAdmin (Admin admin) {
 
+        // return false if the parameter object is null
         if (admin == null) {
             return false;
         }
 
+        // Opening the output stream (the second argument is true for appending )
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new BufferedOutputStream(new FileOutputStream(adminDBFile, true))) {
             // Override ObjectOutputStream's writeStreamHeader method to reset the stream header
@@ -39,35 +43,26 @@ public class AdminDB implements UsersDatabase {
         } catch (IOException e) {
             // Print stack trace for any IO exceptions
             e.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 
-
+    // retrieving all stored objects in the database file in an ArrayList of Admin objects
     @Override
-    public boolean deleteAccount(int userID) {
-        return false;
-    }
-
-    @Override
-    public ArrayList<Admin> retrieveAll() {
-        ArrayList<Admin> admins = new ArrayList<>();
+    public ArrayList<Object> retrieveAll() {
+        ArrayList<Object> admins = new ArrayList<>();
 
         try (ObjectInputStream ois = new ObjectInputStream(
                 new BufferedInputStream(new FileInputStream(adminDBFile)))) {
             // Read all admin objects from the file and add them to the admins list
-            System.out.println("FRom r");
-
+            // the loop will end once the "readObject()" function throw EOFException
             while (true) {
                 Admin admin = (Admin) ois.readObject();
-                System.out.println("In while ");
-                System.out.println(admin);
                 admins.add(admin);
             }
 
         } catch (EOFException e) {
-            // Print all admins to the console
+            // return all admins objects
             return admins;
         } catch (Exception e) {
             // Print stack trace for any exceptions
@@ -75,6 +70,13 @@ public class AdminDB implements UsersDatabase {
             return new ArrayList<>();
         }
     }
+
+    @Override
+    public boolean deleteAccount(int userID) {
+        return false;
+    }
+
+
 
     @Override
     public Object findAccount(int userId) {

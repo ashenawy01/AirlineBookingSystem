@@ -11,7 +11,7 @@ public interface UsersDatabase {
 
     // retrieve all accounts of a specific database  in an arrayList
     // of object (Admin, Staff or Client) of these accounts
-    ArrayList<Admin> retrieveAll();
+    ArrayList<Object> retrieveAll();
 
     // Finding a specific user from his id
     // this function should be implemented (private)
