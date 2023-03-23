@@ -145,7 +145,7 @@ public class BookingDB implements IDatabase {
         Booking booking;
         for (Object o : existingBooking){
             booking = (Booking) o;
-            if(booking.getBookingID() != oldBooking.getBookingID()){
+            if(booking.getBookingID() == oldBooking.getBookingID()){
                 addObject(newBooking, false); //adding the updated booking
             }
             else{
