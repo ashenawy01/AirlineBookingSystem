@@ -8,7 +8,7 @@ public class Booking {
     private int bookingID;
     private int clintID;
 
-    private date date;
+    private Date Date;
     private int  travelers;
     private TreeSet<Flight> flights = new TreeSet<>();
 
@@ -16,12 +16,12 @@ public class Booking {
         return clintID;
     }
 
-    public date getDate() {
-        return date;
+    public Date getDate() {
+        return Date;
     }
 
-    public void setDate(date date) {
-        this.date = date;
+    public void setDate(Date date) {
+        this.Date = date;
     }
 
 
