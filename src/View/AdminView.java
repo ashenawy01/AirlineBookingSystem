@@ -7,32 +7,26 @@ import Entities.Staff;
 import Model.AdminDB;
 import Model.StaffDB;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 public class AdminView {
-
+    static AdminDB adb = new AdminDB();
     static AdminController adminController = new AdminController();
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-
-        StaffDB adminDB = new StaffDB();
-
-        Staff myA = (Staff) adminDB.retrieveAll().get(0);
-        System.out.println(myA);
-
-
-
-        Admin admin = null;
+    static void admindeatails() {
 
         System.out.println("Welcome to BUE Airline booking system");
         System.out.println("Sign IN");
         System.out.println();
 
+
+    }
+    static void admindeatails2() {
+        Admin admin = null;
+
         String email;
         String pass;
-
         do {
             System.out.println("Enter your Email : ");
             email = scanner.nextLine();
@@ -45,8 +39,8 @@ public class AdminView {
 
         int c = 0;
         do {
-            System.out.println("1 - Create a new Staff Account" +
-                    "\n2 - Create a new Admin account\n" +
+            System.out.println("1 - Create a new Admin Account" +
+                    "\n2 - Create a new Staff account\n" +
                     "3 - delete Account\n" +
                     "4 - find Account by ID\n" +
                     "5 - exit");
@@ -60,17 +54,48 @@ public class AdminView {
                         System.out.println("Error! - please try again");
                     }
                 }
-             case 2 -> {
-                    if (createAdmin() !=null){
+                case 2 -> {
+                    if (createAdmin() != null) {
                         System.out.println("Staff account is add successfully!");
-                    }
-                    else{
+                    } else {
                         System.out.println("Error! - please try again");
                     }
-             }
+                }
+                case 3 -> {
+                    if (deleteAccount() != false) {
+                        System.out.println("Staff account is deleted successfully!");
+                    } else {
+                        System.out.println("Error! - please try again");
+                    }
+                }
+                case 4-> {
+                    if (findAccount() != false) {
+                        System.out.println("Staff account is founded successfully!");
+                    } else {
+                        System.out.println("Error! - please try again");
+                    }
+                }
+                case 5 -> {
+                    return;
+                }
             }
 
         } while (c != 5);
+
+    }
+
+    public static void main(String[] args) {
+
+        StaffDB adminDB = new StaffDB();
+
+        Staff myA = (Staff) adminDB.retrieveAll().get(0);
+        System.out.println(myA);
+
+
+
+        admindeatails();
+        admindeatails2();
+
     }
 
     private static Staff createStaff() {
@@ -101,31 +126,46 @@ public class AdminView {
 
     private static Admin createAdmin(){
 
-            String firstNsme;
-            String lastNsme;
-            String email;
-            String password;
-            boolean isGlobal;
-            boolean isActive;
-            System.out.println("Enter First Name : ");
-            firstNsme = scanner.nextLine();
-            System.out.println("Enter Last Name : ");
-            lastNsme = scanner.nextLine();
-            System.out.println("Enter email : ");
-            email = scanner.nextLine();
-            System.out.println("Enter password : ");
-            password = scanner.nextLine();
-            System.out.println("is admin is global : ");
-            isGlobal = scanner.nextBoolean();
-            System.out.println("is admin is active : ");
-            isActive = scanner.nextBoolean();
-            return adminController.CreateAdmin(firstNsme,lastNsme,email,password, isActive, isGlobal);
+        String firstNsme;
+        String lastNsme;
+        String email;
+        String password;
+        boolean isGlobal;
+        boolean isActive;
+        System.out.println("Enter First Name : ");
+        firstNsme = scanner.nextLine();
+        System.out.println("Enter Last Name : ");
+        lastNsme = scanner.nextLine();
+        System.out.println("Enter email : ");
+        email = scanner.nextLine();
+        System.out.println("Enter password : ");
+        password = scanner.nextLine();
+        System.out.println("is admin is global (enter true or false): ");
+        isGlobal = scanner.nextBoolean();
+        System.out.println("is admin is active (enter true or false):");
+        isActive = scanner.nextBoolean();
+        return adminController.CreateAdmin(firstNsme,lastNsme,email,password, isActive, isGlobal);
 
 
 
 
     }
+    private static boolean deleteAccount(){
+        int empid;
+        boolean isAdmin;
+        System.out.println("enter the id of the account you want to delete");
+        empid = scanner.nextInt();
+        System.out.println("is employee is an admin  (enter true or false):");
+        isAdmin = scanner.nextBoolean();
+        return adminController.DeleteEmployee( empid , isAdmin );
+    }
 
+    private static boolean findAccount(){
+        int empid;
+        System.out.println("enter the id of the account you want to Find");
+        empid = scanner.nextInt();
+        return(boolean) adb.findAccount(empid);
+    }
 
 
 }
