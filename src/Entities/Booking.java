@@ -46,5 +46,8 @@ public class Booking {
         return false;
     }
 
+    boolean deleteFlight  (Flight flight) {
+        return flights.remove(flights);
+    }
 
 }
