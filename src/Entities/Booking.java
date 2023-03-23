@@ -15,6 +15,11 @@ public class Booking implements Serializable {
     private TreeSet<Flight> flights = new TreeSet<>();
 
     public Booking() {}
+
+    public int getBookingID() {
+        return bookingID;
+    }
+
     public int getClintID() {
         return clintID;
     }

@@ -2,10 +2,9 @@ package Model;
 
 import Entities.Booking;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
+import java.io.*;
+import java.util.ArrayList;
 
 public class BookingDB implements IDatabase {
     private static final String bookingDBFile = "bookingFile";
@@ -22,6 +21,8 @@ public class BookingDB implements IDatabase {
             e.printStackTrace();
         }
     }
+
+
 
     @Override
     public boolean addObject(Object obj, boolean isNew) {
@@ -55,5 +56,77 @@ public class BookingDB implements IDatabase {
             return false;
         }
     }
+
+    @Override
+    public ArrayList<Object> retrieveAll() {
+        ArrayList<Object> bookings = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new BufferedInputStream(new FileInputStream(bookingDBFile)))) {
+            // Read all booking objects from the file and add them to the bookings list
+            // the loop will end once the "readObject()" function throw EOFException
+            while (true) {
+                Booking booking = (Booking) ois.readObject();
+                bookings.add(booking);
+            }
+
+        } catch (EOFException e) {
+            // return all bookings objects
+            return bookings;
+        } catch (Exception e) {
+            // Print stack trace for any exceptions
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
+
+    @Override
+    public int generateID() {
+        // newID for the next user
+        int newID;
+        // last added user position
+        int size = retrieveAll().size();
+
+        // Check if it is the first entered user
+        if (size < 1) {
+            return firstID; // assign first user id the first id value
+        }
+        // Last added user
+        Booking booking = (Booking) retrieveAll().get(size - 1);
+
+        newID = booking.getBookingID() + 1;
+        return newID;
+    }
+
+    Booking findBooking(int bookingID){
+    Booking booking;
+    for(Object obj : retrieveAll()){
+        booking = (Booking) obj;
+        if(booking.getBookingID()==bookingID){
+            return booking;
+        }
+    }
+        return null;
+    }
+
+    public boolean deleteBooking (int bookingID){
+        // Find unwanted booking
+        Booking unWantedBooking = (Booking) findBooking(bookingID);
+        if(unWantedBooking == null){
+            return false; // not existed
+        }
+        // retrieve all objects
+        ArrayList<Object> existingBooking = retrieveAll();
+        resetDatabase(); // Reset the database
+        // re-adding all the old objects except the unwanted one
+        Booking booking;
+        for (Object o : existingBooking){
+            booking = (Booking) o;
+            if(booking.getBookingID() != unWantedBooking.getBookingID()){
+                addObject(booking, false);
+            }
+        }
+        return true;
+    }
+
 }
