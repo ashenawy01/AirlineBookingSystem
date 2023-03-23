@@ -24,6 +24,15 @@ public class Booking {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingID=" + bookingID +
+                ", clintID=" + clintID +
+                ", date=" + date +
+                ", travelers=" + travelers +
+                '}';
+    }
 
     public TreeSet<Flight> getFlights() {
         return flights;
