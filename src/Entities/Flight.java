@@ -2,9 +2,11 @@ package Entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.TreeSet;
 
-public class Flight implements Serializable {
+public class Flight implements Serializable, Comparator<Flight>, Comparable<Flight> {
     private static final long serialVersionUID = 1L;
 
     private int flightID;
@@ -97,6 +99,28 @@ public class Flight implements Serializable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flight flight)) return false;
+        return flightID == flight.flightID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(flightID, flightTime);
+    }
+
+    @Override
+    public int compareTo(Flight otherFlight) {
+        return Integer.valueOf(this.flightID).compareTo(Integer.valueOf(otherFlight.getFlightID()));
+    }
+
+    @Override
+    public int compare(Flight flight1, Flight flight2) {
+        return Integer.valueOf(flight1.getFlightID()).compareTo(Integer.valueOf(flight2.getFlightID()));
     }
 
     public boolean removeSeat(Seat seat) //This function deletes a seat from array

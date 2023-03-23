@@ -7,6 +7,7 @@ import Entities.Staff;
 import Model.AdminDB;
 import Model.StaffDB;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class AdminView {
@@ -59,6 +60,14 @@ public class AdminView {
                         System.out.println("Error! - please try again");
                     }
                 }
+             case 2 -> {
+                    if (createAdmin() !=null){
+                        System.out.println("Staff account is add successfully!");
+                    }
+                    else{
+                        System.out.println("Error! - please try again");
+                    }
+             }
             }
 
         } while (c != 5);
@@ -88,4 +97,35 @@ public class AdminView {
 
         return adminController.CreateStaff(fName,lName, email, pass, JT, department);
     }
+
+
+    private static Admin createAdmin(){
+
+            String firstNsme;
+            String lastNsme;
+            String email;
+            String password;
+            boolean isGlobal;
+            boolean isActive;
+            System.out.println("Enter First Name : ");
+            firstNsme = scanner.nextLine();
+            System.out.println("Enter Last Name : ");
+            lastNsme = scanner.nextLine();
+            System.out.println("Enter email : ");
+            email = scanner.nextLine();
+            System.out.println("Enter password : ");
+            password = scanner.nextLine();
+            System.out.println("is admin is global : ");
+            isGlobal = scanner.nextBoolean();
+            System.out.println("is admin is active : ");
+            isActive = scanner.nextBoolean();
+            return adminController.CreateAdmin(firstNsme,lastNsme,email,password, isActive, isGlobal);
+
+
+
+
+    }
+
+
+
 }
