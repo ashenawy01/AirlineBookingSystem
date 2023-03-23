@@ -9,26 +9,26 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
-        Client client1 = new Client("A", "B", "c", "d");
-        Client client2 = new Client("B", "B", "c", "d");
-        Client client3 = new Client("C", "B", "c", "d");
+//        Client client1 = new Client("A", "B", "c", "d");
+//        Client client2 = new Client("B", "B", "c", "d");
+//        Client client3 = new Client("C", "B", "c", "d");
+////
+//        ClientDB clientDB = new ClientDB();
+//        clientDB.createClientsDB();
+//        System.out.println(clientDB.addClient(client1, true));
+//        System.out.println(clientDB.addClient(client2, true));
+//        System.out.println(clientDB.addClient(client3, true));
+//        System.out.println("Try tp login : " + clientDB.findAccount("c", "d"));
 //
-        ClientDB clientDB = new ClientDB();
-        clientDB.createClientsDB();
-        System.out.println(clientDB.addClient(client1, true));
-        System.out.println(clientDB.addClient(client2, true));
-        System.out.println(clientDB.addClient(client3, true));
-        System.out.println("Try tp login : " + clientDB.findAccount("c", "d"));
-
-        for (Object o : clientDB.retrieveAll()) {
-            Client clientN = (Client) o;
-            System.out.println(clientN.getFirstName() + " - " + clientN.getId());
-        }
-        clientDB.deleteAccount(2);
-        for (Object o : clientDB.retrieveAll()) {
-            Client clientN = (Client) o;
-            System.out.println(clientN.getFirstName() + " - " + clientN.getId());
-        }
+//        for (Object o : clientDB.retrieveAll()) {
+//            Client clientN = (Client) o;
+//            System.out.println(clientN.getFirstName() + " - " + clientN.getId());
+//        }
+//        clientDB.deleteAccount(2);
+//        for (Object o : clientDB.retrieveAll()) {
+//            Client clientN = (Client) o;
+//            System.out.println(clientN.getFirstName() + " - " + clientN.getId());
+//        }
         
         
 //        Staff staff = new Staff("A", "B", "c", "d", "Blela", Department.CustomerService);
@@ -53,29 +53,29 @@ public class Main {
 //            System.out.println(staffN.getFirstName() + " - " + staffN.getID());
 //        }
         
-//        Admin admin = new Admin("A", "s", "s", "d",  true,false);
-//        Admin admin2 = new Admin("B", "s", "s", "d",  true,false);
-//        Admin admin3 = new Admin("C", "s", "s", "d",  true,false);
-//
-//
-//        AdminDB staffDB = new AdminDB();
-//        staffDB.createAdminsDB();
-//
-//
-//        System.out.println(staffDB.addAdmin(admin, true));
-//        System.out.println(staffDB.addAdmin(admin2, true));
-//        System.out.println(staffDB.addAdmin(admin3, true));
+        Admin admin = new Admin("A", "s", "s", "d",  true,false);
+        Admin admin2 = new Admin("B", "s", "s", "d",  true,false);
+        Admin admin3 = new Admin("C", "s", "s", "d",  true,false);
 
 
-//        System.out.println("Try tp login : " + staffDB.findAccount("s", "d"));
-//        for (Object o : staffDB.retrieveAll()) {
-//            Admin admin1 = (Admin) o;
-//            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
-//        }
-//        staffDB.deleteAccount(1);
-//        for (Object o : staffDB.retrieveAll()) {
-//            Admin admin1 = (Admin) o;
-//            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
-//        }
+        AdminDB staffDB = new AdminDB();
+        staffDB.createAdminsDB();
+
+
+        System.out.println(staffDB.addObject(admin, true));
+        System.out.println(staffDB.addObject(admin2, true));
+        System.out.println(staffDB.addObject(admin3, true));
+
+
+        System.out.println("Try tp login : " + staffDB.findAccount("s", "d"));
+        for (Object o : staffDB.retrieveAll()) {
+            Admin admin1 = (Admin) o;
+            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
+        }
+        staffDB.deleteAccount(1);
+        for (Object o : staffDB.retrieveAll()) {
+            Admin admin1 = (Admin) o;
+            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
+        }
     }
 }

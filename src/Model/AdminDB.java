@@ -6,7 +6,7 @@ import Entities.Employee;
 import java.io.*;
 import java.util.ArrayList;
 
-public class AdminDB implements UsersDatabase {
+public class AdminDB implements UsersDatabase, IDatabase {
     private static final String adminDBFile = "adminFile.bin";
     private final int firstID = 1;
 
@@ -23,7 +23,10 @@ public class AdminDB implements UsersDatabase {
     }
 
     // Append an object of Admin to the database file
-    public boolean addAdmin (Admin admin, boolean isNew) {
+    @Override
+    public boolean addObject(Object obj, boolean isNew) {
+
+        Admin admin = (obj instanceof Admin)? (Admin) obj : null;
 
         // return false if the parameter object is null
         if (admin == null) {
@@ -72,10 +75,10 @@ public class AdminDB implements UsersDatabase {
         for (Object o : existedAccounts) {
             admin = (Admin) o;
             if (admin.getID() == oldAdmin.getID()) {
-                addAdmin(newAdmin, false); // adding the updated object
+                addObject(newAdmin, false); // adding the updated object
             }
             else {
-                addAdmin(admin, false); // adding the old objects
+                addObject(admin, false); // adding the old objects
             }
         }
         return true;
@@ -122,7 +125,7 @@ public class AdminDB implements UsersDatabase {
         for (Object o : existedAccounts) {
             admin = (Admin) o;
             if (admin.getID() != unWantdAdmin.getID()) {
-                addAdmin(admin, false);
+                addObject(admin, false);
             }
         }
         return true;

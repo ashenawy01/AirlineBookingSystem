@@ -1,11 +1,12 @@
 package Model;
 
 import Entities.Client;
+import Entities.Flight;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class ClientDB implements UsersDatabase {
+public class ClientDB implements UsersDatabase, IDatabase {
     private static final String clientDBFile = "clientFile.bin";
     private final int firstID = 1;
 
@@ -23,7 +24,10 @@ public class ClientDB implements UsersDatabase {
     }
 
     // Append an object of Client to the database file
-    public boolean addClient (Client client, boolean isNew) {
+    @Override
+    public boolean addObject(Object obj, boolean isNew) {
+        Client client = (obj instanceof Client)? (Client) obj : null;
+
 
         // return false if the parameter object is null
         if (client == null) {
@@ -72,10 +76,10 @@ public class ClientDB implements UsersDatabase {
         for (Object o : existedAccounts) {
             client = (Client) o;
             if (client.getId() == oldClient.getId()) {
-                addClient(newClient, false); // adding the updated object
+                addObject(newClient, false); // adding the updated object
             }
             else {
-                addClient(client, false); // adding the old objects
+                addObject(client, false); // adding the old objects
             }
         }
         return true;
@@ -122,7 +126,7 @@ public class ClientDB implements UsersDatabase {
         for (Object o : existedAccounts) {
             client = (Client) o;
             if (client.getId() != unWantdClient.getId()) {
-                addClient(client, false);
+                addObject(client, false);
             }
         }
         return true;

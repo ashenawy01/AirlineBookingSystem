@@ -1,7 +1,5 @@
 package Entities;
 
-import Model.FlightDB;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.TreeSet;
@@ -86,6 +84,10 @@ public class Flight implements Serializable {
 
     public void setSeats(TreeSet<Seat> seats) {
         this.seats = seats;
+    }
+
+    public void setFlightID(int flightID) {
+        this.flightID = flightID;
     }
 
     public boolean addSeat(Seat seat) //This function adds a seat to array

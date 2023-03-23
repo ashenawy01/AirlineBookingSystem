@@ -5,7 +5,7 @@ import Entities.Staff;
 import java.io.*;
 import java.util.ArrayList;
 
-public class StaffDB implements UsersDatabase {
+public class StaffDB implements UsersDatabase, IDatabase {
     private static final String staffDBFile = "staffFile.bin";
     private final int firstID = 1;
 
@@ -23,8 +23,10 @@ public class StaffDB implements UsersDatabase {
     }
 
     // Append an object of Staff to the database file
-    public boolean addStaff (Staff staff, boolean isNew) {
+    @Override
+    public boolean addObject(Object obj, boolean isNew) {
 
+        Staff staff = (obj instanceof Staff)? (Staff) obj : null;
         // return false if the parameter object is null
         if (staff == null) {
             return false;
