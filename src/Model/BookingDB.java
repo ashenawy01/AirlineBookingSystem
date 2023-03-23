@@ -22,8 +22,6 @@ public class BookingDB implements IDatabase {
         }
     }
 
-
-
     @Override
     public boolean addObject(Object obj, boolean isNew) {
         Booking booking = (obj instanceof Booking)? (Booking) obj : null;
