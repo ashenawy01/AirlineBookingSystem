@@ -16,6 +16,19 @@ public class Booking implements Serializable {
 
     public Booking() {}
 
+    public Booking(int clintID, LocalDateTime date, int travelers, TreeSet<Flight> flights) {
+        this.clintID = clintID;
+        this.date = date;
+        this.travelers = travelers;
+        this.flights = flights;
+    }
+
+    public Booking(int clintID, LocalDateTime date, int travelers) {
+        this.clintID = clintID;
+        this.date = date;
+        this.travelers = travelers;
+    }
+
     public int getBookingID() {
         return bookingID;
     }
