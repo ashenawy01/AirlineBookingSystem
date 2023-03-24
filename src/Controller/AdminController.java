@@ -9,7 +9,7 @@ public class AdminController {
     private static AdminDB admindb = new AdminDB();
     private static StaffDB staffdb = new StaffDB();
     private static Staff staff=new Staff();
-    private static Admin admin = new Admin();
+    private static Admin currentAdmin = new Admin();
 
 
     //Function to sign in for only admins
@@ -21,11 +21,11 @@ public class AdminController {
             return null;
         }
         //first...the email and the password should be not null
-        Admin admin=(Admin) admindb.findAccount(Email,pass);
+        Admin admin = (Admin) admindb.findAccount(Email,pass);
 
         if(admin != null){ //In case admin is not null, system will welcome admin and print out their employees.
             System.out.println("Welcome " + admin.getFirstName()); // A welcome message will be shown to user
-            this.admin = admin;
+            this.currentAdmin = admin;
             return admin;
         }
         else {System.out.println("Incorrect username or password"); // sign in is failed
@@ -64,7 +64,7 @@ public class AdminController {
 
         }
             else { // All parameters obtained are entered correctly by user and function controller will start doing its purpose
-            if (this.admin.isActive()) { // validation check to check admin if admin is not banned
+            if (this.currentAdmin.isActive()) { // validation check to check admin if admin is not banned
                 Admin admin=new Admin( firstName, lastName, email, password,isGlobal, isActive); // A new admin object is created.
                 if(admindb.addObject(admin,true)){ // to check admin is added.
                     System.out.println("welcome admin"+" "+admin.getFirstName()); // A welcome message to the new admin
@@ -84,14 +84,14 @@ public class AdminController {
 
     public boolean UpdatePassword(int adminID,String oldPass,String newPass){
         if(admindb.findAccount(adminID) != null){ // Validation check to see if ID is found in database or not.
-            admin = (Admin) admindb.findAccount(adminID); // an object admin of type Admin is set using data admin found in database.
-            if (newPass.isEmpty() ||  newPass.length() < 6 || !((newPass.matches(".*[a-zA-Z].*") && newPass.matches(".*\\d.*"))) {
+            Admin myAdmin = (Admin) admindb.findAccount(adminID); // an object admin of type Admin is set using data admin found in database.
+            if (newPass.isEmpty() ||  newPass.length() < 6 || !((newPass.matches(".*[a-zA-Z].*") && newPass.matches(".*\\d.*")))) {
                 System.out.println("Invalid new password, please try again");
                 return false;
             }
-            if (newPass!=admin.getPassword()&&oldPass==admin.getPassword()){ // Validation to see if new password is not = = to old password
-                admin.setPassword(newPass);
-                 admindb.updateAdmin(adminID,admin);
+            if (newPass!= myAdmin.getPassword()&&oldPass== myAdmin.getPassword()){ // Validation to see if new password is not = = to old password
+                myAdmin.setPassword(newPass);
+                 admindb.updateAdmin(adminID, myAdmin);
                  return true; //function ends here after replacing old password with new one.
             }
 
@@ -137,7 +137,7 @@ public class AdminController {
         }
 
         else {
-            if (this.admin.isActive()) { // To check if admin is active
+            if (this.currentAdmin.isActive()) { // To check if admin is active
                 Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department); // a new object of staff is created to store data from parameters.
 
                 if(staffdb.addObject(staff,true)){ // To check object is added to database successfully
@@ -162,7 +162,7 @@ public class AdminController {
                 return false;
             }
 
-            if(admin.isGlobal()){ // to check account is admin and global
+            if(currentAdmin.isGlobal()){ // to check account is admin and global
                 //admin account is deleted and function ends here
                 return admindb.deleteAccount(empID);
             } else {
@@ -179,12 +179,14 @@ public class AdminController {
     }
 
     public boolean BandAdmin(int adminID){
-        if (admindb.findAccount(adminID)!=null){ //To valid that admin ID is not null
-            admin = (Admin) admindb.findAccount(adminID); //admin with ID taken from parameter is searched in database.
-            admin.setActive(false);
-            admindb.updateAdmin(adminID,admin); //Admin is updated in database.
-            return true; //function ends here.
-
+        if (!(currentAdmin.isActive() && currentAdmin.isGlobal())) {
+            System.out.println("Error 403 - Access denied!");
+            return false;
+        }
+        if (admindb.findAccount(adminID)!= null){
+            Admin myAdmin = (Admin) admindb.findAccount(adminID); //admin with ID taken from parameter is searched in database.
+            myAdmin.setActive(false);
+            return admindb.updateAdmin(adminID, myAdmin); //Admin is updated in database.
         }
         else // adminID is null
             {
@@ -193,7 +195,7 @@ public class AdminController {
             }
     }
 
-    public ArrayList<Staff> ListAllStaffs (){
+    public ArrayList<Staff> listAllStaffs(){
         ArrayList<Staff> Stf=new ArrayList<Staff>(); // a new arraylist of type Staff is created
         ArrayList<Object>stf=staffdb.retrieveAll(); // all staff database is retrieved from database staffDB
 
@@ -216,22 +218,19 @@ public class AdminController {
     }
 
 
-    public Employee FindEmployeeByID(int EmpID){
-        if(admindb.findAccount(EmpID)!=null){ // employee account searched using ID inside admin database and if condition checks it dose not return null
-            admin=(Admin)admindb.findAccount(EmpID);
-            return admin; //function ends here with admin being found and returned
-
+    public static Employee FindAdminByID(int EmpID){
+        Admin myAdmin = (Admin)admindb.findAccount(EmpID);
+        if(myAdmin != null){ // employee account searched using ID inside admin database and if condition checks it dose not return null
+            return myAdmin; //function ends here with admin being found and returned
+        } else {
+            return null;
         }
-        else if(staffdb.findAccount(EmpID)!=null){// employee account searched using ID inside staff database and if condition checks it dose not return null
-            staff=(Staff)staffdb.findAccount(EmpID);
-            return staff; //function ends here with staff being found and returned
-
-        }
-
-        else
-        {
-            System.out.println("there is no employee with this ID "+EmpID+" please check again");
-            return null; // function ends here with nothing to return as ID dose not exist inside database
+    } public static Employee FindStaffByID(int EmpID){
+        Staff myStaff = (Staff) staffdb.findAccount(EmpID);
+        if(myStaff != null){ // employee account searched using ID inside admin database and if condition checks it dose not return null
+            return myStaff; //function ends here with admin being found and returned
+        } else {
+            return null;
         }
     }
 
