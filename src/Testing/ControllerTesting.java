@@ -43,21 +43,25 @@ public class ControllerTesting {
 //        flight2.bookSeat("A2");
 //
 //
-//        FlightDB flightDB = new FlightDB();
 //        flightDB.addObject(flight1, true);
 //        flightDB.addObject(flight2, true);
 //        flightDB.addObject(flight3, true);
 //
-//        ArrayList<Object> flights = flightDB.retrieveAll();
-//
-//        flights.forEach(fly -> {
-//            Flight myFlight = (Flight) fly;
-//            System.out.println(myFlight.getFlightID() +
-//                    " - From { " + myFlight.getOrigin() + " }"+
-//                    " To { " + myFlight.getDestination() + " }"+
-//                    " in " + myFlight.getDuration() + " h");
-//            System.out.println("Seats : " + myFlight.getSeats());
-//        });
+        FlightDB flightDB = new FlightDB();
+        ArrayList<Object> flights = flightDB.retrieveAll();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        flights.forEach(fly -> {
+            Flight myFlight = (Flight) fly;
+            stringBuilder.append(myFlight.getFlightID() +
+                    " - From { " + myFlight.getOrigin() + " }"+
+                    " To { " + myFlight.getDestination() + " }"+
+                    " on { " + myFlight.getFlightTime() + " } " +
+                    " in " + myFlight.getDuration() + " h\n" +
+                    "Seats : " + myFlight.getSeats() + "\n" +
+                    "============================================\n");
+        });
+        System.out.println(stringBuilder);
 
 //        TreeSet<FlightTrip> results = bookingController.findBooking("Cairo", "Ankara", LocalDateTime.of(2023, 3, 23, 10, 30));
 //        int i = 0;
