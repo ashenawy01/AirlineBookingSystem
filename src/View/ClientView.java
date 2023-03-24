@@ -1,5 +1,8 @@
 package View;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import Controller.BookingController;
 import Controller.ClientController;
@@ -112,7 +115,9 @@ public class ClientView {
                             return;
                         }
                 case 3 -> {
-
+                     findBooking();
+                }
+                case 4-> {
 
                 }
 
@@ -134,21 +139,23 @@ public class ClientView {
     private static TreeSet<FlightTrip> findBooking(){
         String origin;
         String destination;
-        String flightTime;
+
         System.out.println("enter the origin");
         origin= scanner.nextLine();
         System.out.println("enter the destination");
         destination= scanner.nextLine();
-        System.out.println("enter the Flight time");
 
-        for (LocalDateTime f : LocalDateTime.values()) {
-            System.out.println(f);
-        }
-       flightTime = scanner.nextLine();
-        LocalDateTime flightTime = LocalDateTime.valueOf(flightTime);
+        System.out.println("Please enter a date (in the format yyyy-MM-dd):");
+        String dateString = scanner.nextLine();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
 
-        return BookingController.findBooking( origin, destination, flightTime);
+        LocalDateTime localDateTime = localDate.atStartOfDay();
+
+        System.out.println("The date you entered is: " + localDateTime);
+
+        return BookingController.findBooking( origin, destination, localDateTime);
     }
 
 
