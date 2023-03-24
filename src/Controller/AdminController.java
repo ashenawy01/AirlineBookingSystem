@@ -155,23 +155,31 @@ public class AdminController {
         return null; // function ends here if either account is not active or error with database connection.
     }
     public boolean DeleteEmployee(int empID,boolean isAdmin){
-        if(admindb.findAccount(empID)!=null){ // to see if account exists in database
-            if(isAdmin && admin.isGlobal()){ // to check account is admin and global
-                admindb.deleteAccount(empID);
-                return true; //admin account is deleted and function ends here
-
-            }else if (!isAdmin){
-                staffdb.deleteAccount(empID);
-                return true; // employee account is deleted and function ends here
-
+        if(isAdmin){
+            // to see if account exists in database
+            if (admindb.findAccount(empID)!= null) {
+                System.out.println("User is not existed in admin database");
+                return false;
             }
-            else return false; // in case admin account is not global and function ends here
 
-        }else return false; // in case account is not found and function ends here
+            if(admin.isGlobal()){ // to check account is admin and global
+                //admin account is deleted and function ends here
+                return admindb.deleteAccount(empID);
+            } else {
+                System.out.println("Error 403 - Access denied");
+                return false; // in case admin account is not global and function ends here
+            }
+        }else {
+            if (staffdb.findAccount(empID)!= null) {
+                System.out.println("User is not existed in staff database");
+                return false;
+            }
+            return staffdb.deleteAccount(empID); // employee account is deleted and function ends here
+        }
     }
 
     public boolean BandAdmin(int adminID){
-        if (admindb.findAccount(adminID)!=null){ //To valide that admin ID is not null
+        if (admindb.findAccount(adminID)!=null){ //To valid that admin ID is not null
             admin = (Admin) admindb.findAccount(adminID); //admin with ID taken from parameter is searched in database.
             admin.setActive(false);
             admindb.updateAdmin(adminID,admin); //Admin is updated in database.
