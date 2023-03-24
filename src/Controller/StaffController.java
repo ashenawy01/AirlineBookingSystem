@@ -36,6 +36,7 @@ public class StaffController {
       });
       return stringBuilder;
    }
+
    public static StringBuilder generateBookingReport(){
       ArrayList<Object> Books = bookingDB.retrieveAll();
       StringBuilder stringBuilder = new StringBuilder();
