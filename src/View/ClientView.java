@@ -25,7 +25,7 @@ public class ClientView {
         System.out.println("Sign IN or Sign Up");
         System.out.println();
 
-        currentClient = clientController.signIn("c", "d");
+        currentClient = clientController.signIn("c", "hh");
         System.out.println(currentClient);
 
         findBookingById();
