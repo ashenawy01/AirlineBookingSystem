@@ -1,9 +1,6 @@
 package Controller;
 
-import Entities.Airline;
-import Entities.Flight;
-import Entities.Seat;
-import Entities.Staff;
+import Entities.*;
 import Model.ClientDB;
 import Model.FlightDB;
 import Model.StaffDB;
@@ -22,6 +19,34 @@ public class FlightController {
             flightArrayList.add(flight);
         });
         return flightArrayList;
+    }
+
+    public static LinkedList<Seat> generateSeats(int seatsNum){
+        if (seatsNum >0 && seatsNum<=30 ){
+            LinkedList<Seat> seats=new LinkedList<>();
+            Seat seat=new Seat();
+            for (int i=0;i<seats.size();i++){
+                if (i<10){
+                    String str=Integer.toString(i);
+                    seat.setSeatNumber(str);
+                    seat.setClassType(ClassType.FirstClass);
+                    seats.add(seat);
+                    System.out.println("A "+i+1);
+                } else if (i>10&&i<20) {
+                    String str=Integer.toString(i);
+                    seat.setSeatNumber(str);
+                    seat.setClassType(ClassType.Business);
+                    seats.add(seat);
+                    System.out.println("B "+i+1);
+                } else if (i>20&&i<30) {
+                    String str=Integer.toString(i);
+                    seat.setSeatNumber(str);
+                    seat.setClassType(ClassType.Economy);
+                    seats.add(seat);
+                    System.out.println("C "+i+1);
+                }
+            }
+        }else System.out.println("please enter a vaild number"); return null;
     }
 
     public static Flight findFlightByID(int flightID) {
