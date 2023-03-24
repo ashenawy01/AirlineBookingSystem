@@ -14,7 +14,7 @@ public class AdminController {
 
     //Function to sign in for only admins
     //it will return admin object
-    public Admin signin(String Email, String pass) {
+    public Admin signIn(String Email, String pass) {
 
         if (Email.isEmpty() || pass.isEmpty()) {
             System.out.println("Enter a valid email and password");

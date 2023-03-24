@@ -40,8 +40,8 @@ public class AdminView {
 
         int c = 0;
         do {
-            System.out.println("1 - Create a new Admin Account" +
-                    "\n2 - Create a new Staff account\n" +
+            System.out.println("1 - Create a new Staff Account" +
+                    "\n2 - Create a new Admin account\n" +
                     "3 - delete Account\n" +
                     "4 - find Account by ID\n" +
                     "5 - Update Password\n"+
@@ -213,7 +213,8 @@ public class AdminView {
         return adminController.BandAdmin(adminId);
     }
     public static ArrayList<Admin> ListAllAdmins(){
-        return adminController.listAllAdmins();
+        return adminController.ListAllAdmins();
     }
 }
+
 
