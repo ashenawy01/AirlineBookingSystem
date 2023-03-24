@@ -51,5 +51,31 @@ public class StaffController {
       });
       return stringBuilder;
    }
+   
+   public static boolean updateManagedFlights (Flight flight) {
+      currentStaff.addFlight(flight);
+      return staffdb.updateStaff(currentStaff.getID(), currentStaff);
+   }
+   public static boolean updatePassword(String oldPass,String newPass){
+
+      if (currentStaff == null) {
+         System.out.println("Error 403 - Access denied,Try to login again");
+         return false;
+      } else {
+
+         if (newPass != currentStaff.getPassword() && oldPass== currentStaff.getPassword()){
+            currentStaff.setPassword(newPass);
+
+            return staffdb.updateStaff(currentStaff.getID(), currentStaff); // client is updated with new password
+         }
+
+         else
+         {
+            System.out.println("the old password or the new password is wrong, please try again ");
+            return false; // function ends here with return false
+         }
+
+      }
+   }
 
 }
