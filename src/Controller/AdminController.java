@@ -82,12 +82,12 @@ public class AdminController {
         return null; // function ends here if either account is not active or error connection with database.
     }
 
-    public boolean UpdatePassword(int adminID,String oldpass,String newpass){
-        if(admindb.findAccount(adminID)!=null){ // Validation check to see if ID is found in database or not.
+    public boolean UpdatePassword(int adminID,String oldPass,String newPass){
+        if(admindb.findAccount(adminID) != null){ // Validation check to see if ID is found in database or not.
             admin=(Admin) admindb.findAccount(adminID); // an object admin of type Admin is set using data admin found in database.
 
-            if (newpass!=admin.getPassword()&&oldpass==admin.getPassword()){ // Validation to see if new password is not = = to old password
-                admin.setPassword(newpass);
+            if (newPass!=admin.getPassword()&&oldPass==admin.getPassword()){ // Validation to see if new password is not = = to old password
+                admin.setPassword(newPass);
                  admindb.updateAdmin(adminID,admin);
                   return true; //function ends here after replacing old password with new one.
 
