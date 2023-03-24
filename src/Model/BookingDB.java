@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class BookingDB implements IDatabase {
-    private static final String bookingDBFile = "bookingFile";
+    private static final String bookingDBFile = "bookingFile.bin";
     private final int firstID = 1;
     
     // This function will be called once only to create the file that stores booking objects
