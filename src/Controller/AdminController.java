@@ -84,19 +84,21 @@ public class AdminController {
 
     public boolean UpdatePassword(int adminID,String oldPass,String newPass){
         if(admindb.findAccount(adminID) != null){ // Validation check to see if ID is found in database or not.
-            admin=(Admin) admindb.findAccount(adminID); // an object admin of type Admin is set using data admin found in database.
-
+            admin = (Admin) admindb.findAccount(adminID); // an object admin of type Admin is set using data admin found in database.
+            if (newPass.isEmpty() ||  newPass.length() < 6 || !((newPass.matches(".*[a-zA-Z].*") && newPass.matches(".*\\d.*"))) {
+                System.out.println("Invalid new password, please try again");
+                return false;
+            }
             if (newPass!=admin.getPassword()&&oldPass==admin.getPassword()){ // Validation to see if new password is not = = to old password
                 admin.setPassword(newPass);
                  admindb.updateAdmin(adminID,admin);
-                  return true; //function ends here after replacing old password with new one.
-
+                 return true; //function ends here after replacing old password with new one.
             }
 
             else
             {
                 System.out.println("the old password or the new password is wrong, please try again ");
-            return false; //function ends here.
+                return false; //function ends here.
             }
 
         }
@@ -141,7 +143,6 @@ public class AdminController {
                 if(staffdb.addObject(staff,true)){ // To check object is added to database successfully
                     System.out.println("added successfully");
                     return staff;//function ends here
-
                 }
                 else
                     System.out.println("Error with database connection, please try again");
@@ -195,7 +196,7 @@ public class AdminController {
         return Stf; //function ends here with arraylist being returned
     }
 
-    public ArrayList<Admin> ListAllAdmins(){
+    public static ArrayList<Admin> listAllAdmins(){
         ArrayList<Admin> Admn=new ArrayList<Admin>(); // a new arraylist of type Admin is created
         ArrayList<Object>admn=admindb.retrieveAll();  // all admin database is retrieved from database Admindb
 
@@ -229,14 +230,24 @@ public class AdminController {
     //to check email validation
     public static boolean isValid(String email)
     {
+        if (email == null) {
+            System.out.println("Error - invalid email address");
+            return false;
+        }
+        String userEmail;
+
+        for (Admin admin : listAllAdmins()) {
+            if (admin.getEmail().equals(email)) {
+                System.out.println("User is already existed!");
+                return false;
+            }
+        }
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                 "A-Z]{2,7}$"; //This line defines a regular expression pattern that is used to validate whether the input email string is in a valid format or not.
 
         Pattern pat = Pattern.compile(emailRegex);
-        if (email == null)
-            return false;
         return pat.matcher(email).matches(); //This line uses the matcher() method of the Pattern object to create a Matcher object that can match the input email string against the regular expression pattern. The matches() method of the Matcher object is then used to check whether the input email string matches the pattern or not. If it does, the method returns true, indicating that the email is valid. Otherwise, it returns false, indicating that the email is not valid.
     }
 }
