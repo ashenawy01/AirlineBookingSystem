@@ -41,6 +41,8 @@ public class Booking implements Serializable {
         return date;
     }
 
+    public int getTravelers() {return travelers;}
+
     public void setBookingID(int bookingID) {
         this.bookingID = bookingID;
     }
@@ -87,7 +89,4 @@ public class Booking implements Serializable {
         return flights.remove(flightNum);
     }
 
-    public Booking(int travelers) {
-        this.travelers = travelers;
-    }
 }

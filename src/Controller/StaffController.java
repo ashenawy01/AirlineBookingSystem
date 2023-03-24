@@ -14,7 +14,6 @@ public class StaffController {
    private Staff staff=new Staff();
 
    public Staff signin(String Email, String pass) {
-
       Staff staff=(Staff) staffdb.findAccount(Email,pass);
       if(staff != null){ //In case admin is not null, system will welcome admin and print out their employees.
          System.out.println("Welcome " + staff.getFirstName());
@@ -45,9 +44,10 @@ public class StaffController {
       StringBuilder stringBuilder = new StringBuilder();
       Books.forEach(book -> {
          Booking MyBook = (Booking) book;
-         stringBuilder.append(" Booking ID ( "+MyBook.getBookingID() +
-                 " - Client ID { " + MyBook.getClintID() + " }"+
+         stringBuilder.append(" Booking ID { "+MyBook.getBookingID() +
+                 " } Client ID { " + MyBook.getClintID() + " }"+
                  " Date { " + MyBook.getDate() + " }"+
+                 " Travelers " + MyBook.getTravelers() + " " +
                  " AllFlights { " + MyBook.getFlights() + " } " +"\n"+
                  "============================================\n");
       });
