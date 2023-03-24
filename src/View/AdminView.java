@@ -80,11 +80,13 @@ public class AdminView {
                 }
                 case 4-> {
                     FindStaffByID();
+                    System.out.println("The Staff is found successfully");
                     return;
 
                 }
                 case 5-> {
                     FindAdminByID();
+                    System.out.println("The Admin is found successfully");
                     return;
                 }
 
@@ -226,6 +228,7 @@ public class AdminView {
 
     }
 }
+
 
 
 
