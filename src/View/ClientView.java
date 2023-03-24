@@ -129,6 +129,9 @@ public class ClientView {
                     updateBookingTraveler();
                     return;
                 }
+                case 8 -> {
+                    addFlightToBooking();
+                }
 
                 case 9 -> {
                     removeFlightFromBooking();
@@ -254,7 +257,12 @@ public class ClientView {
         return bookingController.updateBookingTraveler(bookingiD, travelers);
 
     }
-
+    public static Booking addFlightToBooking(){
+        System.out.println("please enter booking ID");
+        int id=scanner.nextInt();
+        Flight flight= new Flight();
+        return bookingController.addFlightToBooking(id,flight);
+    }
     private static Booking removeFlightFromBooking() {
         int bookingiD;
         System.out.println("enter the Id of the booking");
@@ -274,20 +282,37 @@ public class ClientView {
         return bookingController.deleteBooking(bookingiD);
     }
 
-    public static Booking CreateBooking() {
-        System.out.println("please enter your ID");
-        int clintID = scanner.nextInt();
-        String flightTime = scanner.nextLine();
-        System.out.println("please enter time");
+    public static boolean CreateBooking() {
+        Flight flight = new Flight();
+        String origin;
+        System.out.println("enter the Origin");
+        origin = scanner.nextLine();
+        System.out.println("Please enter a date (in the format yyyy-MM-dd):");
+        String dateString = scanner.nextLine();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(flightTime, formatter);
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+
         LocalDateTime localDateTime = localDate.atStartOfDay();
-        System.out.println("please enter travelers number");
-        int travelers = scanner.nextInt();
-        LinkedList<Flight> flights = FlightController.getAllFlights();
-        return BookingController.CreateBooking(clintID, localDateTime, travelers, flights);
+
+        System.out.println("The date you entered is: " + localDateTime);
+
+        flightController.findFlightFrom(origin, localDateTime);
+
+        System.out.println(flightController.getAllFlights ());
+        int flightId;
+        System.out.println("enter the Id of the flight");
+        flightId = scanner.nextInt();
+        System.out.println(bookingController.bookSeat());
+        int seatno;
+        System.out.println("enter the number of the seat");
+        seatno = scanner.nextInt();
+        return true;
+
+
     }
 }
+
 
 
 
