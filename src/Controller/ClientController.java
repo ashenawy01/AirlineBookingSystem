@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ClientController {
     //private Flight flight=new Flight();
     private static final ClientDB clientDB=new ClientDB();
-    private static Client currentClient =new Client();
+    private static Client currentClient = new Client();
     private static final BookingDB bookingDB=new BookingDB();
 
 
