@@ -32,7 +32,7 @@ public class ClientView {
         Client Client = null;
         int b = 0;
         System.out.println("1 - SignUp\n" +
-                "2 - Sign In\n" );
+                "2 - Sign In\n");
         b = scanner.nextInt();
         scanner.nextLine();
         switch (b) {
@@ -61,9 +61,9 @@ public class ClientView {
 
                     Client = ClientController.signIn(email3, pass);
                     break;
-                } while (b!= 5);
+                } while (b != 5);
             }
-            case 2 ->{
+            case 2 -> {
                 String email1;
                 String pass;
                 System.out.println("Enter your Email : ");
@@ -76,12 +76,7 @@ public class ClientView {
             }
         }
 
-        while (Client == null);
-
-
-
-
-
+        while (Client == null) ;
 
 
         int c = 0;
@@ -91,11 +86,11 @@ public class ClientView {
                     "3 - Find Booking\n" +
                     "4 - Create Booking\n" +
                     "5 - Find Booking by ID\n" +
-                    "6 - Update booking Traveller\n" +
-                    "7 - Add flight to Booking\n" +
-                    "8 - Remove flight from booking\n" +
-                    "9 - delete booking\n" +
-                    "10 - "+
+                    "6 - Update booking date\n"+
+                    "7 - Update booking Traveller\n" +
+                    "8 - Add flight to Booking\n" +
+                    "9 - Remove flight from booking\n" +
+                    "10 - delete booking\n" +
                     "11 - exit");
             c = scanner.nextInt();
             scanner.nextLine();
@@ -109,41 +104,67 @@ public class ClientView {
                         return;
                     }
                 }
-                    case 2 -> {
+                case 2 -> {
 
-                            System.out.println(clientController.listMyBookings());
-                            return;
-                        }
+                    System.out.println(clientController.listMyBookings());
+                    return;
+                }
                 case 3 -> {
-                     findBooking();
-                }
-                case 4-> {
-
+                    findBooking();
+                    return;
                 }
 
+                case 5 -> {
+                    findBookingById();
+                    return;
+                }
+
+                case 6 -> {
+                    updateBookingDate();
+                    return;
+                }
+                case 7 -> {
+                    updateBookingTraveler();
+                    return;
+                }
+
+                case 9 -> {
+                    removeFlightFromBooking();
+                    return;
+                }
+                case 10 -> {
+                    if (deleteBooking() != false) {
+                        System.out.println("Booking is deleted successfully!");
+                    } else {
+                        System.out.println("Error! - please try again");
+                    }
+
+                }
 
             }
         }
         while (c != 5);
     }
-    private static boolean updatePassword(){
+
+    private static boolean updatePassword() {
         String oldPass;
         String newPass;
         System.out.println("enter the Old password");
-        oldPass= scanner.nextLine();
+        oldPass = scanner.nextLine();
         System.out.println("enter the new password");
-        newPass= scanner.nextLine();
-        return clientController.updatePassword( oldPass, newPass);
+        newPass = scanner.nextLine();
+        return clientController.updatePassword(oldPass, newPass);
 
     }
-    private static TreeSet<FlightTrip> findBooking(){
+
+    private static TreeSet<FlightTrip> findBooking() {
         String origin;
         String destination;
 
         System.out.println("enter the origin");
-        origin= scanner.nextLine();
+        origin = scanner.nextLine();
         System.out.println("enter the destination");
-        destination= scanner.nextLine();
+        destination = scanner.nextLine();
 
         System.out.println("Please enter a date (in the format yyyy-MM-dd):");
         String dateString = scanner.nextLine();
@@ -155,10 +176,63 @@ public class ClientView {
 
         System.out.println("The date you entered is: " + localDateTime);
 
-        return BookingController.findBooking( origin, destination, localDateTime);
+        return BookingController.findBooking(origin, destination, localDateTime);
     }
 
+    private static Booking findBookingById() {
+        int bookingID;
+        System.out.println("enter the Id of the booking");
+       bookingID= scanner.nextInt();
+       return bookingController.findBookingById(bookingID);
+    }
 
+    private static Booking updateBookingDate(){
+        int bookingiD;
+        System.out.println("enter the Id of the booking");
+        bookingiD= scanner.nextInt();
+        System.out.println("Please enter a date (in the format yyyy-MM-dd):");
+        String dateString = scanner.nextLine();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+
+        LocalDateTime localDateTime = localDate.atStartOfDay();
+
+        System.out.println("The date you entered is: " + localDateTime);
+
+        return  bookingController.updateBookingDate(bookingiD, localDateTime);
+
+    }
+
+    private static Booking updateBookingTraveler(){
+        int bookingiD;
+        System.out.println("enter the Id of the booking");
+        bookingiD= scanner.nextInt();
+
+        int travelers;
+        System.out.println("Please enter the traveler number");
+        travelers = scanner.nextInt();
+
+        return  bookingController.updateBookingTraveler(bookingiD, travelers);
+
+    }
+    private static Booking  removeFlightFromBooking() {
+        int bookingiD;
+        System.out.println("enter the Id of the booking");
+        bookingiD = scanner.nextInt();
+
+        int flightNum;
+        System.out.println("Please enter The flight number");
+        flightNum = scanner.nextInt();
+
+        return bookingController.updateBookingTraveler(bookingiD, flightNum);
+    }
+    private static boolean deleteBooking(){
+        int bookingiD;
+        System.out.println("enter the Id of the booking");
+        bookingiD = scanner.nextInt();
+        return bookingController.deleteBooking(bookingiD);
+    }
 }
 
 
