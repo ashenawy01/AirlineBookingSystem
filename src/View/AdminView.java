@@ -16,15 +16,18 @@ public class AdminView {
     static AdminController adminController = new AdminController();
     static Scanner scanner = new Scanner(System.in);
 
-    static void admindeatails() {
 
+    public static void main(String[] args) {
+
+        StaffDB adminDB = new StaffDB();
+
+        Staff myA = (Staff) adminDB.retrieveAll().get(0);
+        System.out.println(myA);
         System.out.println("Welcome to BUE Airline booking system");
         System.out.println("Sign IN");
         System.out.println();
 
 
-    }
-    static void admindeatails2() {
         Admin admin = null;
 
         String email;
@@ -79,11 +82,11 @@ public class AdminView {
                     FindStaffByID();
                     return;
 
-                    }
-                    case 5-> {
-                        FindAdminByID();
-                        return;
-                    }
+                }
+                case 5-> {
+                    FindAdminByID();
+                    return;
+                }
 
                 case 6->{
                     if ( ResetPassword() != false) {
@@ -100,14 +103,14 @@ public class AdminView {
                     }
                 }
                 case 8->{
-                    ListAllAdmins();
+                    System.out.println(adminController.listAllAdmins());
                     System.out.println("successfully listed all admins");
                     return;
                 }
                 case 9 -> {
-                    listAllStaffs();
+                    System.out.println(adminController.listAllStaffs());
                     System.out.println("successfully listed all Staff");
-                     return;
+                    return;
                 }
 
                 case 10 -> {
@@ -118,19 +121,8 @@ public class AdminView {
 
         } while (c != 5);
 
-    }
-
-    public static void main(String[] args) {
-
-        StaffDB adminDB = new StaffDB();
-
-        Staff myA = (Staff) adminDB.retrieveAll().get(0);
-        System.out.println(myA);
 
 
-
-        admindeatails();
-        admindeatails2();
 
     }
 
@@ -217,21 +209,15 @@ public class AdminView {
         adminId = scanner.nextInt();
         return adminController.BandAdmin(adminId);
     }
-    public static ArrayList<Admin> ListAllAdmins(){
-        return adminController.listAllAdmins();
+
+
+    private static Employee FindStaffByID(){
+        int staffId=0;
+        System.out.println("enter the id of the admin you want to find");
+        staffId = scanner.nextInt();
+        return adminController.FindStaffByID(staffId);
+
     }
-
-    public static ArrayList<Staff> listAllStaffs(){
-        return adminController.listAllStaffs();
-    }
-
-   private static Employee FindStaffByID(){
-       int staffId=0;
-       System.out.println("enter the id of the admin you want to find");
-       staffId = scanner.nextInt();
-       return adminController.FindStaffByID(staffId);
-
-   }
     private static Employee FindAdminByID(){
         int adminId=0;
         System.out.println("enter the id of the admin you want to find");
@@ -240,5 +226,6 @@ public class AdminView {
 
     }
 }
+
 
 
