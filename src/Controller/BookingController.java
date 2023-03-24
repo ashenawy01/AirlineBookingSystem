@@ -49,42 +49,9 @@ public class BookingController {
             }
         }
         return results;
-//            for (int i = 0; i < flights.size(); i++) {
-//                Flight obj = flights.get(i);
-//                if (origin == flights.get(i).getOrigin() && destination == flights.get(i).getDestination()
-//                        && flightTime == flights.get(i).getFlightTime()
-//                        && duration == flights.get(i).getDuration()) {
-//
-//                    Addtolist.add(obj);
-//
-//                } else continue;
-//
-//            }
-//            if (Addtolist.isEmpty()) {
-//                for (int i = 0; i < flights.size(); i++) {
-//                    Flight obj = flights.get(i);
-//                    if (flightTime == flights.get(i).getFlightTime()
-//                            || duration == flights.get(i).getDuration()) {
-//
-//                        Addtolist.add(obj);
-//
-//                    } else continue;
-//
-//                }
-//            }
-//
-//
-//            if (!Addtolist.isEmpty()) {
-//                System.out.println("All available flights");
-//                for (int i = 0; i < Addtolist.size(); i++) {
-//                    System.out.println(Addtolist.get(i));
-//                }
-//                return Addtolist;
-//            } else {
-//                System.out.println("Sorry...there is no available Flights ");
-//                return null;
-//            }
     }
+
+
     public Flight FlightDetails(int flightID) {
         for (int i = 0; i < flights.size(); i++) {
             if (flightID == flights.get(i).getFlightID()) {
