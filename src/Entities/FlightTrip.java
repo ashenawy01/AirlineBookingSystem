@@ -1,20 +1,21 @@
 package Entities;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 public class FlightTrip implements Comparable<FlightTrip>, Comparator<FlightTrip> {
-    private ArrayList<Flight> flights;
+    private LinkedList<Flight> flights;
 
     public FlightTrip() {
-        this.flights = new ArrayList<>();
+        this.flights = new LinkedList<>();
     }
 
-    public ArrayList<Flight> getFlights() {
+    public LinkedList<Flight> getFlights() {
         return flights;
     }
 
-    public void setFlights(ArrayList<Flight> flights) {
+    public void setFlights(LinkedList<Flight> flights) {
         this.flights = flights;
     }
 
