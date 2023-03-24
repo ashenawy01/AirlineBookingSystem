@@ -32,15 +32,12 @@ public class StaffView {
         do {
             System.out.println(
                     "1  - GenerateFlightReport\n" +
-                            "2  - GenerateBookingReport\n" +
-                            "3  - updateManagedFlights \n" +
-                            "4  - Show All Flights\n" +
-                            "5  - Find Flight BY ID\n" +
-                            "6  - Find flight by origin & date time\n" +
-                            "7  - update flight time\n" +
-                            "8  - Delete Flight\n" +
-                            "9  - Add Flight\n" +
-                            "10 - exit");
+                    "2  - GenerateBookingReport\n" +
+                    "3  - Find Flight BY ID\n" +
+                    "4  - update flight time\n" +
+                    "5  - Delete Flight\n" +
+                    "6  - Add Flight\n" +
+                    "7 - exit");
             c = scanner.nextInt();
             scanner.nextLine();
             switch (c){
