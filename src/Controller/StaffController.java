@@ -8,7 +8,7 @@ public class StaffController {
    private static final StaffDB staffdb = new StaffDB();
    private static final FlightDB flightdb=new FlightDB();
    private static final BookingDB bookingDB=new BookingDB();
-   public static Staff currentStaff = new Staff();
+   private static Staff currentStaff = new Staff();
 
    public static Staff signIn(String Email, String pass) {
       Staff staff=(Staff) staffdb.findAccount(Email,pass);
