@@ -14,7 +14,7 @@ public class BookingController {
     private static BookingDB bookingDB = new BookingDB();
     private static ClientDB clientDB = new ClientDB();
 
-    public TreeSet<FlightTrip> findBooking(String origin, String destination, LocalDateTime flightTime){
+    public static TreeSet<FlightTrip> findBooking(String origin, String destination, LocalDateTime flightTime){
         TreeSet<FlightTrip> results = new TreeSet<>();
         ArrayList<Object> allFlights = flightDB.retrieveAll();
         int maxFlights = 3;
