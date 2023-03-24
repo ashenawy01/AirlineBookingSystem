@@ -43,16 +43,16 @@ public class StaffController {
 
       Books.forEach(book -> {
 
-         Booking MyBook = (Booking) book;
+         Booking myBook = (Booking) book;
          double totalPrice = 0.0;
-         for (Flight flight : MyBook.getFlights()) {
+         for (Flight flight : myBook.getFlights()) {
             totalPrice += flight.getTicketPrice();
          }
-         stringBuilder.append(" Booking ID { "+MyBook.getBookingID() +
-                 " } Client ID { " + MyBook.getClintID() + " }"+
-                 " Date { " + MyBook.getDate() + " }"+
-                 " Travelers " + MyBook.getTravelers() + "\n" +
-                 " AllFlights { " + MyBook.getFlights() + " } " +"\n"+
+         stringBuilder.append(" Booking ID { "+myBook.getBookingID() +
+                 " } Client ID { " + myBook.getClintID() + " }"+
+                 " Date { " + myBook.getDate() + " }"+
+                 " Travelers " + myBook.getTravelers() + "\n" +
+                 " AllFlights { " + myBook.getFlights() + " } " +"\n"+
                  " Total Fare { " + totalPrice + " $ } " +
                  "============================================\n\n");
       });

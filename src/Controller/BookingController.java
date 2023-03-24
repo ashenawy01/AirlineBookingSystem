@@ -22,18 +22,20 @@ public class BookingController {
         allFlights.forEach(f -> {
             FlightTrip flightTrip = new FlightTrip();
             Flight flight = (Flight) f;
-            if (flight.getOrigin().equalsIgnoreCase(origin)) {
+            if (flight.getOrigin().equalsIgnoreCase(origin) && flight.getFlightTime().isAfter(flightTime)) {
                 flightTrip.add(flight);
 
                 if (flight.getDestination().equalsIgnoreCase(destination)) {
                     results.add(flightTrip);
                 } else {
                     String nextOrigin = flight.getDestination();
+                    LocalDateTime nextFlightTime = flight.getFlightTime().plusHours(1);
                     Flight nextFlight = new Flight();
                     int flightsCounter = 1;
                     for (int i = 0; i < allFlights.size(); i++) {
                         nextFlight = (Flight) allFlights.get(i);
-                        if (nextFlight.getOrigin().equalsIgnoreCase(nextOrigin)) {
+                        if (nextFlight.getOrigin().equalsIgnoreCase(nextOrigin)
+                                && nextFlight.getFlightTime().isAfter(nextFlightTime)) {
                             flightTrip.add(nextFlight);
                             if (nextFlight.getDestination().equalsIgnoreCase(destination)) {
                                 results.add(flightTrip);
@@ -133,4 +135,24 @@ public class BookingController {
         return bookingDB.deleteBooking(id);
     }
 
+    static StringBuilder displayBooking (int bookingID) {
+        Booking myBook = (Booking) findBookingById(bookingID);
+        StringBuilder stringBuilder = new StringBuilder();
+        if (myBook == null) {
+            System.out.println("Error 404 - Booking not found");
+        } else {
+            double totalPrice = 0.0;
+            for (Flight flight : myBook.getFlights()) {
+                totalPrice += flight.getTicketPrice();
+            }
+            stringBuilder.append(" Booking ID { "+myBook.getBookingID() +
+                    " } Client ID { " + myBook.getClintID() + " }"+
+                    " Date { " + myBook.getDate() + " }"+
+                    " Travelers " + myBook.getTravelers() + "\n" +
+                    " AllFlights { " + myBook.getFlights() + " } " +"\n"+
+                    " Total Fare { " + totalPrice + " $ } " +
+                    "============================================\n\n");
+        }
+        return stringBuilder;
+    }
 }
