@@ -7,13 +7,12 @@ import java.util.regex.Pattern;
 
 public class ClientController {
     //private Flight flight=new Flight();
-    private ClientDB clientDB=new ClientDB();
-    private Client currentClient =new Client();
-    private BookingDB bookingDB=new BookingDB();
-    private Booking booking=new Booking();
+    private static final ClientDB clientDB=new ClientDB();
+    private static Client currentClient =new Client();
+    private static final BookingDB bookingDB=new BookingDB();
 
 
-    public Client signUp(String firstName, String lastName, String email, String password){
+    public static Client signUp(String firstName, String lastName, String email, String password){
         if(firstName.length()<2){ //Validation check for first name by checking length if it is size less than 2
             System.out.println("Error! Please, Enter a valid name");
             return null; // function ends here if length <2
@@ -53,13 +52,13 @@ public class ClientController {
     }
 
 
-    public Client signIn(String Email, String pass) {
+    public static Client signIn(String Email, String pass) {
         //first...the email and the password should be not null
         Client client = (Client) clientDB.findAccount(Email,pass);
 
         if(client != null){ //In case admin is not null, system will welcome admin and print out their employees.
             System.out.println("Welcome " + client.getFirstName());
-            this.currentClient = client;
+            currentClient = client;
             return client; // function ends here with client returned
         }
 
@@ -70,7 +69,7 @@ public class ClientController {
         }
     }
 
-    public boolean updatePassword(String oldPass,String newPass){
+    public static boolean updatePassword(String oldPass,String newPass){
 
         if (currentClient == null) {
             System.out.println("Error 403 - Access denied,Try to login again");
@@ -92,7 +91,7 @@ public class ClientController {
         }
     }
 
-    public ArrayList<Booking> listMyBookings(){
+    public static ArrayList<Booking> listMyBookings(){
         ArrayList<Booking> myBookings = new ArrayList<>();
         ArrayList<Object> bookings = bookingDB.retrieveAll();
         Booking booking;
@@ -117,5 +116,5 @@ public class ClientController {
             return false;
         return pat.matcher(email).matches(); //This line uses the matcher() method of the Pattern object to create a Matcher object that can match the input email string against the regular expression pattern. The matches() method of the Matcher object is then used to check whether the input email string matches the pattern or not. If it does, the method returns true, indicating that the email is valid. Otherwise, it returns false, indicating that the email is not valid.
     }
-    }
+}
 
