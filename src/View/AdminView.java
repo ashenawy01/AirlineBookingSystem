@@ -213,7 +213,7 @@ public class AdminView {
         return adminController.BandAdmin(adminId);
     }
     public static ArrayList<Admin> ListAllAdmins(){
-        return adminController.ListAllAdmins();
+        return adminController.listAllAdmins();
     }
 }
 
