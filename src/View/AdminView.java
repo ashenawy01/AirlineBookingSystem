@@ -44,15 +44,15 @@ public class AdminView {
 
         int c = 0;
         do {
-            System.out.println("1 - Create a new Staff Account" +
-                    "\n2 - Create a new Admin account\n" +
-                    "3 - delete Account\n" +
-                    "4 - find Staff by ID\n" +
-                    "5 - Find admin by ID\n"+
-                    "6 - Update Password\n"+
-                    "7 - Ban Admin\n"+
-                    "8 - List All Admins\n"+
-                    "9 - List all Staff\n"+
+            System.out.println("1 - Create a new Staff Account\n" +
+                    "2 - Create a new Admin account\n"            +
+                    "3 - delete Account\n"                        +
+                    "4 - find Staff by ID\n"                      +
+                    "5 - Find admin by ID\n"                      +
+                    "6 - Update Password\n"                       +
+                    "7 - Ban Admin\n"                             +
+                    "8 - List All Admins\n"                       +
+                    "9 - List all Staff\n"                        +
                     "10 - exit");
             c = scanner.nextInt();
             scanner.nextLine();
