@@ -3,8 +3,10 @@ package Controller;
 import Entities.Airline;
 import Entities.Flight;
 import Entities.Seat;
+import Entities.Staff;
 import Model.ClientDB;
 import Model.FlightDB;
+import Model.StaffDB;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.TreeSet;
 
 public class FlightController {
     private static FlightDB flightDB=new FlightDB();
-    private static ClientDB clientDB = new ClientDB();
+    private static StaffDB staffDB = new StaffDB();
 
     public static ArrayList<Flight> getAllFlights () {
         ArrayList<Flight> flightArrayList = new ArrayList<>();
@@ -45,12 +47,15 @@ public class FlightController {
 
     public static Flight UpdateFlightTime(int flightID, LocalDateTime newTime){
         Flight flight = findFlightByID(flightID);
+
         if (flight == null) {
             System.out.println("the id is not found....please try again ");
             return null;
         }
         flight.setFlightTime(newTime);
         flightDB.updateFlight(flightID, flight);
+        // to add the updated flight to the current stuff that updated it
+        StaffController.updateManagedFlights(flight);
         return flight;
     }
 

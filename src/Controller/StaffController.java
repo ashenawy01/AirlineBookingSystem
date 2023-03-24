@@ -8,7 +8,7 @@ public class StaffController {
    private static final StaffDB staffdb = new StaffDB();
    private static final FlightDB flightdb=new FlightDB();
    private static final BookingDB bookingDB=new BookingDB();
-   private static Staff currentStaff = new Staff();
+   public static Staff currentStaff = new Staff();
 
    public static Staff signIn(String Email, String pass) {
       Staff staff=(Staff) staffdb.findAccount(Email,pass);
@@ -50,6 +50,32 @@ public class StaffController {
                  "============================================\n\n");
       });
       return stringBuilder;
+   }
+   
+   public static boolean updateManagedFlights (Flight flight) {
+      currentStaff.addFlight(flight);
+      return staffdb.updateStaff(currentStaff.getID(), currentStaff);
+   }
+   public static boolean updatePassword(String oldPass,String newPass){
+
+      if (currentStaff == null) {
+         System.out.println("Error 403 - Access denied,Try to login again");
+         return false;
+      } else {
+
+         if (newPass != currentStaff.getPassword() && oldPass== currentStaff.getPassword()){
+            currentStaff.setPassword(newPass);
+
+            return staffdb.updateStaff(currentStaff.getID(), currentStaff); // client is updated with new password
+         }
+
+         else
+         {
+            System.out.println("the old password or the new password is wrong, please try again ");
+            return false; // function ends here with return false
+         }
+
+      }
    }
 
 }
