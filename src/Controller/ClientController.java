@@ -8,12 +8,12 @@ import java.util.regex.Pattern;
 public class ClientController {
 
     private ClientDB clientDB=new ClientDB();
-    private Client client=new Client();
+    private Client currentClient =new Client();
     private BookingDB bookingDB=new BookingDB();
     private Booking booking=new Booking();
 
 
-    public Client signUp(String firstName, String lastName, String email, String password, String jobTitle, Department department){
+    public Client signUp(String firstName, String lastName, String email, String password){
         if(firstName.length()<2){ //Validation check for first name by checking length if it is size less than 2
             System.out.println("Error! Please, Enter a valid name");
             return null; // function ends here if length <2
@@ -40,26 +40,26 @@ public class ClientController {
         }
         else
         {
-                Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department);
-                if(clientDB.addObject(staff,true)){ // To check object is added to database successfully
+                Client newClient = new Client(firstName, lastName, email, password);
+                if(clientDB.addObject(newClient,true)){ // To check object is added to database successfully
                     System.out.println("added successfully");
-                    return client; //function ends here with client returned
+                    return newClient; //function ends here with client returned
                 }
 
                 else
                     System.out.println("Error with database connection, please try again");
-            }
-           return null; // function ends here with null due to failure with database connection
         }
+           return null; // function ends here with null due to failure with database connection
+    }
 
 
-    public Client signin(String Email, String pass) {
+    public Client signIn(String Email, String pass) {
         //first...the email and the password should be not null
-        Client client=(Client) clientDB.findAccount(Email,pass);
+        Client client = (Client) clientDB.findAccount(Email,pass);
 
         if(client != null){ //In case admin is not null, system will welcome admin and print out their employees.
             System.out.println("Welcome " + client.getFirstName());
-            this.client = client;
+            this.currentClient = client;
             return client; // function ends here with client returned
         }
 
@@ -70,39 +70,39 @@ public class ClientController {
         }
     }
 
-    public boolean updatePassword(int clientID,String oldPass,String newPass){
-        if(clientDB.findAccount(clientID)!=null){
-            client=(Client)clientDB.findAccount(clientID);
+    public boolean updatePassword(String oldPass,String newPass){
 
-         if (newPass!=client.getPassword()&&oldPass==client.getPassword()){
-             client.setPassword(newPass);
-             clientDB.updateClient(clientID,client); // client is updated with new password
-             return true; // function ends here with return true
-         }
+        if (currentClient == null) {
+            System.out.println("Error 403 - Access denied,Try to login again");
+            return false;
+        } else {
 
-         else
-         {
-             System.out.println("the old password or the new password is wrong, please try again ");
-             return false; // function ends here with return false
-         }
+            if (newPass != currentClient.getPassword() && oldPass== currentClient.getPassword()){
+                currentClient.setPassword(newPass);
 
-        }
-        else
-        {
-            System.out.println("please enter a vaild ID ");
-            return false; // function ends here with return false
+                return clientDB.updateClient(currentClient.getId(), currentClient); // client is updated with new password
+            }
+
+            else
+            {
+                System.out.println("the old password or the new password is wrong, please try again ");
+                return false; // function ends here with return false
+            }
+
         }
     }
 
-
-    public ArrayList<Booking> listMyBookings(int clientID){
-        ArrayList<Booking> Book=new ArrayList<Booking>();
-        ArrayList<Object>book=bookingDB.retrieveAll();
-
-        for(int i=0; i<book.size()-1; i++){ // a for loop to store each "book" into "Book"
-            Book.add((Booking) book.get(i));
+    public ArrayList<Booking> listMyBookings(){
+        ArrayList<Booking> myBookings = new ArrayList<>();
+        ArrayList<Object> bookings = bookingDB.retrieveAll();
+        Booking booking;
+        for(int i=0; i< bookings.size()-1; i++){ // a for loop to store each "book" into "Book"
+            booking = (Booking) bookings.get(i);
+            if (booking.getClintID() == currentClient.getId()) {
+                myBookings.add(booking);
+            }
         }
-        return Book; // function ends here with Book returned
+        return myBookings; // function ends here with Book returned
     }
 
     public static boolean isValid(String email)
