@@ -1,5 +1,12 @@
 package Testing;
 
+import Entities.Booking;
+import Entities.Flight;
+import Model.BookingDB;
+
+import java.time.LocalDateTime;
+import java.util.TreeSet;
+
 public class DatabaseTesting {
     public static void main(String[] args) {
 
@@ -146,5 +153,15 @@ public class DatabaseTesting {
 //            Admin admin1 = (Admin) o;
 //            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
 //        }
+
+//          TreeSet<Flight> treeSet2 = new TreeSet<>();
+//          Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, treeSet2 );
+//          BookingDB bookingDB = new BookingDB();
+
+
+//          System.out.println(bookingDB.addObject(bookingM,true));
+//          System.out.println(bookingDB.retrieveAll());
+
+
     }
 }
