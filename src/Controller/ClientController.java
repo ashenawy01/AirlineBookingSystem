@@ -2,13 +2,7 @@ package Controller;
 import Entities.*;
 import Model.BookingDB;
 import Model.ClientDB;
-import Model.FlightDB;
-
-import java.sql.Time;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 public class ClientController {
@@ -20,10 +14,10 @@ public class ClientController {
 
 
     public Client signUp(String firstName, String lastName, String email, String password, String jobTitle, Department department){
-        if(firstName.isEmpty()|| firstName.length()<2){ // In case firstname is not null or less than 2 characters
+        if(firstName.length()<2){ // In case firstname is not null or less than 2 characters
             System.out.println("Error! Please, Enter a valid name");
             return null;
-        }else if(lastName.isEmpty()|| lastName.length()<2){ // In case lastName is not null or less than 2 characters
+        }else if( lastName.length()<2){ // In case lastName is not null or less than 2 characters
             System.out.println("Error! Please, Enter a valid name");
             return null;
         }else if (email==null){ // In case email is not null
@@ -33,7 +27,7 @@ public class ClientController {
             System.out.println("Error! Please, Enter a valid Email ");
             return null;
         }
-        else if (password.isEmpty() || password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
+        else if ( password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
             return null;
         } else {
@@ -62,6 +56,7 @@ public class ClientController {
 
     public boolean updatePassword(int clientID,String oldPass,String newPass){
         if(clientDB.findAccount(clientID)!=null){
+            client=(Client)clientDB.findAccount(clientID);
          if (newPass!=client.getPassword()&&oldPass==client.getPassword()){
              client.setPassword(newPass);
              return true;
@@ -69,18 +64,15 @@ public class ClientController {
         } else {System.out.println("please enter a vaild ID "); return false;}
     }
 
-    public Flight bookFlight(int clientID,int travelersNum, Flight...flight){
-        if(clientDB.findAccount(clientID)!=null){
-            if (travelersNum<=12){
-                  int bookID= bookingDB.generateID();
-                  LocalDateTime Date=java.time.LocalDateTime.now(); //any random vallue
 
-
-                }
-            }
+    public ArrayList<Booking> listMyBookings(int clientID){
+        ArrayList<Booking> Book=new ArrayList<Booking>();
+        ArrayList<Object>book=bookingDB.retrieveAll();
+        for(int i=0; i<book.size()-1; i++){
+            Book.add((Booking) book.get(i));
         }
+        return Book;
     }
-
 
     public static boolean isValid(String email)
     {
