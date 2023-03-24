@@ -25,121 +25,129 @@ public class ClientView {
         System.out.println("Sign IN or Sign Up");
         System.out.println();
 
+        currentClient = clientController.signIn("c", "d");
+        System.out.println(currentClient);
 
-        int b = 0;
-        System.out.println("1 - SignUp\n" +
-                "2 - Sign In\n");
-        b = scanner.nextInt();
-        scanner.nextLine();
-        switch (b) {
-            case 1 -> {
-                do {
-                    String firstName;
-                    String lastName;
-                    String email;
-                    String password;
-                    System.out.println("Enter the First Name");
-                    firstName = scanner.nextLine();
-                    System.out.println("Enter Last Name");
-                    lastName = scanner.nextLine();
-                    System.out.println("Enter Email");
-                    email = scanner.nextLine();
-                    System.out.println("Enter Password");
-                    password = scanner.nextLine();
-                    currentClient = ClientController.signUp(firstName, lastName, email, password);
+        findBookingById();
+        //updatePassword();
 
-                    String email3;
-                    String pass;
-                    System.out.println("Enter your Email : ");
-                    email3 = scanner.nextLine();
-                    System.out.println("Enter your Password");
-                    pass = scanner.nextLine();
+        // test value from { Cairo } to { Ankara } date {2023-03-25}
+        //listBookings();
 
-                    currentClient = ClientController.signIn(email3, pass);
-                    break;
-                } while (b != 5);
-            }
-            case 2 -> {
-                String email1;
-                String pass;
-                System.out.println("Enter your Email : ");
-                email1 = scanner.nextLine();
-                System.out.println("Enter your Password");
-                pass = scanner.nextLine();
-
-                currentClient = ClientController.signIn(email1, pass);
-                break;
-            }
-        }
-
-        while (currentClient == null) ;
-
-
-        int c = 0;
-        do {
-            System.out.println("1 - Update your password\n" +
-                    "2 - List all of my Bookings\n" +
-                    "3 - Find Booking\n" +
-                    "4 - Create Booking\n" +
-                    "5 - Find Booking by ID\n" +
-                    "6 - Update booking date\n"+
-                    "7 - Update booking Traveller\n" +
-                    "8 - Add flight to Booking\n" +
-                    "9 - Remove flight from booking\n" +
-                    "10 - delete booking\n" +
-                    "11 - exit");
-            c = scanner.nextInt();
-            scanner.nextLine();
-            switch (c) {
-                case 1 -> {
-                    if (updatePassword() == true) {
-                        System.out.println("Password Updated successfully");
-                        return;
-                    } else {
-                        System.out.println("Error try again");
-                        return;
-                    }
-                }
-                case 2 -> {
-
-                    System.out.println(clientController.listMyBookings());
-                    return;
-                }
-                case 3 -> {
-                    listBookings();
-                    return;
-                }
-
-                case 5 -> {
-                    findBookingById();
-                    return;
-                }
-
-                case 6 -> {
-                    updateBookingDate();
-                    return;
-                }
-                case 7 -> {
-                    updateBookingTraveler();
-                    return;
-                }
-
-                case 9 -> {
-                    removeFlightFromBooking();
-                    return;
-                }
-                case 10 -> {
-                    if (deleteBooking() != false) {
-                        System.out.println("Booking is deleted successfully!");
-                    } else {
-                        System.out.println("Error! - please try again");
-                    }
-
-                }
-
-            }
-        }
-        while (c != 5);
+//        int b = 0;
+//        System.out.println("1 - SignUp\n" +
+//                "2 - Sign In\n");
+//        b = scanner.nextInt();
+//        scanner.nextLine();
+//        switch (b) {
+//            case 1 -> {
+//                do {
+//                    String firstName;
+//                    String lastName;
+//                    String email;
+//                    String password;
+//                    System.out.println("Enter the First Name");
+//                    firstName = scanner.nextLine();
+//                    System.out.println("Enter Last Name");
+//                    lastName = scanner.nextLine();
+//                    System.out.println("Enter Email");
+//                    email = scanner.nextLine();
+//                    System.out.println("Enter Password");
+//                    password = scanner.nextLine();
+//                    currentClient = ClientController.signUp(firstName, lastName, email, password);
+//
+//                    String email3;
+//                    String pass;
+//                    System.out.println("Enter your Email : ");
+//                    email3 = scanner.nextLine();
+//                    System.out.println("Enter your Password");
+//                    pass = scanner.nextLine();
+//
+//                    currentClient = ClientController.signIn(email3, pass);
+//                    break;
+//                } while (b != 5);
+//            }
+//            case 2 -> {
+//                String email1;
+//                String pass;
+//                System.out.println("Enter your Email : ");
+//                email1 = scanner.nextLine();
+//                System.out.println("Enter your Password");
+//                pass = scanner.nextLine();
+//
+//                currentClient = ClientController.signIn(email1, pass);
+//                break;
+//            }
+//        }
+//
+//        while (currentClient == null) ;
+//
+//
+//        int c = 0;
+//        do {
+//            System.out.println("1 - Update your password\n" +
+//                    "2 - List all of my Bookings\n" +
+//                    "3 - Find Booking\n" +
+//                    "4 - Create Booking\n" +
+//                    "5 - Find Booking by ID\n" +
+//                    "6 - Update booking date\n"+
+//                    "7 - Update booking Traveller\n" +
+//                    "8 - Add flight to Booking\n" +
+//                    "9 - Remove flight from booking\n" +
+//                    "10 - delete booking\n" +
+//                    "11 - exit");
+//            c = scanner.nextInt();
+//            scanner.nextLine();
+//            switch (c) {
+//                case 1 -> {
+//                    if (updatePassword() == true) {
+//                        System.out.println("Password Updated successfully");
+//                        return;
+//                    } else {
+//                        System.out.println("Error try again");
+//                        return;
+//                    }
+//                }
+//                case 2 -> {
+//
+//                    System.out.println(clientController.listMyBookings());
+//                    return;
+//                }
+//                case 3 -> {
+//                    listBookings();
+//                    return;
+//                }
+//
+//                case 5 -> {
+//                    findBookingById();
+//                    return;
+//                }
+//
+//                case 6 -> {
+//                    updateBookingDate();
+//                    return;
+//                }
+//                case 7 -> {
+//                    updateBookingTraveler();
+//                    return;
+//                }
+//
+//                case 9 -> {
+//                    removeFlightFromBooking();
+//                    return;
+//                }
+//                case 10 -> {
+//                    if (deleteBooking() != false) {
+//                        System.out.println("Booking is deleted successfully!");
+//                    } else {
+//                        System.out.println("Error! - please try again");
+//                    }
+//
+//                }
+//
+//            }
+//        }
+//        while (c != 5);
     }
 
     private static boolean updatePassword() {
@@ -171,15 +179,14 @@ public class ClientView {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(dateString, formatter);
         LocalDateTime localDateTime = localDate.atStartOfDay();
-
-        LinkedList<FlightTrip> flightTrips = bookingController.findBooking(origin, destination, localDateTime);
+        LinkedList<FlightTrip> flightTrips = bookingController.findBooking(origin, destination, localDate);
 
         System.out.println("Available bookings");
         System.out.println("============================================================");
         for (int i = 0; i < flightTrips.size(); i++) {
             System.out.println("Booking #No. " + i);
             LinkedList<Flight> flights = flightTrips.get(i).getFlights();
-            for (int j = 0; j < flights.size(); i++) {
+            for (int j = 0; j < flights.size(); j++) {
                 Flight myFlight = flights.get(j);
                 System.out.print("Flight : {");
                 System.out.println(myFlight.getFlightID() + " - " +
@@ -213,8 +220,9 @@ public class ClientView {
     private static Booking findBookingById() {
         int bookingID;
         System.out.println("enter the Id of the booking");
-       bookingID= scanner.nextInt();
-       return bookingController.findBookingById(bookingID);
+        bookingID= scanner.nextInt();
+        scanner.nextLine();
+        return bookingController.findBookingById(bookingID);
     }
 
     private static Booking updateBookingDate(){

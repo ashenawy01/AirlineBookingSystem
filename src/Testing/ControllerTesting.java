@@ -5,6 +5,7 @@ import Entities.*;
 import Model.BookingDB;
 import Model.FlightDB;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -13,9 +14,12 @@ import java.util.LinkedList;
 
 public class ControllerTesting {
     static BookingController bookingController = new BookingController();
+    static FlightDB flightDB = new FlightDB();
 
     public static void main(String[] args) {
 
+//        BookingDB bookingDB = new BookingDB();
+//        bookingDB.resetDatabase();
 //        LinkedList<Seat> seats = new LinkedList<>();
 //        seats.add(new Seat("A1", ClassType.Economy));
 //        seats.add(new Seat("A2", ClassType.FirstClass));
@@ -27,11 +31,11 @@ public class ControllerTesting {
 //        newSeats.add(new Seat("A3", ClassType.Business));
 //
 //        Flight flight1  = new Flight("Cairo", "Istanbul",
-//                LocalDateTime.of(2023, 3, 23, 10, 30),
+//                LocalDateTime.of(2023, 3, 25, 10, 30),
 //                3.5f, 2552,  Airline.American_Airlines,  seats);
 //
 //        Flight flight2  = new Flight("Istanbul", "Ankara",
-//                LocalDateTime.of(2023, 3, 24, 2, 30),
+//                LocalDateTime.of(2023, 3, 25, 2, 30),
 //                3.5f, 2552,  Airline.Egypt_Air,  newSeats);
 //
 //        Flight flight3  = new Flight("Ankara", "Antalya",
@@ -43,27 +47,27 @@ public class ControllerTesting {
 //        flight2.bookSeat("A2");
 //
 //
+//        flightDB.resetDatabase();
 //        flightDB.addObject(flight1, true);
 //        flightDB.addObject(flight2, true);
 //        flightDB.addObject(flight3, true);
 //
-        FlightDB flightDB = new FlightDB();
-        ArrayList<Object> flights = flightDB.retrieveAll();
-
-        StringBuilder stringBuilder = new StringBuilder();
-        flights.forEach(fly -> {
-            Flight myFlight = (Flight) fly;
-            stringBuilder.append(myFlight.getFlightID() +
-                    " - From { " + myFlight.getOrigin() + " }"+
-                    " To { " + myFlight.getDestination() + " }"+
-                    " on { " + myFlight.getFlightTime() + " } " +
-                    " in " + myFlight.getDuration() + " h\n" +
-                    "Seats : " + myFlight.getSeats() + "\n" +
-                    "============================================\n");
-        });
-        System.out.println(stringBuilder);
-
-//        LinkedList<FlightTrip> results = bookingController.findBooking("Cairo", "Ankara", LocalDateTime.of(2023, 3, 23, 10, 30));
+//        ArrayList<Object> flights = flightDB.retrieveAll();
+//
+//        StringBuilder stringBuilder = new StringBuilder();
+//        flights.forEach(fly -> {
+//            Flight myFlight = (Flight) fly;
+//            stringBuilder.append(myFlight.getFlightID() +
+//                    " - From { " + myFlight.getOrigin() + " }"+
+//                    " To { " + myFlight.getDestination() + " }"+
+//                    " on { " + myFlight.getFlightTime() + " } " +
+//                    " in " + myFlight.getDuration() + " h\n" +
+//                    "Seats : " + myFlight.getSeats() + "\n" +
+//                    "============================================\n");
+//        });
+//        System.out.println(stringBuilder);
+//
+//        LinkedList<FlightTrip> results = bookingController.findBooking("Cairo", "Ankara", LocalDate.of(2023, 3, 25));
 //        int i = 0;
 //        results.forEach(flightTrip -> {
 //            System.out.println(flightTrip.getFlights());

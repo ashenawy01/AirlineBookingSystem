@@ -75,14 +75,11 @@ public class ClientController {
             return false;
         } else {
 
-            if (newPass != currentClient.getPassword() && oldPass== currentClient.getPassword()){
+            System.out.println("Updating ....");
+            if (oldPass.equals(currentClient.getPassword())){
                 currentClient.setPassword(newPass);
-
                 return clientDB.updateClient(currentClient.getId(), currentClient); // client is updated with new password
-            }
-
-            else
-            {
+            } else {
                 System.out.println("the old password or the new password is wrong, please try again ");
                 return false; // function ends here with return false
             }

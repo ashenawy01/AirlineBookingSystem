@@ -3,6 +3,8 @@ import Entities.*;
 import Model.BookingDB;
 import Model.ClientDB;
 import Model.FlightDB;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -11,7 +13,7 @@ public class BookingController {
     private static BookingDB bookingDB = new BookingDB();
     private static ClientDB clientDB = new ClientDB();
 
-    public static LinkedList<FlightTrip> findBooking(String origin, String destination, LocalDateTime flightTime){
+    public static LinkedList<FlightTrip> findBooking(String origin, String destination, LocalDate flightDate){
         LinkedList<FlightTrip> results = new LinkedList<>();
         ArrayList<Object> allFlights = flightDB.retrieveAll();
         int maxFlights = 3;
@@ -19,7 +21,7 @@ public class BookingController {
         allFlights.forEach(f -> {
             FlightTrip flightTrip = new FlightTrip();
             Flight flight = (Flight) f;
-            if (flight.getOrigin().equalsIgnoreCase(origin) && flight.getFlightTime().isAfter(flightTime)) {
+            if (flight.getOrigin().equalsIgnoreCase(origin) && flight.getFlightTime().getDayOfYear() == flightDate.getDayOfYear()) {
                 flightTrip.add(flight);
 
                 if (flight.getDestination().equalsIgnoreCase(destination)) {
@@ -32,7 +34,7 @@ public class BookingController {
                     for (int i = 0; i < allFlights.size(); i++) {
                         nextFlight = (Flight) allFlights.get(i);
                         if (nextFlight.getOrigin().equalsIgnoreCase(nextOrigin)
-                                && nextFlight.getFlightTime().isAfter(nextFlightTime)) {
+                                && nextFlight.getFlightTime().getDayOfYear() == nextFlightTime.getDayOfYear()){
                             flightTrip.add(nextFlight);
                             if (nextFlight.getDestination().equalsIgnoreCase(destination)) {
                                 results.add(flightTrip);

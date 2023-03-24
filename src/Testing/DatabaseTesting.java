@@ -2,6 +2,7 @@ package Testing;
 
 import Entities.*;
 import Model.BookingDB;
+import Model.ClientDB;
 import Model.FlightDB;
 
 import java.time.LocalDateTime;
@@ -162,30 +163,35 @@ public class DatabaseTesting {
 //        }
 
 
+//        ClientDB clientDB = new ClientDB();
+//        Client client = new Client("a", "b", "c", "d");
+//        clientDB.addObject(client, true);
+//        System.out.println(clientDB.retrieveAll());
+//
+//        LinkedList<Seat> newerSeats = new LinkedList<>();
+//        newerSeats.add(new Seat("A1", ClassType.Economy));
+//        newerSeats.add(new Seat("A2", ClassType.FirstClass));
+//        newerSeats.add(new Seat("A3", ClassType.Business));
+//        FlightDB flightDB2 = new FlightDB();
+//
+//        Flight flight3 = new Flight("C","c",
+//                LocalDateTime.of(2023, 2, 12, 10, 30),
+//                5.5f,3543, Airline.Emirates, newerSeats);
+//        flightDB2.addObject(flight3, true);
+//        flight3.bookSeat("A3");
+//        FlightDB newflightDB = new FlightDB();
+//        newflightDB.addObject(flight3,true);
+//        Flight mahmoudFlight = (Flight) newflightDB.retrieveAll().get(0);
+//
+//
+//        LinkedList<Flight> LinkedList2 = new LinkedList<>();
+//        LinkedList2.add(mahmoudFlight);
+//        Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, LinkedList2 );
+//        BookingDB bookingDB = new BookingDB();
+//
+//
+//        System.out.println(bookingDB.addObject(bookingM,true));
+//        System.out.println(bookingDB.retrieveAll().get(0));
 
-        LinkedList<Seat> newerSeats = new LinkedList<>();
-        newerSeats.add(new Seat("A1", ClassType.Economy));
-        newerSeats.add(new Seat("A2", ClassType.FirstClass));
-        newerSeats.add(new Seat("A3", ClassType.Business));
-        FlightDB flightDB2 = new FlightDB();
-
-        Flight flight3 = new Flight("C","c",
-                LocalDateTime.of(2023, 2, 12, 10, 30),
-                5.5f,3543, Airline.Emirates, newerSeats);
-        flightDB2.addObject(flight3, true);
-        flight3.bookSeat("A3");
-        FlightDB newflightDB = new FlightDB();
-        newflightDB.addObject(flight3,true);
-        Flight mahmoudFlight = (Flight) newflightDB.retrieveAll().get(0);
-
-
-        LinkedList<Flight> LinkedList2 = new LinkedList<>();
-        LinkedList2.add(mahmoudFlight);
-        Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, LinkedList2 );
-        BookingDB bookingDB = new BookingDB();
-
-
-        System.out.println(bookingDB.addObject(bookingM,true));
-        System.out.println(bookingDB.retrieveAll().get(0));
     }
 }
