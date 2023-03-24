@@ -16,6 +16,8 @@ public class ClientView {
     static BookingController bookingController = new BookingController();
     static Scanner scanner = new Scanner(System.in);
 
+    static Client currentClient = new Client();
+
 
     public static void main(String[] args) {
 
@@ -24,7 +26,6 @@ public class ClientView {
         System.out.println();
 
 
-        Client Client = null;
         int b = 0;
         System.out.println("1 - SignUp\n" +
                 "2 - Sign In\n");
@@ -45,7 +46,7 @@ public class ClientView {
                     email = scanner.nextLine();
                     System.out.println("Enter Password");
                     password = scanner.nextLine();
-                    Client = ClientController.signUp(firstName, lastName, email, password);
+                    currentClient = ClientController.signUp(firstName, lastName, email, password);
 
                     String email3;
                     String pass;
@@ -54,7 +55,7 @@ public class ClientView {
                     System.out.println("Enter your Password");
                     pass = scanner.nextLine();
 
-                    Client = ClientController.signIn(email3, pass);
+                    currentClient = ClientController.signIn(email3, pass);
                     break;
                 } while (b != 5);
             }
@@ -66,12 +67,12 @@ public class ClientView {
                 System.out.println("Enter your Password");
                 pass = scanner.nextLine();
 
-                Client = ClientController.signIn(email1, pass);
+                currentClient = ClientController.signIn(email1, pass);
                 break;
             }
         }
 
-        while (Client == null) ;
+        while (currentClient == null) ;
 
 
         int c = 0;
@@ -177,7 +178,7 @@ public class ClientView {
         System.out.println("============================================================");
         for (int i = 0; i < flightTrips.size(); i++) {
             System.out.println("Booking #No. " + i);
-            ArrayList<Flight> flights = flightTrips.get(i).getFlights();
+            LinkedList<Flight> flights = flightTrips.get(i).getFlights();
             for (int j = 0; j < flights.size(); i++) {
                 Flight myFlight = flights.get(j);
                 System.out.print("Flight : {");
@@ -195,13 +196,17 @@ public class ClientView {
         System.out.println("Enter the booking number : ");
         bookingNum = scanner.nextInt();
 
-        LinkedList<Flight> flights = new LinkedList<>(List.of(flightTrips.get(bookingNum).getFlights()));
-
         scanner.nextLine();
-        if (bookingNum > -1) {
-            bookingController.CreateBooking(1, localDateTime, travelersNum, );
+        if (bookingNum > -1 && bookingNum < flightTrips.size()) {
+            Booking newBooking = bookingController.CreateBooking(currentClient.getId(),  localDateTime, travelersNum, flightTrips.get(bookingNum).getFlights());
+            if (newBooking != null) {
+                System.out.println("You booking is added successfully!");
+            } else {
+                System.out.println("unexpected Error - please, try again");
+            }
+        } else {
+            System.out.println("Invalid input booking number");
         }
-
 
     }
 

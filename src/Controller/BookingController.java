@@ -69,7 +69,7 @@ public class BookingController {
         } else if (flights == null) {
             System.out.println("Error - No flights");
             return null;
-            
+
         } else {
             Booking booking = new Booking(clintID, date, travelers, flights);
             bookingDB.addObject(booking, true);
@@ -152,5 +152,17 @@ public class BookingController {
                     "============================================\n\n");
         }
         return stringBuilder;
+    }
+    public static boolean addBooking (int clientTd, Booking booking) {
+        if (clientDB.findAccount(clientTd) == null) {
+            System.out.println("Error 403 - Access denied try to log in again");
+            return false;
+        }
+        if (booking == null || !(booking instanceof Booking)) {
+            System.out.println("Error - invalid booking");
+            return false;
+        }
+        return bookingDB.addObject(booking ,true);
+
     }
 }
