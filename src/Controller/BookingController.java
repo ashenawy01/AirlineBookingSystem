@@ -135,7 +135,7 @@ public class BookingController {
         return bookingDB.deleteBooking(id);
     }
 
-    static StringBuilder displayBooking (int bookingID) {
+    static public StringBuilder displayBooking (int bookingID) {
         Booking myBook = (Booking) findBookingById(bookingID);
         StringBuilder stringBuilder = new StringBuilder();
         if (myBook == null) {

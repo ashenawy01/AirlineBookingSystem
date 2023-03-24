@@ -256,8 +256,7 @@ public class StaffView {
         String flightTime = scanner.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(flightTime, formatter);
-        LocalDateTime localDateTime = localDate.atStartOfDay();
-        return bookingController.findBooking(origin,destination,localDateTime);
+        return bookingController.findBooking(origin,destination,localDate);
     }
     public static Booking CreateBooking(){
         System.out.println("please enter your ID");
