@@ -34,7 +34,7 @@ public class AdminView {
             System.out.println("Enter your Password");
             pass = scanner.nextLine();
 
-            admin = adminController.signin(email, pass);
+            admin = adminController.signIn(email, pass);
 
         } while (admin == null);
 
