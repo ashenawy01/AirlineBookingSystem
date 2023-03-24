@@ -3,6 +3,7 @@ package View;
 import Controller.AdminController;
 import Entities.Admin;
 import Entities.Department;
+import Entities.Employee;
 import Entities.Staff;
 import Model.AdminDB;
 import Model.StaffDB;
@@ -43,11 +44,13 @@ public class AdminView {
             System.out.println("1 - Create a new Staff Account" +
                     "\n2 - Create a new Admin account\n" +
                     "3 - delete Account\n" +
-                    "4 - find Account by ID\n" +
-                    "5 - Update Password\n"+
-                    "6 - Ban Admin\n"+
-                    "7 - List All Admins\n"+
-                    "8 - exit");
+                    "4 - find Staff by ID\n" +
+                    "5 - Find admin by ID\n"+
+                    "6 - Update Password\n"+
+                    "7 - Ban Admin\n"+
+                    "8 - List All Admins\n"+
+                    "9 - List all Staff\n"+
+                    "10 - exit");
             c = scanner.nextInt();
             scanner.nextLine();
             switch (c) {
@@ -67,39 +70,47 @@ public class AdminView {
                 }
                 case 3 -> {
                     if (deleteAccount() != false) {
-                        System.out.println("Staff account is deleted successfully!");
+                        System.out.println(" account is deleted successfully!");
                     } else {
                         System.out.println("Error! - please try again");
                     }
                 }
                 case 4-> {
-                    if (findAccount() != false) {
-                        System.out.println("Staff account is founded successfully!");
-                    } else {
-                        System.out.println("Error! - please try again");
+                    FindStaffByID();
+                    return;
+
                     }
-                }
-                case 5->{
+                    case 5-> {
+                        FindAdminByID();
+                        return;
+                    }
+
+                case 6->{
                     if ( ResetPassword() != false) {
                         System.out.println("The Password is rest successfully");
                     } else {
                         System.out.println("Error! - please try again");
                     }
                 }
-                case 6->{
+                case 7->{
                     if (BandAdmin() != false) {
                         System.out.println("The admin is Baned successfully");
                     } else {
                         System.out.println("Error! - please try again");
                     }
                 }
-                case 7->{
-
+                case 8->{
+                    ListAllAdmins();
                     System.out.println("successfully listed all admins");
-
+                    return;
+                }
+                case 9 -> {
+                    listAllStaffs();
+                    System.out.println("successfully listed all Staff");
+                     return;
                 }
 
-                case 8 -> {
+                case 10 -> {
                     System.out.println("Goodbye !!");
                     return;
                 }
@@ -185,12 +196,6 @@ public class AdminView {
         return adminController.DeleteEmployee( empid , isAdmin );
     }
 
-    private static boolean findAccount(){
-        int empid;
-        System.out.println("enter the id of the account you want to Find");
-        empid = scanner.nextInt();
-        return(boolean) adb.findAccount(empid);
-    }
 
     private static boolean ResetPassword(){
         int userId = 0;
@@ -214,6 +219,25 @@ public class AdminView {
     }
     public static ArrayList<Admin> ListAllAdmins(){
         return adminController.listAllAdmins();
+    }
+
+    public static ArrayList<Staff> listAllStaffs(){
+        return adminController.listAllStaffs();
+    }
+
+   private static Employee FindStaffByID(){
+       int staffId=0;
+       System.out.println("enter the id of the admin you want to find");
+       staffId = scanner.nextInt();
+       return adminController.FindStaffByID(staffId);
+
+   }
+    private static Employee FindAdminByID(){
+        int adminId=0;
+        System.out.println("enter the id of the admin you want to find");
+        adminId = scanner.nextInt();
+        return adminController.FindAdminByID(adminId);
+
     }
 }
 
