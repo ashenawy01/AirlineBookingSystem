@@ -41,7 +41,7 @@ public class AdminController {
 
         }
 
-        else if (email==null){ // In case email is null
+        else if (email==null){ // Validation check if email is null
             System.out.println("Error! Please, Enter a valid Email");
             return null; // function ends here if email == null
 
