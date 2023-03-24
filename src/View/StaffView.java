@@ -1,6 +1,5 @@
 package View;
 
-import Controller.AdminController;
 import Controller.FlightController;
 import Controller.StaffController;
 import Entities.*;
@@ -9,10 +8,7 @@ import Model.ClientDB;
 import Model.FlightDB;
 import Model.StaffDB;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.TreeSet;
 
 public class StaffView {
     private static ClientDB clientDB = new ClientDB();
@@ -43,7 +39,7 @@ public class StaffView {
             System.out.println("Enter your Password");
             pass = scanner.nextLine();
 
-            staff = staffController.signin(email, pass);
+            staff = staffController.signIn(email, pass);
 
         } while (staff == null);
 
@@ -64,26 +60,26 @@ public class StaffView {
             scanner.nextLine();
             switch (c) {
                 case 1 -> {
-                    if (Genrateflightreport() != null) {
+                    if (staffController.generateBookingReport() != null) {
                         System.out.println("Report Generated successfully!");
                     } else {
                         System.out.println("Error! - please try again");
                     }
                 }
-                case 2 -> {
-                    if ( generateBookingReport() != null) {
-                        System.out.println("Report Generated successfully!");
-                    } else {
-                        System.out.println("Error! - please try again");
-                    }
-                }
-                case 3 -> {
-                    if ( generateBookingReport() != null) {
-                        System.out.println("Report Generated successfully!");
-                    } else {
-                        System.out.println("Error! - please try again");
-                    }
-                }
+//                case 2 -> {
+//                    if ( () != null) {
+//                        System.out.println("Report Generated successfully!");
+//                    } else {
+//                        System.out.println("Error! - please try again");
+//                    }
+//                }
+//                case 3 -> {
+//                    if ( generateBookingReport() != null) {
+//                        System.out.println("Report Generated successfully!");
+//                    } else {
+//                        System.out.println("Error! - please try again");
+//                    }
+//                }
 
                 case 10 -> {
                     System.out.println("Goodbye !!");
@@ -106,22 +102,6 @@ public class StaffView {
 
     }
 
-    private static StringBuilder Genrateflightreport(){
-
-        return staffController.GenrateFlightReport();
-    }
-
-
-    private static StringBuilder generateBookingReport(){
-
-        return staffController.generateBookingReport();
-    }
-
-
-    private static ArrayList<Flight> getAllFlights() {
-        flightcontroller.
-
-    }
 }
 
 
