@@ -14,8 +14,6 @@ import java.util.TreeSet;
 
 public class FlightController {
     private static FlightDB flightDB=new FlightDB();
-    private static StaffDB staffDB = new StaffDB();
-
     public static ArrayList<Flight> getAllFlights () {
         ArrayList<Flight> flightArrayList = new ArrayList<>();
 
