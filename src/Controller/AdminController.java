@@ -235,7 +235,7 @@ public class AdminController {
     }
 
     //to check email validation
-    public static boolean isValid(String email)
+    public boolean isValid(String email)
     {
         if (email == null) {
             System.out.println("Error - invalid email address");
