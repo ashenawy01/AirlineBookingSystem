@@ -96,7 +96,7 @@ public class BookingDB implements IDatabase {
         return newID;
     }
 
-    Booking findBooking(int bookingID){
+    public Booking findBooking(int bookingID){
     Booking booking;
     for(Object obj : retrieveAll()){
         booking = (Booking) obj;

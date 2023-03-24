@@ -49,6 +49,18 @@ public class Booking implements Serializable {
         this.date = date;
     }
 
+    public void setClintID(int clintID) {
+        this.clintID = clintID;
+    }
+
+    public void setTravelers(int travelers) {
+        this.travelers = travelers;
+    }
+
+    public void setFlights(TreeSet<Flight> flights) {
+        this.flights = flights;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -63,7 +75,7 @@ public class Booking implements Serializable {
         return flights;
     }
 
-    boolean addFlight(Flight flight) { //This function adds flight to database
+    public boolean addFlight(Flight flight) { //This function adds flight to database
         if (flight != null) { // Checks if flight is not empty
             flights.add(flight);
             return true;
@@ -71,8 +83,8 @@ public class Booking implements Serializable {
         return false;
     }
 
-    boolean deleteFlight  (Flight flight) { // This function removes flight from database
-        return flights.remove(flights);
+    public boolean deleteFlight  (int flightNum) { // This function removes flight from database
+        return flights.remove(flightNum);
     }
 
 }

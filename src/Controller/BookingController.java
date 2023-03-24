@@ -77,7 +77,60 @@ public class BookingController {
         }
     }
 
+    public static Booking findBookingById (int bookingID) {
+        return bookingDB.findBooking(bookingID);
+    }
 
+    public static Booking updateBookingDate(int bookingId, LocalDateTime newDate){
+        Booking booking = bookingDB.findBooking(bookingId);
+        if (booking == null) {
+            System.out.println("Error 404 - ID is not found....please try again ");
+            return null;
+        }
+        booking.setDate(newDate);
+        bookingDB.updateBooking(bookingId, booking);
+        return booking;
+    }
 
+    public static Booking updateBookingTraveler(int bookingId, int travelers){
+        Booking booking = bookingDB.findBooking(bookingId);
+        if (booking == null) {
+            System.out.println("Error 404 - ID is not found....please try again ");
+            return null;
+        }
+        booking.setTravelers(travelers);
+        bookingDB.updateBooking(bookingId, booking);
+        return booking;
+    }
+
+    public static Booking addFlightToBooking(int bookingId, Flight newFlight){
+        Booking booking = bookingDB.findBooking(bookingId);
+        if (booking == null) {
+            System.out.println("Error 404 - ID is not found....please try again ");
+            return null;
+        }
+        booking.addFlight(newFlight);
+        bookingDB.updateBooking(bookingId, booking);
+        return booking;
+    }
+
+    public static Booking removeFlightFromBooking(int bookingId, int flightNum){
+        Booking booking = bookingDB.findBooking(bookingId);
+        if (booking == null) {
+            System.out.println("Error 404 - ID is not found....please try again ");
+            return null;
+        }
+        booking.deleteFlight(flightNum);
+        bookingDB.updateBooking(bookingId, booking);
+        return booking;
+    }
+
+    public static boolean deleteBooking(int id) {
+        if (findBookingById(id) == null) {
+            System.out.println("Error 404 - Booking Id is not found");
+            return false;
+        }
+        return bookingDB.deleteBooking(id);
+    }
 
 }
