@@ -40,13 +40,20 @@ public class StaffController {
    public static StringBuilder generateBookingReport(){
       ArrayList<Object> Books = bookingDB.retrieveAll();
       StringBuilder stringBuilder = new StringBuilder();
+
       Books.forEach(book -> {
+
          Booking MyBook = (Booking) book;
+         double totalPrice = 0.0;
+         for (Flight flight : MyBook.getFlights()) {
+            totalPrice += flight.getTicketPrice();
+         }
          stringBuilder.append(" Booking ID { "+MyBook.getBookingID() +
                  " } Client ID { " + MyBook.getClintID() + " }"+
                  " Date { " + MyBook.getDate() + " }"+
-                 " Travelers " + MyBook.getTravelers() + " " +
+                 " Travelers " + MyBook.getTravelers() + "\n" +
                  " AllFlights { " + MyBook.getFlights() + " } " +"\n"+
+                 " Total Fare { " + totalPrice + " $ } " +
                  "============================================\n\n");
       });
       return stringBuilder;
@@ -77,5 +84,6 @@ public class StaffController {
 
       }
    }
+
 
 }
