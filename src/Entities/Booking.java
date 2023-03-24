@@ -85,7 +85,7 @@ public class Booking implements Serializable {
         return false;
     }
 
-    public boolean deleteFlight  (int flightNum) { // This function removes flight from database
+    public Flight deleteFlight  (int flightNum) { // This function removes flight from database
         return flights.remove(flightNum);
     }
 

@@ -8,9 +8,7 @@ import Controller.BookingController;
 import Controller.ClientController;
 import Entities.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 import java.util.LinkedList;
 
 public class ClientView {
@@ -174,6 +172,7 @@ public class ClientView {
         LocalDateTime localDateTime = localDate.atStartOfDay();
 
         LinkedList<FlightTrip> flightTrips = bookingController.findBooking(origin, destination, localDateTime);
+
         System.out.println("Available bookings");
         System.out.println("============================================================");
         for (int i = 0; i < flightTrips.size(); i++) {
@@ -195,9 +194,12 @@ public class ClientView {
         int bookingNum = 0;
         System.out.println("Enter the booking number : ");
         bookingNum = scanner.nextInt();
+
+        LinkedList<Flight> flights = new LinkedList<>(List.of(flightTrips.get(bookingNum).getFlights()));
+
         scanner.nextLine();
         if (bookingNum > -1) {
-            bookingController.createBoking(1, localDateTime, travelersNum, )
+            bookingController.CreateBooking(1, localDateTime, travelersNum, );
         }
 
 
