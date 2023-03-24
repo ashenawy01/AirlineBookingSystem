@@ -85,6 +85,7 @@ public class FlightController {
         } else {
             Flight flight = new Flight(origin, destination, flightTime, duration, ticketPrice, airline, seats);
             flightDB.addObject(flight, true);
+            StaffController.updateManagedFlights(flight);
             return flight;
         }
 
