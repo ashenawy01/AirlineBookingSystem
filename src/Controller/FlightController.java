@@ -10,7 +10,7 @@ import Model.StaffDB;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class FlightController {
     private static FlightDB flightDB=new FlightDB();
@@ -65,7 +65,7 @@ public class FlightController {
         }
         return flightDB.deleteFlight(flightID);
     }
-    public static Flight AddFlight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, TreeSet<Seat> seats){
+    public static Flight AddFlight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, LinkedList<Seat> seats){
 
         if (origin.isEmpty()) {
             System.out.println("Error - Enter a valid origin");

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class Flight implements Serializable, Comparator<Flight>, Comparable<Flight> {
     private static final long serialVersionUID = 1L;
@@ -16,9 +16,9 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
     private float duration;
     private double ticketPrice;
     private Airline airline;
-    private TreeSet<Seat> seats;
+    private LinkedList<Seat> seats;
     public Flight() {}
-    public Flight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, TreeSet<Seat> seats) {
+    public Flight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, LinkedList<Seat> seats) {
         this.origin = origin;
         this.destination = destination;
         this.flightTime = flightTime;
@@ -56,7 +56,7 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
         return airline;
     }
 
-    public TreeSet<Seat> getSeats() {
+    public LinkedList<Seat> getSeats() {
         return seats;
     }
 
@@ -84,7 +84,7 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
         this.airline = airline;
     }
 
-    public void setSeats(TreeSet<Seat> seats) {
+    public void setSeats(LinkedList<Seat> seats) {
         this.seats = seats;
     }
 

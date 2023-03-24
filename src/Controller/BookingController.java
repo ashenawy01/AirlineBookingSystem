@@ -4,18 +4,15 @@ import Model.BookingDB;
 import Model.ClientDB;
 import Model.FlightDB;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.TreeSet;
+import java.util.*;
 
 public class BookingController {
     private static FlightDB flightDB=new FlightDB();
     private static BookingDB bookingDB = new BookingDB();
     private static ClientDB clientDB = new ClientDB();
 
-    public static TreeSet<FlightTrip> findBooking(String origin, String destination, LocalDateTime flightTime){
-        TreeSet<FlightTrip> results = new TreeSet<>();
+    public static LinkedList<FlightTrip> findBooking(String origin, String destination, LocalDateTime flightTime){
+        LinkedList<FlightTrip> results = new LinkedList<>();
         ArrayList<Object> allFlights = flightDB.retrieveAll();
         int maxFlights = 3;
 
@@ -59,7 +56,7 @@ public class BookingController {
     }
 
 
-    public static Booking CreateBooking(int clintID, LocalDateTime date, int travelers, TreeSet<Flight> flights) {
+    public static Booking CreateBooking(int clintID, LocalDateTime date, int travelers, LinkedList<Flight> flights) {
         if (clientDB.findAccount(clintID) == null) {
             System.out.println("Error 403 - Access denied, try to login again");
             return null;
@@ -72,6 +69,7 @@ public class BookingController {
         } else if (flights == null) {
             System.out.println("Error - No flights");
             return null;
+            
         } else {
             Booking booking = new Booking(clintID, date, travelers, flights);
             bookingDB.addObject(booking, true);

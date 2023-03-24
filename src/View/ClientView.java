@@ -7,14 +7,11 @@ import java.time.format.DateTimeFormatter;
 import Controller.BookingController;
 import Controller.ClientController;
 import Entities.*;
-import Model.AdminDB;
-import Model.ClientDB;
-import Model.StaffDB;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class ClientView {
     static ClientController clientController = new ClientController();
@@ -110,7 +107,7 @@ public class ClientView {
                     return;
                 }
                 case 3 -> {
-                    findBooking();
+                    listBookings();
                     return;
                 }
 
@@ -157,10 +154,10 @@ public class ClientView {
 
     }
 
-    private static TreeSet<FlightTrip> findBooking() {
+    private static void listBookings() {
         String origin;
         String destination;
-
+        int travelersNum = 0;
         System.out.println("enter the origin");
         origin = scanner.nextLine();
         System.out.println("enter the destination");
@@ -168,15 +165,42 @@ public class ClientView {
 
         System.out.println("Please enter a date (in the format yyyy-MM-dd):");
         String dateString = scanner.nextLine();
+        System.out.println("Enter the number of travelers : ");
+        travelersNum = scanner.nextInt();
+        scanner.nextLine();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(dateString, formatter);
-
         LocalDateTime localDateTime = localDate.atStartOfDay();
 
-        System.out.println("The date you entered is: " + localDateTime);
+        LinkedList<FlightTrip> flightTrips = bookingController.findBooking(origin, destination, localDateTime);
+        System.out.println("Available bookings");
+        System.out.println("============================================================");
+        for (int i = 0; i < flightTrips.size(); i++) {
+            System.out.println("Booking #No. " + i);
+            ArrayList<Flight> flights = flightTrips.get(i).getFlights();
+            for (int j = 0; j < flights.size(); i++) {
+                Flight myFlight = flights.get(j);
+                System.out.print("Flight : {");
+                System.out.println(myFlight.getFlightID() + " - " +
+                        " - From { " + myFlight.getOrigin() + " }"+
+                        " To { " + myFlight.getDestination() + " }"+
+                        " on { " + myFlight.getFlightTime() + " } " +
+                        " in " + myFlight.getDuration() + " h\n" +
+                        "Seats : " + myFlight.getSeats() + "\n" +
+                        "============================================\n\n");;
 
-        return BookingController.findBooking(origin, destination, localDateTime);
+            }
+        }
+        int bookingNum = 0;
+        System.out.println("Enter the booking number : ");
+        bookingNum = scanner.nextInt();
+        scanner.nextLine();
+        if (bookingNum > -1) {
+            bookingController.createBoking(1, localDateTime, travelersNum, )
+        }
+
+
     }
 
     private static Booking findBookingById() {

@@ -9,19 +9,19 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class ControllerTesting {
     static BookingController bookingController = new BookingController();
 
     public static void main(String[] args) {
 
-//        TreeSet<Seat> seats = new TreeSet<>();
+//        LinkedList<Seat> seats = new LinkedList<>();
 //        seats.add(new Seat("A1", ClassType.Economy));
 //        seats.add(new Seat("A2", ClassType.FirstClass));
 //        seats.add(new Seat("A3", ClassType.Business));
 //
-//        TreeSet<Seat> newSeats = new TreeSet<>();
+//        LinkedList<Seat> newSeats = new LinkedList<>();
 //        newSeats.add(new Seat("A1", ClassType.Economy));
 //        newSeats.add(new Seat("A2", ClassType.FirstClass));
 //        newSeats.add(new Seat("A3", ClassType.Business));
@@ -63,7 +63,7 @@ public class ControllerTesting {
         });
         System.out.println(stringBuilder);
 
-//        TreeSet<FlightTrip> results = bookingController.findBooking("Cairo", "Ankara", LocalDateTime.of(2023, 3, 23, 10, 30));
+//        LinkedList<FlightTrip> results = bookingController.findBooking("Cairo", "Ankara", LocalDateTime.of(2023, 3, 23, 10, 30));
 //        int i = 0;
 //        results.forEach(flightTrip -> {
 //            System.out.println(flightTrip.getFlights());

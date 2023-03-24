@@ -3,7 +3,7 @@ package Entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class Booking implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -12,11 +12,11 @@ public class Booking implements Serializable {
     private int clintID;
     private LocalDateTime date;
     private int  travelers;
-    private TreeSet<Flight> flights = new TreeSet<>();
+    private LinkedList<Flight> flights = new LinkedList<>();
 
     public Booking() {}
 
-    public Booking(int clintID, LocalDateTime date, int travelers, TreeSet<Flight> flights) {
+    public Booking(int clintID, LocalDateTime date, int travelers, LinkedList<Flight> flights) {
         this.clintID = clintID;
         this.date = date;
         this.travelers = travelers;
@@ -59,7 +59,7 @@ public class Booking implements Serializable {
         this.travelers = travelers;
     }
 
-    public void setFlights(TreeSet<Flight> flights) {
+    public void setFlights(LinkedList<Flight> flights) {
         this.flights = flights;
     }
 
@@ -73,7 +73,7 @@ public class Booking implements Serializable {
                 '}';
     }
 
-    public TreeSet<Flight> getFlights() {
+    public LinkedList<Flight> getFlights() {
         return flights;
     }
 

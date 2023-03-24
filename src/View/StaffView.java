@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class StaffView {
 
@@ -148,7 +148,7 @@ public class StaffView {
         System.out.println("please enter the ticket price");
         double ticketPrice = scanner.nextDouble();
         System.out.println("please enter the airline number");
-        TreeSet<Seat> seats;
+        LinkedList<Seat> seats;
         String flightTime = scanner.nextLine();
         // Parse the date string into a LocalDate object
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

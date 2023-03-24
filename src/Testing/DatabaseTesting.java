@@ -5,18 +5,18 @@ import Model.BookingDB;
 import Model.FlightDB;
 
 import java.time.LocalDateTime;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class DatabaseTesting {
     public static void main(String[] args) {
 
 
-//        TreeSet<Seat> seats = new TreeSet<>();
+//        LinkedList<Seat> seats = new LinkedList<>();
 //        seats.add(new Seat("A1", ClassType.Economy));
 //        seats.add(new Seat("A2", ClassType.FirstClass));
 //        seats.add(new Seat("A3", ClassType.Business));
 //
-//        TreeSet<Seat> newSeats = new TreeSet<>();
+//        LinkedList<Seat> newSeats = new LinkedList<>();
 //        newSeats.add(new Seat("A1", ClassType.Economy));
 //        newSeats.add(new Seat("A2", ClassType.FirstClass));
 //        newSeats.add(new Seat("A3", ClassType.Business));
@@ -54,17 +54,17 @@ public class DatabaseTesting {
 //        System.out.println(flightDB.retrieveAll());
 
 
-//        TreeSet<Flight> treeSetB = new TreeSet<>();
+//        LinkedList<Flight> LinkedListB = new LinkedList<>();
 //
-//        treeSetB.add(myFlight);
-//        treeSetB.add(mySecFlight);
+//        LinkedListB.add(myFlight);
+//        LinkedListB.add(mySecFlight);
 //
 //        Booking booking = new Booking(2,
 //                LocalDateTime.of(2023, 3, 23, 10, 30),
 //                5);
 //        Booking booking2 = new Booking(3,
 //                LocalDateTime.of(2022, 3, 23, 10, 30),
-//                5, treeSetB);
+//                5, LinkedListB);
 //
 //        BookingDB bookingDB = new BookingDB();
 //        bookingDB.resetDatabase();
@@ -163,7 +163,7 @@ public class DatabaseTesting {
 
 
 
-        TreeSet<Seat> newerSeats = new TreeSet<>();
+        LinkedList<Seat> newerSeats = new LinkedList<>();
         newerSeats.add(new Seat("A1", ClassType.Economy));
         newerSeats.add(new Seat("A2", ClassType.FirstClass));
         newerSeats.add(new Seat("A3", ClassType.Business));
@@ -179,9 +179,9 @@ public class DatabaseTesting {
         Flight mahmoudFlight = (Flight) newflightDB.retrieveAll().get(0);
 
 
-        TreeSet<Flight> treeSet2 = new TreeSet<>();
-        treeSet2.add(mahmoudFlight);
-        Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, treeSet2 );
+        LinkedList<Flight> LinkedList2 = new LinkedList<>();
+        LinkedList2.add(mahmoudFlight);
+        Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, LinkedList2 );
         BookingDB bookingDB = new BookingDB();
 
 
