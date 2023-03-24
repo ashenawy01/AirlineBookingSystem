@@ -196,12 +196,6 @@ public class AdminView {
         return adminController.DeleteEmployee( empid , isAdmin );
     }
 
-    private static boolean findAccount(){
-        int empid;
-        System.out.println("enter the id of the account you want to Find");
-        empid = scanner.nextInt();
-        return(boolean) adb.findAccount(empid);
-    }
 
     private static boolean ResetPassword(){
         int userId = 0;
