@@ -1,8 +1,8 @@
 package Testing;
 
-import Entities.Booking;
-import Entities.Flight;
+import Entities.*;
 import Model.BookingDB;
+import Model.FlightDB;
 
 import java.time.LocalDateTime;
 import java.util.TreeSet;
@@ -21,6 +21,8 @@ public class DatabaseTesting {
 //        newSeats.add(new Seat("A2", ClassType.FirstClass));
 //        newSeats.add(new Seat("A3", ClassType.Business));
 //
+
+
 //        Flight flight1  = new Flight("A", "b",
 //                LocalDateTime.of(2023, 3, 23, 10, 30),
 //                3.5f, 2552,  Airline.American_Airlines,  seats);
@@ -29,14 +31,16 @@ public class DatabaseTesting {
 //                LocalDateTime.of(2023, 3, 23, 10, 30),
 //                3.5f, 2552,  Airline.Egypt_Air,  newSeats);
 //
+
 //        flight1.bookSeat("A1");
 //        flight2.bookSeat("A2");
-//
+
 //
 //        FlightDB flightDB = new FlightDB();
 //        flightDB.resetDatabase();
 //        flightDB.addObject(flight1, true);
 //        flightDB.addObject(flight2, true);
+
 //        Flight myFlight = (Flight) flightDB.retrieveAll().get(0);
 //        Flight mySecFlight = (Flight) flightDB.retrieveAll().get(1);
 //        System.out.println(myFlight);
@@ -77,6 +81,9 @@ public class DatabaseTesting {
 //        System.out.println(bookingDB.retrieveAll());
 //        bookingDB.updateBooking(1, booking2);
 //        System.out.println(bookingDB.retrieveAll());
+//
+
+
 
 
 //        Client client1 = new Client("A", "B", "c", "d");
@@ -154,14 +161,31 @@ public class DatabaseTesting {
 //            System.out.println(admin1.getFirstName() + " - " + admin1.getID());
 //        }
 
-//          TreeSet<Flight> treeSet2 = new TreeSet<>();
-//          Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, treeSet2 );
-//          BookingDB bookingDB = new BookingDB();
 
 
-//          System.out.println(bookingDB.addObject(bookingM,true));
-//          System.out.println(bookingDB.retrieveAll());
+        TreeSet<Seat> newerSeats = new TreeSet<>();
+        newerSeats.add(new Seat("A1", ClassType.Economy));
+        newerSeats.add(new Seat("A2", ClassType.FirstClass));
+        newerSeats.add(new Seat("A3", ClassType.Business));
+        FlightDB flightDB2 = new FlightDB();
+
+        Flight flight3 = new Flight("C","c",
+                LocalDateTime.of(2023, 2, 12, 10, 30),
+                5.5f,3543, Airline.Emirates, newerSeats);
+        flightDB2.addObject(flight3, true);
+        flight3.bookSeat("A3");
+        FlightDB newflightDB = new FlightDB();
+        newflightDB.addObject(flight3,true);
+        Flight mahmoudFlight = (Flight) newflightDB.retrieveAll().get(0);
 
 
+        TreeSet<Flight> treeSet2 = new TreeSet<>();
+        treeSet2.add(mahmoudFlight);
+        Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, treeSet2 );
+        BookingDB bookingDB = new BookingDB();
+
+
+        System.out.println(bookingDB.addObject(bookingM,true));
+        System.out.println(bookingDB.retrieveAll().get(0));
     }
 }
