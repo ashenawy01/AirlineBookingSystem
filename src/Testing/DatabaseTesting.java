@@ -4,6 +4,7 @@ import Entities.*;
 import Model.BookingDB;
 import Model.ClientDB;
 import Model.FlightDB;
+import Model.StaffDB;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -115,22 +116,22 @@ public class DatabaseTesting {
 
 
 
-//        Staff staff = new Staff("A", "B", "c", "d", "Blela", Department.CustomerService);
-//        Staff staff1 = new Staff("BB", "B", "c", "d", "Blela", Department.CustomerService);
-//        Staff staff2 = new Staff("CCC", "B", "c", "d", "Blela", Department.CustomerService);
-//
-//        StaffDB adminDB = new StaffDB();
-//        adminDB.resetDatabase();
-//
-//        System.out.println(adminDB.addObject(staff, true));
-//        System.out.println(adminDB.addObject(staff1, true));
-//        System.out.println(adminDB.addObject(staff2, true));
-//        System.out.println("Try tp login : " + adminDB.findAccount("c", "d"));
-//
-//        for (Object o : adminDB.retrieveAll()) {
-//            Staff staffN = (Staff) o;
-//            System.out.println(staffN.getFirstName() + " - " + staffN.getID());
-//        }
+        Staff staff = new Staff("A", "B", "c", "d", "Blela", Department.CustomerService);
+        Staff staff1 = new Staff("BB", "B", "c", "d", "Blela", Department.CustomerService);
+        Staff staff2 = new Staff("CCC", "B", "c", "d", "Blela", Department.CustomerService);
+
+        StaffDB adminDB = new StaffDB();
+        adminDB.resetDatabase();
+
+        System.out.println(adminDB.addObject(staff, true));
+        System.out.println(adminDB.addObject(staff1, true));
+        System.out.println(adminDB.addObject(staff2, true));
+        System.out.println("Try tp login : " + adminDB.findAccount("c", "d"));
+
+        for (Object o : adminDB.retrieveAll()) {
+            Staff staffN = (Staff) o;
+            System.out.println(staffN.getFirstName() + " - " + staffN.getID());
+        }
 //        adminDB.deleteAccount(1);
 //        for (Object o : adminDB.retrieveAll()) {
 //            Staff staffN = (Staff) o;
@@ -192,6 +193,5 @@ public class DatabaseTesting {
 //
 //        System.out.println(bookingDB.addObject(bookingM,true));
 //        System.out.println(bookingDB.retrieveAll().get(0));
-
     }
 }

@@ -167,4 +167,12 @@ public class BookingController {
         return bookingDB.addObject(booking ,true);
 
     }
+
+    public static boolean bookSeat (int flightID, String seatNum) {
+        Flight flight = (Flight) flightDB.findFlight(flightID);
+        if (flight == null) {
+            return false;
+        }
+        return flight.bookSeat(seatNum);
+    }
 }

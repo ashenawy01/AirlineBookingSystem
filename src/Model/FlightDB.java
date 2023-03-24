@@ -94,7 +94,7 @@ public class FlightDB implements IDatabase {
         return newID;
     }
     
-    Flight findFlight (int flightID) {
+    public  Flight findFlight (int flightID) {
         Flight flight;
         for(Object obj : retrieveAll()){
             flight = (Flight) obj;
