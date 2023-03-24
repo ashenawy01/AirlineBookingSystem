@@ -95,7 +95,7 @@ public class ClientView {
             scanner.nextLine();
             switch (c) {
                 case 1 -> {
-                    if (updatePassword() == true) {
+                    if (updatePassword()) {
                         System.out.println("Password Updated successfully");
                         return;
                     } else {
@@ -104,7 +104,6 @@ public class ClientView {
                     }
                 }
                 case 2 -> {
-
                     System.out.println(clientController.listMyBookings());
                     return;
                 }
@@ -113,7 +112,11 @@ public class ClientView {
                     return;
                 }
                 case 4 -> {
-                    CreateBooking();
+                    if (createBooking()) {
+                        System.out.println("Booking is made successfully!");
+                    } else {
+                        System.out.println("unexpected Error - Try again");
+                    }
                     return;
                 }
                 case 5 -> {
@@ -145,10 +148,16 @@ public class ClientView {
                     }
 
                 }
+                case 11 -> {
+                    System.out.println("Goodbye!");
+                }
+                default -> {
+                    System.out.println("Invalid input - try again");
+                }
 
             }
         }
-        while (c != 5);
+        while (c != 11);
     }
 
     private static boolean updatePassword() {
@@ -275,14 +284,14 @@ public class ClientView {
         return bookingController.updateBookingTraveler(bookingiD, flightNum);
     }
 
-    private static boolean deleteBooking() {
+    public static boolean deleteBooking() {
         int bookingiD;
         System.out.println("enter the Id of the booking");
         bookingiD = scanner.nextInt();
         return bookingController.deleteBooking(bookingiD);
     }
 
-    public static boolean CreateBooking() {
+    public static boolean createBooking() {
         Flight flight = new Flight();
         String origin;
         System.out.println("enter the Origin");
@@ -297,18 +306,30 @@ public class ClientView {
 
         System.out.println("The date you entered is: " + localDateTime);
 
-        flightController.findFlightFrom(origin, localDateTime);
+        ArrayList<Flight> flights =  flightController.findFlightFrom(origin, localDateTime);
 
-        System.out.println(flightController.getAllFlights ());
-        int flightId;
-        System.out.println("enter the Id of the flight");
-        flightId = scanner.nextInt();
-        System.out.println(bookingController.bookSeat());
-        int seatno;
-        System.out.println("enter the number of the seat");
-        seatno = scanner.nextInt();
-        return true;
+        int selected = 0, i = 0;
 
+        for (Flight nFlight : flights) {
+            System.out.println("Flight #No : " + i);
+            System.out.println(nFlight);
+            System.out.println("===========================================\n");
+            i++;
+        }
+        selected = scanner.nextInt();
+        scanner.nextLine();
+        int selectedSeat = 0;
+        System.out.println("Available seats");
+
+        i = 0;
+        for (Seat seat : flights.get(selected).getSeats()) {
+            System.out.println("Seat No. " + i);
+            System.out.println(seat);
+        }
+        System.out.println("Enter the selected seat");
+        selectedSeat = scanner.nextInt();
+        scanner.nextLine();
+        return bookingController.bookSeat(flights.get(selected).getFlightID(), flights.get(selected).getSeats().get(selectedSeat).getSeatNumber());
 
     }
 }
