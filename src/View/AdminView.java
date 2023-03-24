@@ -7,6 +7,7 @@ import Entities.Staff;
 import Model.AdminDB;
 import Model.StaffDB;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminView {
@@ -43,7 +44,10 @@ public class AdminView {
                     "\n2 - Create a new Staff account\n" +
                     "3 - delete Account\n" +
                     "4 - find Account by ID\n" +
-                    "5 - exit");
+                    "5 - Update Password\n"+
+                    "6 - Ban Admin\n"+
+                    "7 - List All Admins\n"+
+                    "8 - exit");
             c = scanner.nextInt();
             scanner.nextLine();
             switch (c) {
@@ -75,7 +79,27 @@ public class AdminView {
                         System.out.println("Error! - please try again");
                     }
                 }
-                case 5 -> {
+                case 5->{
+                    if ( ResetPassword() != false) {
+                        System.out.println("The Password is rest successfully");
+                    } else {
+                        System.out.println("Error! - please try again");
+                    }
+                }
+                case 6->{
+                    if (BandAdmin() != false) {
+                        System.out.println("The admin is Baned successfully");
+                    } else {
+                        System.out.println("Error! - please try again");
+                    }
+                }
+                case 7->{
+
+                    System.out.println("successfully listed all admins");
+
+                }
+
+                case 8 -> {
                     System.out.println("Goodbye !!");
                     return;
                 }
@@ -168,5 +192,28 @@ public class AdminView {
         return(boolean) adb.findAccount(empid);
     }
 
+    private static boolean ResetPassword(){
+        int userId = 0;
+        String oldpass= new String();
+        String newpass= new String();
+        System.out.println("enter the id of the account you want to change password for");
+        userId = scanner.nextInt();
+        System.out.println("enter the Old Password");
+        oldpass = scanner.nextLine();
+        System.out.println();
 
+        System.out.println("enter the New password");
+        newpass = scanner.nextLine();
+        return adminController.UpdatePassword(userId, oldpass, newpass );
+    }
+    public static boolean BandAdmin(){
+        int adminId=0;
+        System.out.println("enter the id of the account you want to Ban");
+        adminId = scanner.nextInt();
+        return adminController.BandAdmin(adminId);
+    }
+    public static ArrayList<Admin> ListAllAdmins(){
+        return adminController.ListAllAdmins();
+    }
 }
+
