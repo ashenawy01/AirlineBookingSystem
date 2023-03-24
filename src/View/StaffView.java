@@ -51,27 +51,21 @@ public class StaffView {
                     generateBookingReport();
                 }
                 case 3 -> {
-                    updateManagedFlights();
-                }
-                case 4 -> {
-                    Show_All_Flights();
-                }
-                case 5 -> {
                     findFlightByID();
                 }
-                case 6 -> {
+                case 4 -> {
                     findFlightFrom();
                 }
-                case 7 -> {
+                case 6 -> {
                     updateFlightTime();
                 }
-                case 8 -> {
+                case 7 -> {
                     deleteFlight();
                 }
-                case 9 -> {
+                case 8 -> {
                     AddFlight();
                 }
-                case 10 -> {
+                case 9 -> {
                     System.out.println("Goodbye !!");
                     return;
                 }
@@ -79,7 +73,7 @@ public class StaffView {
                     System.out.println("Incorrect input, please try again");
                 }
             }
-        } while (c != 10);
+        } while (c != 9);
 
     }
 
@@ -107,10 +101,6 @@ public class StaffView {
         }
     }
 
-    public static boolean updateManagedFlights(){
-        Flight flight=AddFlight();
-        return staffController.updateManagedFlights(flight);
-    }
 
     public static boolean updatePassword() {
         System.out.println("please enter the old password to update");
