@@ -13,7 +13,6 @@ import java.util.LinkedList;
 public class StaffView {
 
     public static StaffController staffController = new StaffController();
-    public static BookingController bookingController = new BookingController();
     public static FlightController flightController = new FlightController();
     public static Scanner scanner = new Scanner(System.in);
 
@@ -95,36 +94,10 @@ public class StaffView {
         }
     }
 
-
-    public static boolean updatePassword() {
-        System.out.println("please enter the old password to update");
-        String npass = scanner.nextLine();
-        System.out.println("please enter the new password to update");
-        String oPass = scanner.nextLine();
-        return staffController.updatePassword(oPass, npass);
-    }
-
-    public static LinkedList<Flight> Show_All_Flights() {
-        LinkedList<Flight> flights = new LinkedList<>();
-        flights = flightController.getAllFlights();
-        return flights;
-    }
-
     public static Flight findFlightByID() {
         System.out.println("please enter the ID");
         int ID = scanner.nextInt();
         return flightController.findFlightByID(ID);
-    }
-
-    public static ArrayList<Flight> findFlightFrom() {
-        System.out.println("please enter the origin");
-        String origin = scanner.nextLine();
-        System.out.println("Please enter a date (in the format yyyy-MM-dd):");
-        String dateString = scanner.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        LocalDateTime localDateTime = localDate.atStartOfDay();
-        return flightController.findFlightFrom(origin, localDateTime);
     }
 
     public static Flight updateFlightTime() {
@@ -207,84 +180,4 @@ public class StaffView {
         return flightController.AddFlight(origin,destination,localDateTime,duration,ticketPrice,airline,seats);
     }
 
-//    public static LinkedList<FlightTrip> findBooking(){
-//        System.out.println("please enter the origin");
-//        String origin = scanner.nextLine();
-//        System.out.println("please enter the Destination");
-//        String destination = scanner.nextLine();
-//        String flightTime = scanner.nextLine();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate localDate = LocalDate.parse(flightTime, formatter);
-//        return bookingController.findBooking(origin,destination,localDate);
-//    }
-//    public static Booking CreateBooking(){
-//        System.out.println("please enter your ID");
-//        int clintID=scanner.nextInt();
-//        String flightTime = scanner.nextLine();
-//        System.out.println("please enter time");
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate localDate = LocalDate.parse(flightTime, formatter);
-//        LocalDateTime localDateTime = localDate.atStartOfDay();
-//        System.out.println("please enter travelers number");
-//        int travelers=scanner.nextInt();
-//        LinkedList<Flight> flights=FlightController.getAllFlights();
-//        return BookingController.CreateBooking(clintID,localDateTime,travelers,flights);
-//    }
-//
-//    public static Booking findBookingById(){
-//        System.out.println("please enter booking ID");
-//        int id=scanner.nextInt();
-//        return bookingController.findBookingById(id);
-//    }
-//
-//    public static Booking updateBookingDate(){
-//        System.out.println("please enter booking ID");
-//        int id=scanner.nextInt();
-//        System.out.println("please enter the new time");
-//        String flightTime = scanner.nextLine();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate localDate = LocalDate.parse(flightTime, formatter);
-//        LocalDateTime localDateTime = localDate.atStartOfDay();
-//        return bookingController.updateBookingDate(id,localDateTime);
-//    }
-//
-//    public static Booking updateBookingTraveler(){
-//        System.out.println("please enter booking ID");
-//        int id=scanner.nextInt();
-//        System.out.println("please enter travelers number");
-//        int travelers=scanner.nextInt();
-//        return bookingController.updateBookingTraveler(id,travelers);
-//    }
-//    public static Booking addFlightToBooking(){
-//        System.out.println("please enter booking ID");
-//        int id=scanner.nextInt();
-//        Flight flight=AddFlight();
-//        return bookingController.addFlightToBooking(id,flight);
-//    }
-//
-//    public static Booking removeFlightFromBooking(){
-//        System.out.println("please enter booking ID");
-//        int bookID=scanner.nextInt();
-//        System.out.println("please enter flight number");
-//        int flightNum=scanner.nextInt();
-//        return bookingController.removeFlightFromBooking(bookID,flightNum);
-//    }
-//    public static boolean deleteBooking(){
-//        System.out.println("please enter booking ID");
-//        int bookID=scanner.nextInt();
-//        return bookingController.deleteBooking(bookID);
-//    }
-//    static StringBuilder displayBooking(){
-//        System.out.println("please enter booking ID");
-//        int bookID=scanner.nextInt();
-//        return bookingController.displayBooking(bookID);
-//    }
-//    public static boolean addBooking(){
-//        System.out.println("please enter client ID");
-//        int id=scanner.nextInt();
-//        if (id>0){
-//            Booking booking=CreateBooking();
-//            return true;
-//        }else return false;
-//    }
 }
