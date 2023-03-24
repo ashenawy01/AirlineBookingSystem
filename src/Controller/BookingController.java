@@ -1,51 +1,89 @@
 package Controller;
 import Entities.*;
+import Model.BookingDB;
 import Model.FlightDB;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.TreeSet;
 
 public class BookingController {
-    private FlightDB flightDB=new FlightDB();
-    private Flight flight=new Flight();
-    ArrayList<Flight> flights=new ArrayList<Flight>();
-    public ArrayList<Flight> findBooking(String origin, String destination, LocalDateTime flightTime, float duration){
-            ArrayList<Flight> Addtolist = new ArrayList<Flight>();
-            for (int i = 0; i < flights.size(); i++) {
-                Flight obj = flights.get(i);
-                if (origin == flights.get(i).getOrigin() && destination == flights.get(i).getDestination()
-                        && flightTime == flights.get(i).getFlightTime()
-                        && duration == flights.get(i).getDuration()) {
+    private static FlightDB flightDB=new FlightDB();
+    private static BookingDB bookingDB = new BookingDB();
+    ArrayList<Flight> flights=new ArrayList<>();
 
-                    Addtolist.add(obj);
+    public TreeSet<ArrayList<Flight>> findBooking(String origin, String destination, LocalDateTime flightTime){
 
-                } else continue;
-
-            }
-            if (Addtolist.isEmpty()) {
-                for (int i = 0; i < flights.size(); i++) {
-                    Flight obj = flights.get(i);
-                    if (flightTime == flights.get(i).getFlightTime()
-                            || duration == flights.get(i).getDuration()) {
-
-                        Addtolist.add(obj);
-
-                    } else continue;
-
+        TreeSet<ArrayList<Flight>> results = new TreeSet<>();
+        ArrayList<Flight> trip = new ArrayList<>();
+        ArrayList<Object> allFlights = flightDB.retrieveAll();
+        String nextDest;
+        Flight flight;
+        Flight addedFlight;
+        for (int i = 0; i < allFlights.size(); i++) {
+            flight = (Flight) allFlights.get(i);
+            int j = 1;
+            if (flight.getOrigin().equalsIgnoreCase(origin) && flight.getFlightTime().equals(flightTime)) {
+                trip.add(flight);
+                if (!flight.getDestination().equalsIgnoreCase(destination)) {
+                    nextDest = flight.getDestination();
+                    LocalDateTime nextFlightTime = flight.getFlightTime().plusMinutes((long) ((flight.getDuration() + 1) * 60));
+                    while (!nextDest.equalsIgnoreCase(destination)) {
+                        addedFlight = (Flight) allFlights.get(j);
+                        if (nextDest.equalsIgnoreCase(addedFlight.getOrigin()) && addedFlight.getFlightTime().isAfter(nextFlightTime)) {
+                            trip.add(addedFlight);
+                            if (!addedFlight.getDestination().equalsIgnoreCase(destination)) {
+                                nextDest = addedFlight.getDestination();
+                                nextFlightTime = addedFlight.getFlightTime().plusMinutes((long) ((flight.getDuration() + 1) * 60));
+                            }
+                        }
+                        j++;
+                        if (j > 3) {
+                            break;
+                        }
+                    }
                 }
             }
-
-
-            if (!Addtolist.isEmpty()) {
-                System.out.println("All available flights");
-                for (int i = 0; i < Addtolist.size(); i++) {
-                    System.out.println(Addtolist.get(i));
-                }
-                return Addtolist;
-            } else {
-                System.out.println("Sorry...there is no available Flights ");
-                return null;
+            if (j <= 3) {
+                results.add(trip);
             }
+        }
+        return results;
+//            for (int i = 0; i < flights.size(); i++) {
+//                Flight obj = flights.get(i);
+//                if (origin == flights.get(i).getOrigin() && destination == flights.get(i).getDestination()
+//                        && flightTime == flights.get(i).getFlightTime()
+//                        && duration == flights.get(i).getDuration()) {
+//
+//                    Addtolist.add(obj);
+//
+//                } else continue;
+//
+//            }
+//            if (Addtolist.isEmpty()) {
+//                for (int i = 0; i < flights.size(); i++) {
+//                    Flight obj = flights.get(i);
+//                    if (flightTime == flights.get(i).getFlightTime()
+//                            || duration == flights.get(i).getDuration()) {
+//
+//                        Addtolist.add(obj);
+//
+//                    } else continue;
+//
+//                }
+//            }
+//
+//
+//            if (!Addtolist.isEmpty()) {
+//                System.out.println("All available flights");
+//                for (int i = 0; i < Addtolist.size(); i++) {
+//                    System.out.println(Addtolist.get(i));
+//                }
+//                return Addtolist;
+//            } else {
+//                System.out.println("Sorry...there is no available Flights ");
+//                return null;
+//            }
     }
     public Flight FlightDetails(int flightID) {
         for (int i = 0; i < flights.size(); i++) {
