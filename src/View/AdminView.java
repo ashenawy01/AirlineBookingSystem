@@ -128,7 +128,7 @@ public class AdminView {
 
     }
 
-    private static Staff createStaff() {
+    public static Staff createStaff() {
         String fName, lName, email, pass, JT, dept;
         System.out.println("Enter First Name : ");
         fName = scanner.nextLine();
@@ -154,7 +154,7 @@ public class AdminView {
     }
 
 
-    private static Admin createAdmin(){
+    public static Admin createAdmin(){
 
         String firstNsme;
         String lastNsme;
@@ -180,7 +180,7 @@ public class AdminView {
 
 
     }
-    private static boolean deleteAccount(){
+    public static boolean deleteAccount(){
         int empid;
         boolean isAdmin;
         System.out.println("enter the id of the account you want to delete");
@@ -191,7 +191,7 @@ public class AdminView {
     }
 
 
-    private static boolean ResetPassword(){
+    public static boolean ResetPassword(){
         int userId = 0;
         String oldpass= new String();
         String newpass= new String();
@@ -213,14 +213,14 @@ public class AdminView {
     }
 
 
-    private static Employee FindStaffByID(){
+    public static Employee FindStaffByID(){
         int staffId=0;
         System.out.println("enter the id of the admin you want to find");
         staffId = scanner.nextInt();
         return adminController.FindStaffByID(staffId);
 
     }
-    private static Employee FindAdminByID(){
+    public static Employee FindAdminByID(){
         int adminId=0;
         System.out.println("enter the id of the admin you want to find");
         adminId = scanner.nextInt();
@@ -228,6 +228,7 @@ public class AdminView {
 
     }
 }
+
 
 
 

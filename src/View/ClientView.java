@@ -161,7 +161,7 @@ public class ClientView {
         while (c != 11);
     }
 
-    private static boolean updatePassword() {
+    public static boolean updatePassword() {
         String oldPass;
         String newPass;
         System.out.println("enter the Old password");
@@ -172,7 +172,7 @@ public class ClientView {
 
     }
 
-    private static void listBookings() {
+    public static void listBookings() {
         String origin;
         String destination;
         int travelersNum = 0;
@@ -229,7 +229,7 @@ public class ClientView {
 
     }
 
-    private static Booking findBookingById() {
+    public static Booking findBookingById() {
         int bookingID;
         System.out.println("enter the Id of the booking");
         bookingID = scanner.nextInt();
@@ -237,7 +237,7 @@ public class ClientView {
         return bookingController.findBookingById(bookingID);
     }
 
-    private static Booking updateBookingDate() {
+    public static Booking updateBookingDate() {
         int bookingiD;
         System.out.println("enter the Id of the booking");
         bookingiD = scanner.nextInt();
@@ -255,7 +255,7 @@ public class ClientView {
 
     }
 
-    private static Booking updateBookingTraveler() {
+    public static Booking updateBookingTraveler() {
         int bookingiD;
         System.out.println("enter the Id of the booking");
         bookingiD = scanner.nextInt();
@@ -273,7 +273,7 @@ public class ClientView {
         Flight flight= new Flight();
         return bookingController.addFlightToBooking(id,flight);
     }
-    private static Booking removeFlightFromBooking() {
+    public static Booking removeFlightFromBooking() {
         int bookingiD;
         System.out.println("enter the Id of the booking");
         bookingiD = scanner.nextInt();
@@ -334,6 +334,7 @@ public class ClientView {
 
     }
 }
+
 
 
 
