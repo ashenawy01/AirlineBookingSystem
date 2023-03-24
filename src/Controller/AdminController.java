@@ -19,7 +19,7 @@ public class AdminController {
         Admin admin=(Admin) admindb.findAccount(Email,pass);
 
         if(admin != null){ //In case admin is not null, system will welcome admin and print out their employees.
-            System.out.println("Welcome " + admin.getFirstName());
+            System.out.println("Welcome " + admin.getFirstName()); // A welcome message will be shown to user
             this.admin = admin;
             return admin;
         }
@@ -29,95 +29,143 @@ public class AdminController {
 
 
     public Admin CreateAdmin(String firstName, String lastName, String email, String password, boolean isGlobal, boolean isActive){
-        if(firstName.length()<2){
-            System.out.println("Error! Please, Enter a valid name"); // In case firstname is null or less than 2 chracters.
-            return null;
-        }else if(lastName.length()<2){
-            System.out.println("Error! Please, Enter a valid name"); // In case Lasttname is null or less than 2 chracters.
-            return null;
-        }else if (email==null){ // In case email is null
-            System.out.println("Error! Please, Enter a valid Email");
-            return null;
-        } else if ( password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { //In case user didnt input password correctly
-            System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
-            return null;
-        }else if (!isValid(email)){
-        System.out.println("Error! Please, Enter a valid Email ");
-        return null;
+        if(firstName.length()<2){ //Validation check for first name by checking length if it is size less than 2
+            System.out.println("Error! Please, Enter a valid name");
+            return null; // function ends here if length <2
+
         }
-            else {
-            if (this.admin.isActive()) {
-                Admin admin=new Admin( firstName, lastName, email, password,isGlobal, isActive); // A new admin is added to the database
+
+        else if(lastName.length()<2){ //Validation check for last name by checking length if it is size less than 2
+            System.out.println("Error! Please, Enter a valid name");
+            return null; // // function ends here if length <2
+
+        }
+
+        else if (email==null){ // In case email is null
+            System.out.println("Error! Please, Enter a valid Email");
+            return null; // function ends here if email == null
+
+        }
+
+        else if ( password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { //Validation check for password inputted
+            System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
+            return null; // function ends here if password is invalid
+
+        }
+
+        else if (!isValid(email)){ //validation check for email
+        System.out.println("Error! Please, Enter a valid Email ");
+        return null; // function ends here if email is invalid
+
+        }
+            else { // All parameters obtained are entered correctly by user and function controller will start doing its purpose
+            if (this.admin.isActive()) { // validation check to check admin if admin is not banned
+                Admin admin=new Admin( firstName, lastName, email, password,isGlobal, isActive); // A new admin object is created.
                 if(admindb.addObject(admin,true)){ // to check admin is added.
-                    System.out.println("welcome admin"+" "+admin.getFirstName());
-                    return admin;
+                    System.out.println("welcome admin"+" "+admin.getFirstName()); // A welcome message to the new admin
+                    return admin; // function ends here after admin is added to database
                 }
+
                 else{
                     System.out.println("Error with database connection, please try again");
                 }
+
             } else  {
                 System.out.println("sorry! your account is not active");
             }
         }
-        return null;
+        return null; // function ends here if either account is not active or error connection with database.
     }
 
     public boolean UpdatePassword(int adminID,String oldpass,String newpass){
-        if(admindb.findAccount(adminID)!=null){
-            admin=(Admin) admindb.findAccount(adminID);
-            if (newpass!=admin.getPassword()&&oldpass==admin.getPassword()){
+        if(admindb.findAccount(adminID)!=null){ // Validation check to see if ID is found in database or not.
+            admin=(Admin) admindb.findAccount(adminID); // an object admin of type Admin is set using data admin found in database.
+
+            if (newpass!=admin.getPassword()&&oldpass==admin.getPassword()){ // Validation to see if new password is not = = to old password
                 admin.setPassword(newpass);
                  admindb.updateAdmin(adminID,admin);
-                  return true;
-            }else {System.out.println("the old password or the new password is wrong, please try again "); return false;}
-        } else {System.out.println("please enter a vaild ID "); return false;}
+                  return true; //function ends here after replacing old password with new one.
+
+            }
+
+            else
+            {
+                System.out.println("the old password or the new password is wrong, please try again ");
+            return false; //function ends here.
+            }
+
+        }
+
+        else
+        {
+            System.out.println("please enter a vaild ID ");
+            return false; //function ends here
+        }
     }
 
     public Staff CreateStaff(String firstName, String lastName, String email, String password, String jobTitle, Department department){
-        if( firstName.length()<2){ // In case firstname is not null or less than 2 characters
+        if( firstName.length()<2){ // Validation check for length of firstname less than 2
             System.out.println("Error! Please, Enter a valid name");
-            return null;
-        }else if(lastName.length()<2){ // In case lastName is not null or less than 2 characters
-            System.out.println("Error! Please, Enter a valid name");
-            return null;
-        }else if (email==null){ // In case email is not null
-            System.out.println("Error! Please, Enter a valid Email");
-            return null;
-        }else if(!isValid(email)){
-            System.out.println("Error! Please, Enter a valid Email ");
-            return null;
+            return null; //function ends here
+
         }
-        else if ( password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
+
+        else if(lastName.length()<2){ // Validation check for length of lastname less than 2
+            System.out.println("Error! Please, Enter a valid name");
+            return null;//function ends here
+        }
+
+        else if (email==null){ // Validation check if email is null.
+            System.out.println("Error! Please, Enter a valid Email");
+            return null;//function ends here
+        }
+
+        else if(!isValid(email)){ // Validation check if email is not valid.
+            System.out.println("Error! Please, Enter a valid Email ");
+            return null;//function ends here
+        }
+        else if ( password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password entered is not valid
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
-            return null;
-        } else {
-            if (this.admin.isActive()) {
-                Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department);
+            return null;//function ends here
+        }
+
+        else {
+            if (this.admin.isActive()) { // To check if admin is active
+                Staff staff = new Staff( firstName,lastName,email, password, jobTitle, department); // a new object of staff is created to store data from parameters.
+
                 if(staffdb.addObject(staff,true)){ // To check object is added to database successfully
                     System.out.println("added successfully");
-                    return staff;
-                }else System.out.println("Error with database connection, please try again");
-            } else  {
+                    return staff;//function ends here
+
+                }
+                else
+                    System.out.println("Error with database connection, please try again");
+            }
+
+            else  {
                 System.out.println("sorry! your account is not active");
             }
         }
-        return null;
+        return null; // function ends here if either account is not active or error with database connection.
     }
     public boolean DeleteEmployee(int empID,boolean isAdmin){
         if(admindb.findAccount(empID)!=null){ // to see if account exists in database
             if(isAdmin && admin.isGlobal()){ // to check account is admin and global
                 admindb.deleteAccount(empID);
-                return true; //admin account is deleted
+                return true; //admin account is deleted and function ends here
+
             }else if (!isAdmin){
                 staffdb.deleteAccount(empID);
-                return true; // employee account is deleted
+                return true; // employee account is deleted and function ends here
+
             }
-            else return false; // in case admin account is not global
-        }else return false; // in case account is not found
+            else return false; // in case admin account is not global and function ends here
+
+        }else return false; // in case account is not found and function ends here
     }
 
     public boolean BandAdmin(int adminID){
-        if (admindb.findAccount(adminID)!=null){
+        if (admindb.findAccount(adminID)!=null){ //
             admin = (Admin) admindb.findAccount(adminID);
             admin.setActive(false);
             admindb.updateAdmin(adminID,admin);
