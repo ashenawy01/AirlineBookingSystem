@@ -54,18 +54,15 @@ public class StaffView {
                     findFlightByID();
                 }
                 case 4 -> {
-                    findFlightFrom();
-                }
-                case 6 -> {
                     updateFlightTime();
                 }
-                case 7 -> {
+                case 5 -> {
                     deleteFlight();
                 }
-                case 8 -> {
+                case 6 -> {
                     AddFlight();
                 }
-                case 9 -> {
+                case 7 -> {
                     System.out.println("Goodbye !!");
                     return;
                 }
@@ -73,7 +70,7 @@ public class StaffView {
                     System.out.println("Incorrect input, please try again");
                 }
             }
-        } while (c != 9);
+        } while (c != 7);
 
     }
 
