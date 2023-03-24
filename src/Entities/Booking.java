@@ -87,4 +87,7 @@ public class Booking implements Serializable {
         return flights.remove(flightNum);
     }
 
+    public Booking(int travelers) {
+        this.travelers = travelers;
+    }
 }

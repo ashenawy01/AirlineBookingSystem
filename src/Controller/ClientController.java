@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class ClientController {
-
+    //private Flight flight=new Flight();
     private ClientDB clientDB=new ClientDB();
     private Client currentClient =new Client();
     private BookingDB bookingDB=new BookingDB();
