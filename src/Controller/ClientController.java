@@ -59,6 +59,7 @@ public class ClientController {
             client=(Client)clientDB.findAccount(clientID);
          if (newPass!=client.getPassword()&&oldPass==client.getPassword()){
              client.setPassword(newPass);
+             clientDB.updateClient(clientID,client);
              return true;
          }else {System.out.println("the old password or the new password is wrong, please try again "); return false;}
         } else {System.out.println("please enter a vaild ID "); return false;}

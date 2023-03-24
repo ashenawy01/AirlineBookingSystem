@@ -67,7 +67,8 @@ public class AdminController {
             admin=(Admin) admindb.findAccount(adminID);
             if (newpass!=admin.getPassword()&&oldpass==admin.getPassword()){
                 admin.setPassword(newpass);
-                return true;
+                 admindb.updateAdmin(adminID,admin);
+                  return true;
             }else {System.out.println("the old password or the new password is wrong, please try again "); return false;}
         } else {System.out.println("please enter a vaild ID "); return false;}
     }
@@ -119,6 +120,7 @@ public class AdminController {
         if (admindb.findAccount(adminID)!=null){
             admin = (Admin) admindb.findAccount(adminID);
             admin.setActive(false);
+            admindb.updateAdmin(adminID,admin);
             return true;
         }else {System.out.println("the id you entered is not exist ...please try again"); return false;}
     }
@@ -142,7 +144,17 @@ public class AdminController {
     }
 
 
-    //t check email validation
+    public Employee FindEmployeeByID(int EmpID){
+        if(admindb.findAccount(EmpID)!=null){
+            admin=(Admin)admindb.findAccount(EmpID);
+            return admin;
+        }else if(staffdb.findAccount(EmpID)!=null){
+            staff=(Staff)staffdb.findAccount(EmpID);
+            return staff;
+        }else {System.out.println("there is no employee with this ID "+EmpID+" please check again"); return null;}
+    }
+
+    //to check email validation
     public static boolean isValid(String email)
     {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
