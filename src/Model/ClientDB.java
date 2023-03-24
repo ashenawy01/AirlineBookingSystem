@@ -13,6 +13,7 @@ public class ClientDB implements UsersDatabase, IDatabase {
 
     // This function will be called once only to create the file that stores Client objects
     // Reset database (clear the file)
+    @Override
     public void resetDatabase () {
         // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
