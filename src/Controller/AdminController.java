@@ -196,25 +196,25 @@ public class AdminController {
     }
 
     public ArrayList<Staff> listAllStaffs(){
-        ArrayList<Staff> Stf=new ArrayList<Staff>(); // a new arraylist of type Staff is created
-        ArrayList<Object>stf=staffdb.retrieveAll(); // all staff database is retrieved from database staffDB
+        ArrayList<Staff> allStaff = new ArrayList<>(); // a new arraylist of type Admin is created
 
-        for(int i=0; i<stf.size()-1; i++){ // a for loop to store each staff into stf
-            Stf.add((Staff) stf.get(i));
-        }
+        admindb.retrieveAll().forEach(staffObj -> {
+            Staff staff = (Staff) staffObj;
+            allStaff.add(staff);
+        });
 
-        return Stf; //function ends here with arraylist being returned
+        return allStaff; //function ends here with Admn returned
     }
 
     public static ArrayList<Admin> listAllAdmins(){
-        ArrayList<Admin> Admn=new ArrayList<Admin>(); // a new arraylist of type Admin is created
-        ArrayList<Object>admn=admindb.retrieveAll();  // all admin database is retrieved from database Admindb
+        ArrayList<Admin> allAdmins = new ArrayList<>(); // a new arraylist of type Admin is created
 
-        for(int i=0; i<admn.size()-1; i++){ // a for loop to store each admin into admn
-            Admn.add((Admin) admn.get(i));
-        }
+        admindb.retrieveAll().forEach(adminObj -> {
+            Admin admin = (Admin) adminObj;
+            allAdmins.add(admin);
+        });
 
-        return Admn; //function ends here with Admn returned
+        return allAdmins; //function ends here with Admn returned
     }
 
 
