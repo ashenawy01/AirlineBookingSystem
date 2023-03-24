@@ -14,7 +14,7 @@ public class StaffController {
    private Staff staff=new Staff();
 
    public Staff signin(String Email, String pass) {
-      //first...the email and the password should be not null
+
       Staff staff=(Staff) staffdb.findAccount(Email,pass);
       if(staff != null){ //In case admin is not null, system will welcome admin and print out their employees.
          System.out.println("Welcome " + staff.getFirstName());
@@ -26,18 +26,32 @@ public class StaffController {
    }
 
    public StringBuilder GenrateFlightReport(){
-      String str = flight.toString();
-      StringBuilder report=new StringBuilder(str);
-      return report;
+      ArrayList<Object> flights = flightdb.retrieveAll();
+      StringBuilder stringBuilder = new StringBuilder();
+      flights.forEach(fly -> {
+         Flight myFlight = (Flight) fly;
+         stringBuilder.append(myFlight.getFlightID() +
+                 " - From { " + myFlight.getOrigin() + " }"+
+                 " To { " + myFlight.getDestination() + " }"+
+                 " on { " + myFlight.getFlightTime() + " } " +
+                 " in " + myFlight.getDuration() + " h\n" +
+                 "Seats : " + myFlight.getSeats() + "\n" +
+                 "============================================\n");
+      });
+      return stringBuilder;
    }
    public StringBuilder generateBookingReport(){
-      String str = booking.toString();
-      StringBuilder report=new StringBuilder(str);
-      return report;
-   }
-
-   private boolean addFlight(StaffController staffController,Flight flight){
-         return true;
+      ArrayList<Object> Books = bookingDB.retrieveAll();
+      StringBuilder stringBuilder = new StringBuilder();
+      Books.forEach(book -> {
+         Booking MyBook = (Booking) book;
+         stringBuilder.append(" Booking ID ( "+MyBook.getBookingID() +
+                 " - Client ID { " + MyBook.getClintID() + " }"+
+                 " Date { " + MyBook.getDate() + " }"+
+                 " AllFlights { " + MyBook.getFlights() + " } " +"\n"+
+                 "============================================\n");
+      });
+      return stringBuilder;
    }
 
 }

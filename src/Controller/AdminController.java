@@ -20,7 +20,7 @@ public class AdminController {
             System.out.println("Enter a valid email and password");
             return null;
         }
-        //first...the email and the password should be not null
+
         Admin admin=(Admin) admindb.findAccount(Email,pass);
 
         if(admin != null){ //In case admin is not null, system will welcome admin and print out their employees.
