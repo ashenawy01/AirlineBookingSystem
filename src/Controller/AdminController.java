@@ -165,41 +165,60 @@ public class AdminController {
     }
 
     public boolean BandAdmin(int adminID){
-        if (admindb.findAccount(adminID)!=null){ //
-            admin = (Admin) admindb.findAccount(adminID);
+        if (admindb.findAccount(adminID)!=null){ //To valide that admin ID is not null
+            admin = (Admin) admindb.findAccount(adminID); //admin with ID taken from parameter is searched in database.
             admin.setActive(false);
-            admindb.updateAdmin(adminID,admin);
-            return true;
-        }else {System.out.println("the id you entered is not exist ...please try again"); return false;}
+            admindb.updateAdmin(adminID,admin); //Admin is updated in database.
+            return true; //function ends here.
+
+        }
+        else // adminID is null
+            {
+                System.out.println("the id you entered is not exist ...please try again");
+                return false; //function ends here
+            }
     }
 
     public ArrayList<Staff> ListAllStaffs (){
-        ArrayList<Staff> Stf=new ArrayList<Staff>();
-        ArrayList<Object>stf=staffdb.retrieveAll();
-        for(int i=0; i<stf.size()-1; i++){
+        ArrayList<Staff> Stf=new ArrayList<Staff>(); // a new arraylist of type Staff is created
+        ArrayList<Object>stf=staffdb.retrieveAll(); // all staff database is retrieved from database staffDB
+
+        for(int i=0; i<stf.size()-1; i++){ // a for loop to store each staff into stf
             Stf.add((Staff) stf.get(i));
         }
-        return Stf;
+
+        return Stf; //function ends here with arraylist being returned
     }
 
     public ArrayList<Admin> ListAllAdmins(){
-        ArrayList<Admin> Admn=new ArrayList<Admin>();
-        ArrayList<Object>admn=admindb.retrieveAll();
-        for(int i=0; i<admn.size()-1; i++){
+        ArrayList<Admin> Admn=new ArrayList<Admin>(); // a new arraylist of type Admin is created
+        ArrayList<Object>admn=admindb.retrieveAll();  // all admin database is retrieved from database Admindb
+
+        for(int i=0; i<admn.size()-1; i++){ // a for loop to store each admin into admn
             Admn.add((Admin) admn.get(i));
         }
-        return Admn;
+
+        return Admn; //function ends here with Admn returned
     }
 
 
     public Employee FindEmployeeByID(int EmpID){
-        if(admindb.findAccount(EmpID)!=null){
+        if(admindb.findAccount(EmpID)!=null){ // employee account searched using ID inside admin database and if condition checks it dose not return null
             admin=(Admin)admindb.findAccount(EmpID);
-            return admin;
-        }else if(staffdb.findAccount(EmpID)!=null){
+            return admin; //function ends here with admin being found and returned
+
+        }
+        else if(staffdb.findAccount(EmpID)!=null){// employee account searched using ID inside staff database and if condition checks it dose not return null
             staff=(Staff)staffdb.findAccount(EmpID);
-            return staff;
-        }else {System.out.println("there is no employee with this ID "+EmpID+" please check again"); return null;}
+            return staff; //function ends here with staff being found and returned
+
+        }
+
+        else
+        {
+            System.out.println("there is no employee with this ID "+EmpID+" please check again");
+            return null; // function ends here with nothing to return as ID dose not exist inside database
+        }
     }
 
     //to check email validation
