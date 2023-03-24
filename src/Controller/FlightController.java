@@ -11,8 +11,8 @@ import java.util.LinkedList;
 
 public class FlightController {
     private static FlightDB flightDB=new FlightDB();
-    public static ArrayList<Flight> getAllFlights () {
-        ArrayList<Flight> flightArrayList = new ArrayList<>();
+    public static LinkedList<Flight> getAllFlights () {
+        LinkedList<Flight> flightArrayList = new LinkedList<>();
 
         flightDB.retrieveAll().forEach(flightObj -> {
             Flight flight = (Flight) flightObj;
@@ -45,7 +45,7 @@ public class FlightController {
                     seats.add(seat);
                     System.out.println("C "+i+1);
                 }
-            }
+            } return seats;
         }else System.out.println("please enter a vaild number"); return null;
     }
 
