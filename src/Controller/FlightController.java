@@ -97,7 +97,7 @@ public class FlightController {
         return flights;
     }
 
-    public static Flight UpdateFlightTime(int flightID, LocalDateTime newTime){
+    public static Flight updateFlightTime(int flightID, LocalDateTime newTime){
 
         if (currentStaff == null) {
             System.out.println("Error 403 - Access denied");
@@ -117,7 +117,7 @@ public class FlightController {
         return flight;
     }
 
-    public static boolean DeleteFlight(int flightID){
+    public static boolean deleteFlight(int flightID){
 
         if (currentStaff == null) {
             System.out.println("Error 403 - Access denied");
@@ -133,7 +133,7 @@ public class FlightController {
         return flightDB.deleteFlight(flightID);
     }
 
-    public static Flight AddFlight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, LinkedList<Seat> seats){
+    public static Flight addFlight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, LinkedList<Seat> seats){
 
         if (currentStaff == null) {
             System.out.println("Error 403 - Access denied");

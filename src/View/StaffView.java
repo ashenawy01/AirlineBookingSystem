@@ -107,13 +107,13 @@ public class StaffView {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(dateString, formatter);
         LocalDateTime localDateTime = localDate.atStartOfDay();
-        return flightController.UpdateFlightTime(ID, localDateTime);
+        return flightController.updateFlightTime(ID, localDateTime);
     }
 
     public static boolean deleteFlight() {
         System.out.println("please enter the ID");
         int ID = scanner.nextInt();
-        return flightController.DeleteFlight(ID);
+        return flightController.deleteFlight(ID);
     }
 
     public static Flight AddFlight() {
@@ -176,7 +176,7 @@ public class StaffView {
             }
 
         }
-        return flightController.AddFlight(origin,destination,localDateTime,duration,ticketPrice,airline,seats);
+        return flightController.addFlight(origin,destination,localDateTime,duration,ticketPrice,airline,seats);
     }
 
 }

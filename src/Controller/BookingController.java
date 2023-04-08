@@ -11,8 +11,6 @@ import java.util.*;
 public class BookingController {
     private static FlightDB flightDB=new FlightDB();
     private static BookingDB bookingDB = new BookingDB();
-    private static ClientDB clientDB = null;
-
     private static Client currentClient;
 
     public BookingController(){
@@ -75,14 +73,12 @@ public class BookingController {
     }
 
 
-    public static Booking CreateBooking(int clintID, LocalDateTime date, int travelers, LinkedList<Flight> flights) {
-        if (clientDB.findAccount(clintID) == null) {
-            System.out.println("Error 403 - Access denied, try to login again");
-            return null;
-        } else if (date.isBefore(LocalDateTime.now())) {
-            System.out.println("Error - Old date");
-            return null;
-        } else if (travelers < 1) {
+    public static Booking CreateBooking(int travelers, ClassType classType, LinkedList<Flight> flights) {
+        if (currentClient == null) {
+            System.out.println("Error 403 - please, login first");
+        }
+
+        if (travelers < 1) {
             System.out.println("Error - Too little travelers");
             return null;
         } else if (flights == null) {
@@ -90,9 +86,47 @@ public class BookingController {
             return null;
 
         } else {
-            Booking booking = new Booking(clintID, date, travelers, flights);
+            // book the required seats for each flight
+            flights.forEach(flight -> {
+                bookSeats(flight.getFlightID(), travelers, classType);
+            });
+            Booking booking = new Booking(currentClient.getId(), LocalDateTime.now(), travelers, flights);
             bookingDB.addObject(booking, true);
             return booking;
+        }
+    }
+
+    // Book Seats for a client in a flight
+    // this Function will be called in CreatBooking() method
+    private static boolean bookSeats(int flightID, int travelers, ClassType classType) {
+        Flight flight = flightDB.findFlight(flightID); // get the wanted flight
+        if (flight == null) { // check if the flight is existed
+            System.out.println("Error 404 - Flight NOT found");
+            return false;
+        } else { // Flight is found
+            // get all available seats ing the flight
+            LinkedList<Seat> availableSeats = flight.getAvailableSeats();
+            // All seats for the chosen class type
+            ArrayList <Seat> seatsForClass = new ArrayList<>();
+            // filter all seat to get the available seats with a specific classType
+            availableSeats.forEach(seat -> {
+                if (seat.getClassType() == classType) {
+                    seatsForClass.add(seat);
+                }
+            });
+            // check if the available seats are enough for the travelers
+            if (travelers > seatsForClass.size()) {
+                System.out.println("Sorry, insufficient available seats");
+                return false;
+            } else { // There are enough seats
+                for (int i = 0; i < travelers; i++){
+                    // Book seats in the flight in order
+                    flight.bookSeat(seatsForClass.get(i).getSeatNumber(), currentClient.getId());
+                    // update the flight in the file {database}
+                    flightDB.updateFlight(flight.getFlightID(), flight);
+                }
+                return true;  // Seats are booked successfully
+            }
         }
     }
 
@@ -172,20 +206,8 @@ public class BookingController {
         }
         return stringBuilder;
     }
-    public static boolean addBooking (int clientTd, Booking booking) {
-        if (clientDB.findAccount(clientTd) == null) {
-            System.out.println("Error 403 - Access denied try to log in again");
-            return false;
-        }
-        if (booking == null || !(booking instanceof Booking)) {
-            System.out.println("Error - invalid booking");
-            return false;
-        }
-        return bookingDB.addObject(booking ,true);
 
-    }
-
-    public static boolean bookSeat (int flightID, String seatNum, int clientID) {
+    public static boolean bookSeat (int flightID, String seatNum) {
         Flight flight = (Flight) flightDB.findFlight(flightID);
         if (flight == null) {
             return false;

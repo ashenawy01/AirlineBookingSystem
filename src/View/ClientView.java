@@ -218,7 +218,7 @@ public class ClientView {
 
         scanner.nextLine();
         if (bookingNum > -1 && bookingNum < flightTrips.size()) {
-            Booking newBooking = bookingController.CreateBooking(currentClient.getId(), localDateTime, travelersNum, flightTrips.get(bookingNum).getFlights());
+            Booking newBooking = bookingController.CreateBooking(travelersNum, ClassType.Economy ,flightTrips.get(bookingNum).getFlights());
             if (newBooking != null) {
                 System.out.println("You booking is added successfully!");
             } else {
@@ -331,8 +331,7 @@ public class ClientView {
         selectedSeat = scanner.nextInt();
         scanner.nextLine();
         return bookingController.bookSeat(flights.get(selected).getFlightID(),
-                flights.get(selected).getSeats().get(selectedSeat).getSeatNumber(),
-                currentClient.getId());
+                flights.get(selected).getSeats().get(selectedSeat).getSeatNumber());
 
     }
 }

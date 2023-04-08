@@ -91,7 +91,7 @@ public class ClientController {
         ArrayList<Booking> myBookings = new ArrayList<>();
         ArrayList<Object> bookings = bookingDB.retrieveAll();
         Booking booking;
-        for(int i=0; i< bookings.size()-1; i++){ // a for loop to store each "book" into "Book"
+        for(int i=0; i < bookings.size(); i++){ // a for loop to store each "book" into "Book"
             booking = (Booking) bookings.get(i);
             if (booking.getClintID() == currentClient.getId()) {
                 myBookings.add(booking);

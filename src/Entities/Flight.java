@@ -59,6 +59,15 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
         return seats;
     }
 
+    public LinkedList<Seat> getAvailableSeats () {
+        LinkedList<Seat> avSeats = new LinkedList<>();
+        seats.forEach(seat -> {
+            if (seat.isBooked())
+                avSeats.add(seat);
+        });
+        return avSeats;
+    }
+
     public void setOrigin(String origin) {
         this.origin = origin;
     }

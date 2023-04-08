@@ -18,6 +18,22 @@ public class Seat implements Serializable,  Comparable<Seat>, Comparator<Seat>  
         isBooked = false;
     }
 
+    public boolean isBooked() {
+        return isBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        isBooked = booked;
+    }
+
+    public int getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(int clientID) {
+        this.clientID = clientID;
+    }
+
     public String getSeatNumber() {
         return seatNumber;
     }
