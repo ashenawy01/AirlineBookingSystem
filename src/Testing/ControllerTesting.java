@@ -2,6 +2,7 @@ package Testing;
 
 import Controller.*;
 import Entities.Admin;
+import Entities.Staff;
 
 public class ControllerTesting {
     static AdminController adminController = new AdminController();
@@ -54,10 +55,31 @@ public class ControllerTesting {
 
 
 
+
+
+
+
+
+
+
 //        #################  Staff controller testing  #################
 
-
-
+//        // Staff user that will login
+//        Staff staff;
+//
+//        // sign in - initialize the user
+//        staff = staffController.signIn("noura123@bue.edu.eg", "test111");
+//
+//        // update password
+//        staffController.updatePassword("test111", "test123");
+//
+//        // generate a report of all existed flights
+//        System.out.println("\n#########  Flights report #########\n");
+//        System.out.println(staffController.generateFlightReport());
+//
+//        // generate a report of all existed Bookings
+//        System.out.println("\n\n#########  Bookings report #########\n");
+//        System.out.println(staffController.generateBookingReport());
 
     }
 }

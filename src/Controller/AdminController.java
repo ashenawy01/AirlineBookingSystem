@@ -8,7 +8,7 @@ public class AdminController {
 
     private static AdminDB admindb = new AdminDB();
     private static StaffDB staffdb = new StaffDB();
-    private static Admin currentAdmin = new Admin();
+    private static Admin currentAdmin = null;
 
 
     public static Admin getCurrentAdmin() {

@@ -9,6 +9,8 @@ import java.util.LinkedList;
 
 public class FlightController {
     private static FlightDB flightDB=new FlightDB();
+
+    private Staff currentStaff = null;
     public static LinkedList<Flight> getAllFlights () {
         LinkedList<Flight> flightArrayList = new LinkedList<>();
 

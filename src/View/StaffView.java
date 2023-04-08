@@ -1,9 +1,8 @@
 package View;
 import Controller.FlightController;
 import Controller.StaffController;
-import Controller.BookingController;
 import Entities.*;
-import java.util.ArrayList;
+
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -72,7 +71,7 @@ public class StaffView {
 
     public static StringBuilder GenerateFlightReport() {
         StringBuilder longstr = new StringBuilder();
-        longstr = staffController.GenerateFlightReport();
+        longstr = staffController.generateFlightReport();
         if (longstr != null) {
             System.out.println("the report is ready! ");
             return longstr;

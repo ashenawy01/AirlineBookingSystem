@@ -8,7 +8,7 @@ public class StaffController {
    private static final StaffDB staffdb = new StaffDB();
    private static final FlightDB flightdb=new FlightDB();
    private static final BookingDB bookingDB=new BookingDB();
-   private static Staff currentStaff = new Staff();
+   private static Staff currentStaff = null;
 
    public static Staff signIn(String Email, String pass) {
       Staff staff=(Staff) staffdb.findAccount(Email,pass);
@@ -21,9 +21,14 @@ public class StaffController {
          return null;}
    }
 
-   public static StringBuilder GenerateFlightReport(){
-      ArrayList<Object> flights = flightdb.retrieveAll();
+   public static StringBuilder generateFlightReport(){
+
       StringBuilder stringBuilder = new StringBuilder();
+      if (currentStaff == null) {
+         System.out.println("Error 403 - Access denied,Try to login again");
+         return stringBuilder;
+      }
+      ArrayList<Object> flights = flightdb.retrieveAll();
       flights.forEach(fly -> {
          Flight myFlight = (Flight) fly;
          stringBuilder.append(myFlight.getFlightID() +
@@ -38,8 +43,13 @@ public class StaffController {
    }
 
    public static StringBuilder generateBookingReport(){
-      ArrayList<Object> Books = bookingDB.retrieveAll();
       StringBuilder stringBuilder = new StringBuilder();
+      if (currentStaff == null) {
+         System.out.println("Error 403 - Access denied,Try to login again");
+         return stringBuilder;
+      }
+
+      ArrayList<Object> Books = bookingDB.retrieveAll();
 
       Books.forEach(book -> {
 
@@ -54,7 +64,7 @@ public class StaffController {
                  " Travelers " + myBook.getTravelers() + "\n" +
                  " AllFlights { " + myBook.getFlights() + " } " +"\n"+
                  " Total Fare { " + totalPrice + " $ } " +
-                 "============================================\n\n");
+                 "\n============================================\n\n");
       });
       return stringBuilder;
    }

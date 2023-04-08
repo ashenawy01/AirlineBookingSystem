@@ -11,7 +11,7 @@ import java.util.*;
 public class BookingController {
     private static FlightDB flightDB=new FlightDB();
     private static BookingDB bookingDB = new BookingDB();
-    private static ClientDB clientDB = new ClientDB();
+    private static ClientDB clientDB = null;
 
     private static Client currentClient;
 
