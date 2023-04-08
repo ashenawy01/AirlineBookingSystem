@@ -69,10 +69,7 @@ public class StaffController {
       return stringBuilder;
    }
    
-   public static boolean updateManagedFlights (Flight flight) {
-      currentStaff.addFlight(flight);
-      return staffdb.updateStaff(currentStaff.getID(), currentStaff);
-   }
+
    public static boolean updatePassword(String oldPass,String newPass){
 
       if (currentStaff == null) {

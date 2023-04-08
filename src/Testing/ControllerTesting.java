@@ -3,7 +3,11 @@ package Testing;
 import Controller.*;
 import Entities.Admin;
 import Entities.Client;
+import Entities.Flight;
 import Entities.Staff;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ControllerTesting {
     static AdminController adminController = new AdminController();
@@ -59,12 +63,12 @@ public class ControllerTesting {
 
 //        #################  Staff controller testing  #################
 
-//        // Staff user that will login
-//        Staff staff;
-//
-//        // sign in - initialize the user
-//        staff = staffController.signIn("noura123@bue.edu.eg", "test111");
-//
+        // Staff user that will login
+        Staff staff;
+
+        // sign in - initialize the user
+        staff = staffController.signIn("noura123@bue.edu.eg", "test123");
+
 //        // update password
 //        staffController.updatePassword("test111", "test123");
 //
@@ -77,8 +81,7 @@ public class ControllerTesting {
 //        System.out.println(staffController.generateBookingReport());
 
 
-
-
+        System.out.println("\n\n");
 
 
 //        #################  Client controller testing  #################
@@ -98,5 +101,21 @@ public class ControllerTesting {
         // display Client booking
         System.out.println(clientController.listMyBookings());;
 
+
+
+
+
+//        #################  Flight controller testing  #################
+
+        //initializing the current login staff user
+        flightController.setCurrentStaff(staff);
+
+        // Get all flights from Cairo on 1/1/2024
+        ArrayList<Flight> flightsFrom =
+                flightController.findFlightFrom("Cairo", LocalDate.of(2024, 1, 1));
+        flightsFrom.forEach(flight -> {
+            System.out.println(flight);
+            System.out.println("===============================================================\n");
+        });
     }
 }

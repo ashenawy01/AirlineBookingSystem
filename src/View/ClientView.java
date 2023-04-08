@@ -304,11 +304,10 @@ public class ClientView {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(dateString, formatter);
 
-        LocalDateTime localDateTime = localDate.atStartOfDay();
 
-        System.out.println("The date you entered is: " + localDateTime);
+        System.out.println("The date you entered is: " + localDate);
 
-        ArrayList<Flight> flights =  flightController.findFlightFrom(origin, localDateTime);
+        ArrayList<Flight> flights =  flightController.findFlightFrom(origin, localDate);
 
         int selected = 0, i = 0;
 
