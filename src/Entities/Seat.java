@@ -9,6 +9,8 @@ public class Seat implements Serializable,  Comparable<Seat>, Comparator<Seat>  
     private ClassType classType;
     private boolean isBooked;
 
+    private int clientID;
+
     public Seat() {}
     public Seat(String seatNumber, ClassType classType) {
         this.seatNumber = seatNumber;
@@ -32,10 +34,14 @@ public class Seat implements Serializable,  Comparable<Seat>, Comparator<Seat>  
         this.classType = classType;
     }
 
-    public void book(){
+    public void book(int clientID){
+        this.clientID = clientID;
         this.isBooked = true;
     }
-    public void cancelBook(){this.isBooked = false;};
+    public void cancelBook(){
+        clientID = 0;
+        this.isBooked = false;
+    };
     @Override
     public int compareTo(Seat other) {
         // compare the seats by their seat numbers

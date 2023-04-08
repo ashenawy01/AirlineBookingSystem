@@ -1,78 +1,63 @@
 package Testing;
 
-import Controller.BookingController;
-import Entities.*;
-import Model.BookingDB;
-import Model.FlightDB;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Set;
-import java.util.LinkedList;
+import Controller.*;
+import Entities.Admin;
 
 public class ControllerTesting {
+    static AdminController adminController = new AdminController();
     static BookingController bookingController = new BookingController();
-    static FlightDB flightDB = new FlightDB();
+    static ClientController clientController = new ClientController();
+    static StaffController staffController = new StaffController();
+    static FlightController flightController = new FlightController();
 
     public static void main(String[] args) {
 
-//        BookingDB bookingDB = new BookingDB();
-//        bookingDB.resetDatabase();
-//        LinkedList<Seat> seats = new LinkedList<>();
-//        seats.add(new Seat("A1", ClassType.Economy));
-//        seats.add(new Seat("A2", ClassType.FirstClass));
-//        seats.add(new Seat("A3", ClassType.Business));
-//
-//        LinkedList<Seat> newSeats = new LinkedList<>();
-//        newSeats.add(new Seat("A1", ClassType.Economy));
-//        newSeats.add(new Seat("A2", ClassType.FirstClass));
-//        newSeats.add(new Seat("A3", ClassType.Business));
-//
-//        Flight flight1  = new Flight("Cairo", "Istanbul",
-//                LocalDateTime.of(2023, 3, 25, 10, 30),
-//                3.5f, 2552,  Airline.American_Airlines,  seats);
-//
-//        Flight flight2  = new Flight("Istanbul", "Ankara",
-//                LocalDateTime.of(2023, 3, 25, 2, 30),
-//                3.5f, 2552,  Airline.Egypt_Air,  newSeats);
-//
-//        Flight flight3  = new Flight("Ankara", "Antalya",
-//                LocalDateTime.of(2023, 3, 25, 6, 30),
-//                3.5f, 2552,  Airline.Egypt_Air,  newSeats);
-//
-//
-//        flight1.bookSeat("A1");
-//        flight2.bookSeat("A2");
-//
-//
-//        flightDB.resetDatabase();
-//        flightDB.addObject(flight1, true);
-//        flightDB.addObject(flight2, true);
-//        flightDB.addObject(flight3, true);
-//
-//        ArrayList<Object> flights = flightDB.retrieveAll();
-//
-//        StringBuilder stringBuilder = new StringBuilder();
-//        flights.forEach(fly -> {
-//            Flight myFlight = (Flight) fly;
-//            stringBuilder.append(myFlight.getFlightID() +
-//                    " - From { " + myFlight.getOrigin() + " }"+
-//                    " To { " + myFlight.getDestination() + " }"+
-//                    " on { " + myFlight.getFlightTime() + " } " +
-//                    " in " + myFlight.getDuration() + " h\n" +
-//                    "Seats : " + myFlight.getSeats() + "\n" +
-//                    "============================================\n");
-//        });
-//        System.out.println(stringBuilder);
-//
-//        LinkedList<FlightTrip> results = bookingController.findBooking("Cairo", "Ankara", LocalDate.of(2023, 3, 25));
-//        int i = 0;
-//        results.forEach(flightTrip -> {
-//            System.out.println(flightTrip.getFlights());
-//        });
-//        System.out.println(BookingController.getAllFlights());
+
+
+//        #################  Admin controller testing  #################
+
+
+//        Admin admin;
+
+//      // login by Abdelrhman account (Global Admin)
+//        admin = adminController.signIn("abdelrhman225328@bue.edu.eg", "test123");
+
+
+//        // create account for Rodina Ahmed as a global Admin
+//        adminController.CreateAdmin("Rodina", "Ahmed",
+//                "rodina.ahmed123@bue.edu.eg", "Test123",
+//                true, true);
+
+//        // login by rodina account
+//        admin = adminController.signIn("rodina.ahmed123@bue.edu.eg", "test123");
+//        System.out.println(admin);
+
+
+//        //  Update password
+//        System.out.println(admin.getPassword());
+//        System.out.println(adminController.UpdatePassword("test123", "test123"));
+
+//        //Create a new staff account
+//        adminController.CreateStaff("Noura", "Ahmed", "noura123@bue.edu.eg", "test123", "Flight Manager", Department.Reservations);
+
+//        // Deleting staff
+//        adminController.DeleteEmployee(5, false);
+//        System.out.println(adminController.listAllStaffs());
+//        adminController.DeleteEmployee(6, false);
+//        System.out.println(adminController.listAllStaffs());
+
+//        // list all employees (admins & staff)
+//        System.out.println(adminController.listAllStaff());
+//        System.out.println(adminController.listAllAdmins());
+
+
+
+
+
+//        #################  Staff controller testing  #################
+
+
+
 
     }
 }

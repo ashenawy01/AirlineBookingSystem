@@ -1,43 +1,41 @@
-package Model;
+package DAO;
 
-import Entities.Client;
-import Entities.Flight;
+import Entities.Admin;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class ClientDB implements UsersDatabase, IDatabase {
-    private static final String clientDBFile = "clientFile.bin";
+public class AdminDB implements UsersDatabase, IDatabase {
+    private static final String adminDBFile = "adminFile.bin";
     private final int firstID = 1;
 
-
-    // This function will be called once only to create the file that stores Client objects
+    // This function will be called once only to create the file that stores Admin objects
     // Reset database (clear the file)
     @Override
     public void resetDatabase () {
-        // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
+       // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
-                new BufferedOutputStream(new FileOutputStream(clientDBFile), 8192)) ) {
+                new BufferedOutputStream(new FileOutputStream(adminDBFile), 8192)) ) {
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Append an object of Client to the database file
+    // Append an object of Admin to the database file
     @Override
     public boolean addObject(Object obj, boolean isNew) {
-        Client client = (obj instanceof Client)? (Client) obj : null;
 
+        Admin admin = (obj instanceof Admin)? (Admin) obj : null;
 
         // return false if the parameter object is null
-        if (client == null) {
+        if (admin == null) {
             return false;
         }
 
         // Opening the output stream (the second argument is true for appending )
         try (ObjectOutputStream oos = new ObjectOutputStream(
-                new BufferedOutputStream(new FileOutputStream(clientDBFile, true))) {
+                new BufferedOutputStream(new FileOutputStream(adminDBFile, true))) {
             // Override ObjectOutputStream's writeStreamHeader method to reset the stream header
             // This is necessary to append new objects to an existing file
             protected void writeStreamHeader() throws IOException {
@@ -46,11 +44,11 @@ public class ClientDB implements UsersDatabase, IDatabase {
         }) {
             // giving ID to the new user
             if (isNew) {
-                client.setId(generateID());
+                admin.setID(generateID());
             }
 
-            // Write the client object to the file
-            oos.writeObject(client);
+            // Write the admin object to the file
+            oos.writeObject(admin);
             return true;
         } catch (IOException e) {
             // Print stack trace for any IO exceptions
@@ -59,51 +57,51 @@ public class ClientDB implements UsersDatabase, IDatabase {
         }
     }
     // update an object with a new one with the same id
-    public boolean updateClient (int clientID, Client newClient) {
-        Client oldClient =  (Client) findAccount(clientID);
+    public boolean updateAdmin (int adminID, Admin newAdmin) {
+        Admin oldAdmin =  (Admin) findAccount(adminID);
         // Check if is existed
-        if (oldClient == null) {
+        if (oldAdmin == null) {
             return false;
         }
         // set the same id fo the new update
-        newClient.setId(clientID);
+        newAdmin.setID(adminID);
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
         // reset database file (delete all objects)
         resetDatabase();
 
         // re-adding all objects again to the database file
-        Client client;
+        Admin admin;
         for (Object o : existedAccounts) {
-            client = (Client) o;
-            if (client.getId() == oldClient.getId()) {
-                addObject(newClient, false); // adding the updated object
+            admin = (Admin) o;
+            if (admin.getID() == oldAdmin.getID()) {
+                addObject(newAdmin, false); // adding the updated object
             }
             else {
-                addObject(client, false); // adding the old objects
+                addObject(admin, false); // adding the old objects
             }
         }
         return true;
 
     }
 
-    // retrieving all stored objects in the database file in an ArrayList of Client objects
+    // retrieving all stored objects in the database file in an ArrayList of Admin objects
     @Override
     public ArrayList<Object> retrieveAll() {
-        ArrayList<Object> clients = new ArrayList<>();
+        ArrayList<Object> admins = new ArrayList<>();
 
         try (ObjectInputStream ois = new ObjectInputStream(
-                new BufferedInputStream(new FileInputStream(clientDBFile)))) {
-            // Read all client objects from the file and add them to the clients list
+                new BufferedInputStream(new FileInputStream(adminDBFile)))) {
+            // Read all admin objects from the file and add them to the admins list
             // the loop will end once the "readObject()" function throw EOFException
             while (true) {
-                Client client = (Client) ois.readObject();
-                clients.add(client);
+                Admin admin = (Admin) ois.readObject();
+                admins.add(admin);
             }
 
         } catch (EOFException e) {
-            // return all clients objects
-            return clients;
+            // return all admins objects
+            return admins;
         } catch (Exception e) {
             // Print stack trace for any exceptions
             e.printStackTrace();
@@ -115,46 +113,46 @@ public class ClientDB implements UsersDatabase, IDatabase {
     @Override
     public boolean deleteAccount(int userID) {
         // Find the unwanted account
-        Client unWantdClient = (Client) findAccount(userID);
-        if (unWantdClient == null) {
+        Admin unWantdAdmin = (Admin) findAccount(userID);
+        if (unWantdAdmin == null) {
             return false; // not existed
         }
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
         resetDatabase(); // Reset the database
         // re-adding all the old objects except the unwanted one
-        Client client;
+        Admin admin;
         for (Object o : existedAccounts) {
-            client = (Client) o;
-            if (client.getId() != unWantdClient.getId()) {
-                addObject(client, false);
+            admin = (Admin) o;
+            if (admin.getID() != unWantdAdmin.getID()) {
+                addObject(admin, false);
             }
         }
         return true;
     }
 
-    // Find Client account by its ID
+    // Find Admin account by its ID
     @Override
     public Object findAccount(int userId) {
 
-        Client client;
+        Admin admin;
         for(Object obj : retrieveAll()){
-            client = (Client) obj;
-            if (client.getId() == userId) {
-                return client;
-            }
+             admin = (Admin) obj;
+             if (admin.getID() == userId) {
+                 return admin;
+             }
         }
         return null;
     }
 
-    // Find Client account by its email and password
+    // Find Admin account by its email and password
     @Override
     public Object findAccount(String email, String pass) {
-        Client client;
+        Admin admin;
         for(Object obj : retrieveAll()){
-            client = (Client) obj;
-            if (client.getEmail().equals(email) && client.getPassword().equals(pass)) {
-                return client;
+            admin = (Admin) obj;
+            if (admin.getEmail().equals(email) && admin.getPassword().equals(pass)) {
+                return admin;
             }
         }
         return null;
@@ -173,9 +171,9 @@ public class ClientDB implements UsersDatabase, IDatabase {
             return firstID; // assign first user id the first id value
         }
         // Last added user
-        Client client = (Client) retrieveAll().get(size - 1);
+        Admin admin = (Admin) retrieveAll().get(size - 1);
 
-        newID = client.getId() + 1;
+        newID = admin.getID() + 1;
         return newID;
     }
 }

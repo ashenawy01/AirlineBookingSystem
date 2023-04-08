@@ -1,9 +1,7 @@
 package Controller;
 
 import Entities.*;
-import Model.ClientDB;
-import Model.FlightDB;
-import Model.StaffDB;
+import DAO.FlightDB;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

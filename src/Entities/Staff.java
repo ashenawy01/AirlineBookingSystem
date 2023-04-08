@@ -49,6 +49,8 @@ public class Staff extends  Employee implements Serializable {
     @Override
     public String toString() {
         return "Staff{" +
+                "ID= " + this.getID() + ", " +
+                "name= " + this.getFirstName() + " " + this.getLastName() + " - " +
                 "jobTitle='" + jobTitle + '\'' +
                 ", department=" + department +
                 '}';

@@ -1,7 +1,7 @@
 package Controller;
 import Entities.*;
-import Model.BookingDB;
-import Model.ClientDB;
+import DAO.BookingDB;
+import DAO.ClientDB;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 

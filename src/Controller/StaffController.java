@@ -1,8 +1,8 @@
 package Controller;
 import Entities.*;
-import Model.BookingDB;
-import Model.FlightDB;
-import Model.StaffDB;
+import DAO.BookingDB;
+import DAO.FlightDB;
+import DAO.StaffDB;
 import java.util.ArrayList;
 public class StaffController {
    private static final StaffDB staffdb = new StaffDB();
@@ -70,15 +70,14 @@ public class StaffController {
          return false;
       } else {
 
-         if (newPass != currentStaff.getPassword() && oldPass== currentStaff.getPassword()){
+         if (oldPass.equals(currentStaff.getPassword())){
             currentStaff.setPassword(newPass);
-
             return staffdb.updateStaff(currentStaff.getID(), currentStaff); // client is updated with new password
          }
 
          else
          {
-            System.out.println("the old password or the new password is wrong, please try again ");
+            System.out.println("the old password is wrong, please try again ");
             return false; // function ends here with return false
          }
 

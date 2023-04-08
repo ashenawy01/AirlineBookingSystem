@@ -5,10 +5,9 @@ import Entities.Admin;
 import Entities.Department;
 import Entities.Employee;
 import Entities.Staff;
-import Model.AdminDB;
-import Model.StaffDB;
+import DAO.AdminDB;
+import DAO.StaffDB;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminView {
@@ -110,7 +109,7 @@ public class AdminView {
                     return;
                 }
                 case 9 -> {
-                    System.out.println(adminController.listAllStaffs());
+                    System.out.println(adminController.listAllStaff());
                     System.out.println("successfully listed all Staff");
                     return;
                 }
@@ -203,7 +202,7 @@ public class AdminView {
 
         System.out.println("enter the New password");
         newpass = scanner.nextLine();
-        return adminController.UpdatePassword(userId, oldpass, newpass );
+        return adminController.UpdatePassword(oldpass, newpass );
     }
     public static boolean BandAdmin(){
         int adminId=0;

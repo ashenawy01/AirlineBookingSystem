@@ -1,8 +1,4 @@
-package Model;
-
-import Entities.Admin;
-
-import java.util.ArrayList;
+package DAO;
 
 public interface UsersDatabase {
 

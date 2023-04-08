@@ -1,8 +1,8 @@
 package Controller;
 import Entities.*;
-import Model.BookingDB;
-import Model.ClientDB;
-import Model.FlightDB;
+import DAO.BookingDB;
+import DAO.ClientDB;
+import DAO.FlightDB;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,6 +12,23 @@ public class BookingController {
     private static FlightDB flightDB=new FlightDB();
     private static BookingDB bookingDB = new BookingDB();
     private static ClientDB clientDB = new ClientDB();
+
+    private static Client currentClient;
+
+    public BookingController(){
+        currentClient = null;
+    };
+    public BookingController(Client client) {
+        client = currentClient;
+    }
+
+    public static Client getCurrentClient() {
+        return currentClient;
+    }
+
+    public static void setCurrentClient(Client currentClient) {
+        BookingController.currentClient = currentClient;
+    }
 
     public static LinkedList<FlightTrip> findBooking(String origin, String destination, LocalDate flightDate){
         LinkedList<FlightTrip> results = new LinkedList<>();
@@ -168,12 +185,12 @@ public class BookingController {
 
     }
 
-    public static boolean bookSeat (int flightID, String seatNum) {
+    public static boolean bookSeat (int flightID, String seatNum, int clientID) {
         Flight flight = (Flight) flightDB.findFlight(flightID);
         if (flight == null) {
             return false;
         }
-        return flight.bookSeat(seatNum);
+        return flight.bookSeat(seatNum, currentClient.getId());
     }
 
 }

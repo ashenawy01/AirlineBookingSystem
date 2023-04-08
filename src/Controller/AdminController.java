@@ -1,7 +1,7 @@
 package Controller;
 import Entities.*;
-import Model.AdminDB;
-import Model.StaffDB;
+import DAO.AdminDB;
+import DAO.StaffDB;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 public class AdminController {
@@ -10,6 +10,14 @@ public class AdminController {
     private static StaffDB staffdb = new StaffDB();
     private static Admin currentAdmin = new Admin();
 
+
+    public static Admin getCurrentAdmin() {
+        return currentAdmin;
+    }
+
+    public static void setCurrentAdmin(Admin currentAdmin) {
+        AdminController.currentAdmin = currentAdmin;
+    }
 
     //Function to sign in for only admins
     //it will return admin object
@@ -81,58 +89,55 @@ public class AdminController {
         return null; // function ends here if either account is not active or error connection with database.
     }
 
-    public boolean UpdatePassword(int adminID,String oldPass,String newPass){
-        if(admindb.findAccount(adminID) != null){ // Validation check to see if ID is found in database or not.
-            Admin myAdmin = (Admin) admindb.findAccount(adminID); // an object admin of type Admin is set using data admin found in database.
-            if (newPass.isEmpty() ||  newPass.length() < 6 || !((newPass.matches(".*[a-zA-Z].*") && newPass.matches(".*\\d.*")))) {
-                System.out.println("Invalid new password, please try again");
-                return false;
-            }
-            if (newPass!= myAdmin.getPassword()&&oldPass== myAdmin.getPassword()){ // Validation to see if new password is not = = to old password
-                myAdmin.setPassword(newPass);
-                 admindb.updateAdmin(adminID, myAdmin);
-                 return true; //function ends here after replacing old password with new one.
-            }
+    public boolean UpdatePassword(String oldPass,String newPass){
 
-            else
-            {
-                System.out.println("the old password or the new password is wrong, please try again ");
-                return false; //function ends here.
+            if (oldPass.equals(currentAdmin.getPassword())){
+                currentAdmin.setPassword(newPass);
+                return admindb.updateAdmin(currentAdmin.getID(), currentAdmin); // client is updated with new password
+            } else {
+                System.out.println("the old password is wrong, please try again ");
+                return false; // function ends here with return false
             }
-
-        }
-
-        else
-        {
-            System.out.println("please enter a vaild ID ");
-            return false; //function ends here
-        }
     }
+    private boolean isStaffExisted(String email) {
+        ArrayList<Object> staffUsers =  staffdb.retrieveAll();
+        Staff staff;
+        for (int i = 0; i < staffUsers.size(); i++) {
+            staff = (Staff) staffUsers.get(i);
+            if (staff.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public Staff CreateStaff(String firstName, String lastName, String email, String password, String jobTitle, Department department){
         if( firstName.length()<2){ // Validation check for length of firstname less than 2
             System.out.println("Error! Please, Enter a valid name");
-            return null; //function ends here
+            return null;
 
-        }
+        } else if (isStaffExisted(email)){ // check if the email is already existed
+            System.out.println("Error - the email is already existed");
+            return null;
 
-        else if(lastName.length()<2){ // Validation check for length of lastname less than 2
+        } else if(lastName.length()<2){ // Validation check for length of lastname less than 2
             System.out.println("Error! Please, Enter a valid name");
-            return null;//function ends here
+            return null;
         }
 
         else if (email==null){ // Validation check if email is null.
             System.out.println("Error! Please, Enter a valid Email");
-            return null;//function ends here
+            return null;
         }
 
         else if(!isValid(email)){ // Validation check if email is not valid.
             System.out.println("Error! Please, Enter a valid Email ");
-            return null;//function ends here
+            return null;
         }
         else if ( password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password entered is not valid
             System.out.println("Error! Please, Enter a valid pass (more than 6 char, includes chars and numbers)");
-            return null;//function ends here
+            return null;
         }
 
         else {
@@ -156,7 +161,7 @@ public class AdminController {
     public boolean DeleteEmployee(int empID,boolean isAdmin){
         if(isAdmin){
             // to see if account exists in database
-            if (admindb.findAccount(empID)!= null) {
+            if (admindb.findAccount(empID) == null) {
                 System.out.println("User is not existed in admin database");
                 return false;
             }
@@ -169,11 +174,11 @@ public class AdminController {
                 return false; // in case admin account is not global and function ends here
             }
         }else {
-            if (staffdb.findAccount(empID)!= null) {
+            if (staffdb.findAccount(empID) == null) {
                 System.out.println("User is not existed in staff database");
                 return false;
             }
-            return staffdb.deleteAccount(empID); // employee account is deleted and function ends here
+            return staffdb.deleteAccount(empID); // employee account is deleted
         }
     }
 
@@ -182,8 +187,9 @@ public class AdminController {
             System.out.println("Error 403 - Access denied!");
             return false;
         }
-        if (admindb.findAccount(adminID)!= null){
-            Admin myAdmin = (Admin) admindb.findAccount(adminID); //admin with ID taken from parameter is searched in database.
+
+        Admin myAdmin = (Admin) admindb.findAccount(adminID); //admin with ID taken from parameter is searched in database.
+        if (myAdmin!= null){
             myAdmin.setActive(false);
             return admindb.updateAdmin(adminID, myAdmin); //Admin is updated in database.
         }
@@ -194,10 +200,10 @@ public class AdminController {
             }
     }
 
-    public ArrayList<Staff> listAllStaffs(){
+    public ArrayList<Staff> listAllStaff(){
         ArrayList<Staff> allStaff = new ArrayList<>(); // a new arraylist of type Admin is created
 
-        admindb.retrieveAll().forEach(staffObj -> {
+        staffdb.retrieveAll().forEach(staffObj -> {
             Staff staff = (Staff) staffObj;
             allStaff.add(staff);
         });

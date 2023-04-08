@@ -1,41 +1,42 @@
-package Model;
+package DAO;
 
-import Entities.Staff;
+import Entities.Client;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class StaffDB implements UsersDatabase, IDatabase {
-    private static final String staffDBFile = "staffFile.bin";
+public class ClientDB implements UsersDatabase, IDatabase {
+    private static final String clientDBFile = "clientFile.bin";
     private final int firstID = 1;
 
 
-    // This function will be called once only to create the file that stores Staff objects
+    // This function will be called once only to create the file that stores Client objects
     // Reset database (clear the file)
     @Override
     public void resetDatabase () {
         // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
-                new BufferedOutputStream(new FileOutputStream(staffDBFile), 8192)) ) {
+                new BufferedOutputStream(new FileOutputStream(clientDBFile), 8192)) ) {
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Append an object of Staff to the database file
+    // Append an object of Client to the database file
     @Override
     public boolean addObject(Object obj, boolean isNew) {
+        Client client = (obj instanceof Client)? (Client) obj : null;
 
-        Staff staff = (obj instanceof Staff)? (Staff) obj : null;
+
         // return false if the parameter object is null
-        if (staff == null) {
+        if (client == null) {
             return false;
         }
 
         // Opening the output stream (the second argument is true for appending )
         try (ObjectOutputStream oos = new ObjectOutputStream(
-                new BufferedOutputStream(new FileOutputStream(staffDBFile, true))) {
+                new BufferedOutputStream(new FileOutputStream(clientDBFile, true))) {
             // Override ObjectOutputStream's writeStreamHeader method to reset the stream header
             // This is necessary to append new objects to an existing file
             protected void writeStreamHeader() throws IOException {
@@ -44,11 +45,11 @@ public class StaffDB implements UsersDatabase, IDatabase {
         }) {
             // giving ID to the new user
             if (isNew) {
-                staff.setID(generateID());
+                client.setId(generateID());
             }
 
-            // Write the staff object to the file
-            oos.writeObject(staff);
+            // Write the client object to the file
+            oos.writeObject(client);
             return true;
         } catch (IOException e) {
             // Print stack trace for any IO exceptions
@@ -57,51 +58,51 @@ public class StaffDB implements UsersDatabase, IDatabase {
         }
     }
     // update an object with a new one with the same id
-    public boolean updateStaff (int staffID, Staff newStaff) {
-        Staff oldStaff =  (Staff) findAccount(staffID);
+    public boolean updateClient (int clientID, Client newClient) {
+        Client oldClient =  (Client) findAccount(clientID);
         // Check if is existed
-        if (oldStaff == null) {
+        if (oldClient == null) {
             return false;
         }
         // set the same id fo the new update
-        newStaff.setID(staffID);
+        newClient.setId(clientID);
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
         // reset database file (delete all objects)
         resetDatabase();
 
         // re-adding all objects again to the database file
-        Staff staff;
+        Client client;
         for (Object o : existedAccounts) {
-            staff = (Staff) o;
-            if (staff.getID() == oldStaff.getID()) {
-                addObject(newStaff, false); // adding the updated object
+            client = (Client) o;
+            if (client.getId() == oldClient.getId()) {
+                addObject(newClient, false); // adding the updated object
             }
             else {
-                addObject(staff, false); // adding the old objects
+                addObject(client, false); // adding the old objects
             }
         }
         return true;
 
     }
 
-    // retrieving all stored objects in the database file in an ArrayList of Staff objects
+    // retrieving all stored objects in the database file in an ArrayList of Client objects
     @Override
     public ArrayList<Object> retrieveAll() {
-        ArrayList<Object> staffs = new ArrayList<>();
+        ArrayList<Object> clients = new ArrayList<>();
 
         try (ObjectInputStream ois = new ObjectInputStream(
-                new BufferedInputStream(new FileInputStream(staffDBFile)))) {
-            // Read all staff objects from the file and add them to the staffs list
+                new BufferedInputStream(new FileInputStream(clientDBFile)))) {
+            // Read all client objects from the file and add them to the clients list
             // the loop will end once the "readObject()" function throw EOFException
             while (true) {
-                Staff staff = (Staff) ois.readObject();
-                staffs.add(staff);
+                Client client = (Client) ois.readObject();
+                clients.add(client);
             }
 
         } catch (EOFException e) {
-            // return all staffs objects
-            return staffs;
+            // return all clients objects
+            return clients;
         } catch (Exception e) {
             // Print stack trace for any exceptions
             e.printStackTrace();
@@ -113,46 +114,46 @@ public class StaffDB implements UsersDatabase, IDatabase {
     @Override
     public boolean deleteAccount(int userID) {
         // Find the unwanted account
-        Staff unWantdStaff = (Staff) findAccount(userID);
-        if (unWantdStaff == null) {
+        Client unWantdClient = (Client) findAccount(userID);
+        if (unWantdClient == null) {
             return false; // not existed
         }
         // retrieve all objects
         ArrayList<Object> existedAccounts = retrieveAll();
         resetDatabase(); // Reset the database
         // re-adding all the old objects except the unwanted one
-        Staff staff;
+        Client client;
         for (Object o : existedAccounts) {
-            staff = (Staff) o;
-            if (staff.getID() != unWantdStaff.getID()) {
-                addObject(staff, false);
+            client = (Client) o;
+            if (client.getId() != unWantdClient.getId()) {
+                addObject(client, false);
             }
         }
         return true;
     }
 
-    // Find Staff account by its ID
+    // Find Client account by its ID
     @Override
     public Object findAccount(int userId) {
 
-        Staff staff;
+        Client client;
         for(Object obj : retrieveAll()){
-            staff = (Staff) obj;
-            if (staff.getID() == userId) {
-                return staff;
+            client = (Client) obj;
+            if (client.getId() == userId) {
+                return client;
             }
         }
         return null;
     }
 
-    // Find Staff account by its email and password
+    // Find Client account by its email and password
     @Override
     public Object findAccount(String email, String pass) {
-        Staff staff;
+        Client client;
         for(Object obj : retrieveAll()){
-            staff = (Staff) obj;
-            if (staff.getEmail().equals(email) && staff.getPassword().equals(pass)) {
-                return staff;
+            client = (Client) obj;
+            if (client.getEmail().equals(email) && client.getPassword().equals(pass)) {
+                return client;
             }
         }
         return null;
@@ -171,9 +172,9 @@ public class StaffDB implements UsersDatabase, IDatabase {
             return firstID; // assign first user id the first id value
         }
         // Last added user
-        Staff staff = (Staff) retrieveAll().get(size - 1);
+        Client client = (Client) retrieveAll().get(size - 1);
 
-        newID = staff.getID() + 1;
+        newID = client.getId() + 1;
         return newID;
     }
 }

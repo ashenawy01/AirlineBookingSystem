@@ -81,6 +81,7 @@ public class ClientView {
 
         int c = 0;
         do {
+
             System.out.println("1 - Update your password\n" +
                     "2 - List all of my Bookings\n" +
                     "3 - Find Booking\n" +
@@ -330,7 +331,9 @@ public class ClientView {
         System.out.println("Enter the selected seat");
         selectedSeat = scanner.nextInt();
         scanner.nextLine();
-        return bookingController.bookSeat(flights.get(selected).getFlightID(), flights.get(selected).getSeats().get(selectedSeat).getSeatNumber());
+        return bookingController.bookSeat(flights.get(selected).getFlightID(),
+                flights.get(selected).getSeats().get(selectedSeat).getSeatNumber(),
+                currentClient.getId());
 
     }
 }

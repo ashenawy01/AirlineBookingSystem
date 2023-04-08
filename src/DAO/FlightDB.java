@@ -1,22 +1,21 @@
-package Model;
+package DAO;
 
-import Entities.Booking;
-
-
+import Entities.Flight;
 import java.io.*;
 import java.util.ArrayList;
 
-public class BookingDB implements IDatabase {
-    private static final String bookingDBFile = "bookingFile.bin";
+public class FlightDB implements IDatabase {
+
+    private static final String flightDBFile = "flightFile.bin";
     private final int firstID = 1;
-    
-    // This function will be called once only to create the file that stores booking objects
+
+    // This function will be called once only to create the file that stores Flight objects
     // Reset database (clear the file)
     @Override
     public void resetDatabase () {
         // buffering the ObjectOutputStream by BufferedOutputStream and with size of 8192 bytes (or 8 kilobytes)
         try (ObjectOutputStream oos = new ObjectOutputStream(
-                new BufferedOutputStream(new FileOutputStream(bookingDBFile), 8192)) ) {
+                new BufferedOutputStream(new FileOutputStream(flightDBFile), 8192)) ) {
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -25,16 +24,15 @@ public class BookingDB implements IDatabase {
 
     @Override
     public boolean addObject(Object obj, boolean isNew) {
-        Booking booking = (obj instanceof Booking)? (Booking) obj : null;
-
+        Flight flight = (obj instanceof Flight)? (Flight) obj : null;
         // return false if the parameter object is null
-        if (booking == null) {
+        if (flight == null) {
             return false;
         }
 
         // Opening the output stream (the second argument is true for appending )
         try (ObjectOutputStream oos = new ObjectOutputStream(
-                new BufferedOutputStream(new FileOutputStream(bookingDBFile, true))) {
+                new BufferedOutputStream(new FileOutputStream(flightDBFile, true))) {
             // Override ObjectOutputStream's writeStreamHeader method to reset the stream header
             // This is necessary to append new objects to an existing file
             protected void writeStreamHeader() throws IOException {
@@ -43,11 +41,10 @@ public class BookingDB implements IDatabase {
         }) {
             // giving ID to the new user
             if (isNew) {
-                booking.setBookingID(generateID());
+                flight.setFlightID(generateID());
             }
-
-            // Write the booking object to the file
-            oos.writeObject(booking);
+            // Write the flight object to the file
+            oos.writeObject(flight);
             return true;
         } catch (IOException e) {
             // Print stack trace for any IO exceptions
@@ -58,20 +55,20 @@ public class BookingDB implements IDatabase {
 
     @Override
     public ArrayList<Object> retrieveAll() {
-        ArrayList<Object> bookings = new ArrayList<>();
+        ArrayList<Object> flights = new ArrayList<>();
 
         try (ObjectInputStream ois = new ObjectInputStream(
-                new BufferedInputStream(new FileInputStream(bookingDBFile)))) {
-            // Read all booking objects from the file and add them to the bookings list
+                new BufferedInputStream(new FileInputStream(flightDBFile)))) {
+            // Read all flight objects from the file and add them to the flights list
             // the loop will end once the "readObject()" function throw EOFException
             while (true) {
-                Booking booking = (Booking) ois.readObject();
-                bookings.add(booking);
+                Flight flight = (Flight) ois.readObject();
+                flights.add(flight);
             }
 
         } catch (EOFException e) {
-            // return all bookings objects
-            return bookings;
+            // return all flights objects
+            return flights;
         } catch (Exception e) {
             // Print stack trace for any exceptions
             e.printStackTrace();
@@ -91,64 +88,65 @@ public class BookingDB implements IDatabase {
             return firstID; // assign first user id the first id value
         }
         // Last added user
-        Booking booking = (Booking) retrieveAll().get(size - 1);
+        Flight flight = (Flight) retrieveAll().get(size - 1);
 
-        newID = booking.getBookingID() + 1;
+        newID = flight.getFlightID() + 1;
         return newID;
     }
-
-    public Booking findBooking(int bookingID){
-    Booking booking;
-    for(Object obj : retrieveAll()){
-        booking = (Booking) obj;
-        if(booking.getBookingID()==bookingID){
-            return booking;
+    
+    public  Flight findFlight (int flightID) {
+        Flight flight;
+        for(Object obj : retrieveAll()){
+            flight = (Flight) obj;
+            if (flight.getFlightID() == flightID) {
+                return flight;
+            }
         }
-    }
         return null;
     }
-
-    public boolean deleteBooking (int bookingID){
-        // Find unwanted booking
-        Booking unWantedBooking = (Booking) findBooking(bookingID);
-        if(unWantedBooking == null){
+    
+    public boolean deleteFlight (int flightID) {
+        // Find the unwanted account
+        Flight unWantdFlight = (Flight) findFlight(flightID);
+        if (unWantdFlight == null) {
             return false; // not existed
         }
         // retrieve all objects
-        ArrayList<Object> existingBooking = retrieveAll();
+        ArrayList<Object> existedAccounts = retrieveAll();
         resetDatabase(); // Reset the database
         // re-adding all the old objects except the unwanted one
-        Booking booking;
-        for (Object o : existingBooking){
-            booking = (Booking) o;
-            if(booking.getBookingID() != unWantedBooking.getBookingID()){
-                addObject(booking, false);
+        Flight flight;
+        for (Object o : existedAccounts) {
+            flight = (Flight) o;
+            if (flight.getFlightID() != unWantdFlight.getFlightID()) {
+                addObject(flight, false);
             }
         }
         return true;
     }
 
-    public boolean updateBooking(int bookingID, Booking newBooking){
-        Booking oldBooking = (Booking) findBooking(bookingID);
+    public boolean updateFlight (int flightID, Flight newFlight) {
+        Flight oldFlight =  (Flight) findFlight(flightID);
         // Check if is existed
-        if(oldBooking == null){
+        if (oldFlight == null) {
             return false;
         }
         // set the same id for the new update
-        newBooking.setBookingID(bookingID);
-        // retrieve all object
-        ArrayList<Object> existingBooking = retrieveAll();
+        newFlight.setFlightID(flightID);
+        // retrieve all objects
+        ArrayList<Object> existedAccounts = retrieveAll();
         // reset database file (delete all objects)
         resetDatabase();
-        // re-adding all the old objects except the unwanted one
-        Booking booking;
-        for (Object o : existingBooking){
-            booking = (Booking) o;
-            if(booking.getBookingID() == oldBooking.getBookingID()){
-                addObject(newBooking, false); //adding the updated booking
+
+        // re-adding all objects again to the database file
+        Flight flight;
+        for (Object o : existedAccounts) {
+            flight = (Flight) o;
+            if (flight.getFlightID() == oldFlight.getFlightID()) {
+                addObject(newFlight, false); // adding the updated object
             }
-            else{
-                addObject(booking, false); //adding all the old bookings
+            else {
+                addObject(flight, false); // adding the old objects
             }
         }
         return true;

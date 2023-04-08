@@ -2,12 +2,9 @@ package Entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Flight implements Serializable, Comparator<Flight>, Comparable<Flight> {
-    private static final long serialVersionUID = 1L;
 
     private int flightID;
     private String origin;
@@ -56,7 +53,9 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
         return airline;
     }
 
-    public LinkedList<Seat> getSeats() {
+    public LinkedList<Seat> getSeats()
+    {
+        Collections.sort(seats);
         return seats;
     }
 
@@ -128,11 +127,11 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
         return seats.remove(seat);
     }
 
-    public boolean bookSeat(String seatNumber) //This function book a seat into Database
+    public boolean bookSeat(String seatNumber, int clientID) //This function book a seat into Database
     {
         for (Seat seat : seats){
             if( seat.getSeatNumber() == seatNumber){
-                seat.book();
+                seat.book(clientID);
                 return true;
             }
         }
