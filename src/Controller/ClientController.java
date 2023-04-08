@@ -16,7 +16,6 @@ public class ClientController {
             System.out.println("Error! Please, Enter a valid name");
             return null; // function ends here if length <2
         }
-
         else if( lastName.length()<2){ //Validation check for last name by checking length if it is size less than 2
             System.out.println("Error! Please, Enter a valid name");
             return null; // function ends here if length <2
@@ -25,11 +24,13 @@ public class ClientController {
             System.out.println("Error! Please, Enter a valid Email");
             return null; // function ends here if email == null
         }
-
-        else if(!isValid(email)){
+        else if (isEmailExist(email)) {
+            System.out.println("Error - The email address is already existed");
+            return null;
+        }
+        else if(!isValidEmail(email)){
             System.out.println("Error! Please, Enter a valid Email ");
             return null; // function ends here if email is invalid
-
         }
 
         else if ( password.length() < 6 || !((password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*")))) { // if password inputed is not valid
@@ -75,7 +76,6 @@ public class ClientController {
             return false;
         } else {
 
-            System.out.println("Updating ....");
             if (oldPass.equals(currentClient.getPassword())){
                 currentClient.setPassword(newPass);
                 return clientDB.updateClient(currentClient.getId(), currentClient); // client is updated with new password
@@ -100,7 +100,7 @@ public class ClientController {
         return myBookings; // function ends here with Book returned
     }
 
-    public static boolean isValid(String email)
+    public static boolean isValidEmail(String email)
     {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
                 "[a-zA-Z0-9_+&*-]+)*@" +
@@ -111,6 +111,18 @@ public class ClientController {
         if (email == null)
             return false;
         return pat.matcher(email).matches(); //This line uses the matcher() method of the Pattern object to create a Matcher object that can match the input email string against the regular expression pattern. The matches() method of the Matcher object is then used to check whether the input email string matches the pattern or not. If it does, the method returns true, indicating that the email is valid. Otherwise, it returns false, indicating that the email is not valid.
+    }
+
+    private static boolean isEmailExist(String email) {
+        ArrayList<Object> objects =  clientDB.retrieveAll();
+        Client clientl;
+        for (int i = 0; i < objects.size(); i++) {
+            clientl = (Client) objects.get(i);
+            if (clientl.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
     }
 }
 

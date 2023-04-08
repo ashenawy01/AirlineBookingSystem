@@ -39,6 +39,17 @@ public class AdminController {
             return null;}
     }
 
+    private boolean isAdminExisted(String email) {
+        ArrayList<Object> admins =  admindb.retrieveAll();
+        Admin admin;
+        for (int i = 0; i < admins.size(); i++) {
+            admin = (Admin) admins.get(i);
+            if (admin.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Admin CreateAdmin(String firstName, String lastName, String email, String password, boolean isGlobal, boolean isActive){
         if(firstName.length()<2){ //Validation check for first name by checking length if it is size less than 2
@@ -51,6 +62,11 @@ public class AdminController {
             System.out.println("Error! Please, Enter a valid name");
             return null; // // function ends here if length <2
 
+        }
+
+        else if (isAdminExisted(email)) {
+            System.out.println("Error - The email address is already existed");
+            return null;
         }
 
         else if (email==null){ // Validation check if email is null

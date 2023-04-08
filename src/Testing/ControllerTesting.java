@@ -2,6 +2,7 @@ package Testing;
 
 import Controller.*;
 import Entities.Admin;
+import Entities.Client;
 import Entities.Staff;
 
 public class ControllerTesting {
@@ -17,16 +18,14 @@ public class ControllerTesting {
 
 //        #################  Admin controller testing  #################
 
-
 //        Admin admin;
-
 //      // login by Abdelrhman account (Global Admin)
 //        admin = adminController.signIn("abdelrhman225328@bue.edu.eg", "test123");
-
-
+//
+//
 //        // create account for Rodina Ahmed as a global Admin
 //        adminController.CreateAdmin("Rodina", "Ahmed",
-//                "rodina.ahmed123@bue.edu.eg", "Test123",
+//                "rodina.ahmed@bue.edu.eg", "Test123",
 //                true, true);
 
 //        // login by rodina account
@@ -58,10 +57,6 @@ public class ControllerTesting {
 
 
 
-
-
-
-
 //        #################  Staff controller testing  #################
 
 //        // Staff user that will login
@@ -80,6 +75,28 @@ public class ControllerTesting {
 //        // generate a report of all existed Bookings
 //        System.out.println("\n\n#########  Bookings report #########\n");
 //        System.out.println(staffController.generateBookingReport());
+
+
+
+
+
+
+//        #################  Client controller testing  #################
+
+        // Client object of the current client
+        Client client;
+
+        // Sign up with a new account
+        clientController.signUp("Nour", "El-said", "nour123@gmail.com", "test123");
+
+        // sigh in with the created account
+        client = clientController.signIn("nour123@gmail.com", "test123");
+
+        // display the current client info
+        System.out.println(client);
+
+        // display Client booking
+        System.out.println(clientController.listMyBookings());;
 
     }
 }
