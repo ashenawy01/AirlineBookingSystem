@@ -3,7 +3,9 @@ package Entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Booking implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -12,11 +14,11 @@ public class Booking implements Serializable {
     private int clintID;
     private LocalDateTime date;
     private int  travelers;
-    private LinkedList<Flight> flights = new LinkedList<>();
+    private Map<Flight, ArrayList<Seat>> flights = new HashMap<>();
 
     public Booking() {}
 
-    public Booking(int clintID, LocalDateTime date, int travelers, LinkedList<Flight> flights) {
+    public Booking(int clintID, LocalDateTime date, int travelers, Map<Flight, ArrayList<Seat>> flights) {
         this.clintID = clintID;
         this.date = date;
         this.travelers = travelers;
@@ -59,7 +61,7 @@ public class Booking implements Serializable {
         this.travelers = travelers;
     }
 
-    public void setFlights(LinkedList<Flight> flights) {
+    public void setFlights(Map<Flight, ArrayList<Seat>> flights) {
         this.flights = flights;
     }
 
@@ -73,20 +75,20 @@ public class Booking implements Serializable {
                 '}';
     }
 
-    public LinkedList<Flight> getFlights() {
+    public Map<Flight, ArrayList<Seat>> getFlights() {
         return flights;
     }
 
-    public boolean addFlight(Flight flight) { //This function adds flight to database
+    public boolean addFlight(Flight flight, ArrayList<Seat> seats) { //This function adds flight to database
         if (flight != null) { // Checks if flight is not empty
-            flights.add(flight);
+            flights.put(flight, seats);
             return true;
         }
         return false;
     }
 
-    public Flight deleteFlight  (int flightNum) { // This function removes flight from database
-        return flights.remove(flightNum);
+    public void deleteFlight  (Flight flight) { // This function removes flight from database
+         flights.remove(flight);
     }
 
 }

@@ -55,7 +55,7 @@ public class StaffController {
 
          Booking myBook = (Booking) book;
          double totalPrice = 0.0;
-         for (Flight flight : myBook.getFlights()) {
+         for (Flight flight : myBook.getFlights().keySet()) {
             totalPrice += flight.getTicketPrice();
          }
          stringBuilder.append(" Booking ID { "+myBook.getBookingID() +
@@ -89,6 +89,25 @@ public class StaffController {
          }
 
       }
+   }
+
+   // Display all managed flights by the current staff
+   public static StringBuilder displayMyAddedFlights () {
+      StringBuilder stringBuilder = new StringBuilder();
+      ArrayList<Object> allFlights = flightdb.retrieveAll();
+      allFlights.forEach(flightObj -> {
+         Flight myFlight = (Flight) flightObj;
+         if (currentStaff.getManagedFlights().contains(myFlight)) {
+            stringBuilder.append(myFlight.getFlightID() +
+                    " - From { " + myFlight.getOrigin() + " }"+
+                    " To { " + myFlight.getDestination() + " }"+
+                    " on { " + myFlight.getFlightTime() + " } " +
+                    " in " + myFlight.getDuration() + " h\n" +
+                    "Seats : " + myFlight.getSeats() + "\n" +
+                    "============================================\n\n");
+         }
+      });
+      return stringBuilder;
    }
 
 

@@ -13,9 +13,9 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
     private float duration;
     private double ticketPrice;
     private Airline airline;
-    private LinkedList<Seat> seats;
+    private ArrayList<Seat> seats;
     public Flight() {}
-    public Flight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, LinkedList<Seat> seats) {
+    public Flight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, ArrayList<Seat> seats) {
         this.origin = origin;
         this.destination = destination;
         this.flightTime = flightTime;
@@ -53,14 +53,14 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
         return airline;
     }
 
-    public LinkedList<Seat> getSeats()
+    public ArrayList<Seat> getSeats()
     {
         Collections.sort(seats);
         return seats;
     }
 
-    public LinkedList<Seat> getAvailableSeats () {
-        LinkedList<Seat> avSeats = new LinkedList<>();
+    public ArrayList<Seat> getAvailableSeats () {
+        ArrayList<Seat> avSeats = new ArrayList<>();
         seats.forEach(seat -> {
             if (!seat.isBooked())
                 avSeats.add(seat);
@@ -92,7 +92,7 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
         this.airline = airline;
     }
 
-    public void setSeats(LinkedList<Seat> seats) {
+    public void setSeats(ArrayList<Seat> seats) {
         this.seats = seats;
     }
 

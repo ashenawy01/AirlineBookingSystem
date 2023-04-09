@@ -4,9 +4,7 @@ import Entities.*;
 import DAO.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /*
     This class for inserting initial data to the database
@@ -17,9 +15,9 @@ public class DatabaseTesting {
 
 
     // Create a list of seats according to their count
-    public static LinkedList<Seat> createSeats(int seatsNum) {
+    public static ArrayList<Seat> createSeats(int seatsNum) {
         // Create a new linked list to store the seats
-        LinkedList<Seat> seats = new LinkedList<>();
+        ArrayList<Seat> seats = new ArrayList<>();
 
         // If there is only one seat, create it and add it to the list with economy class type
         if (seatsNum == 1)
@@ -183,9 +181,9 @@ public class DatabaseTesting {
         ArrayList<Booking> bookings = new ArrayList<>();
 
         // list of booked flights
-        LinkedList<Flight> bFlights = new LinkedList<>();
-        bFlights.add(flights.get(0));
-        bFlights.add(flights.get(1));
+        Map<Flight, ArrayList<Seat>> bFlights = new HashMap<>();
+        bFlights.put(flights.get(0), createSeats(30));
+        bFlights.put(flights.get(1), createSeats(30));
 
         // create teh booking
         bookings.add(new Booking(1 ,LocalDateTime.of(2023, 4, 1, 1, 30), 1, bFlights));
@@ -221,17 +219,17 @@ public class DatabaseTesting {
 //        System.out.println(flightDB.retrieveAll());
 
 
-//        LinkedList<Flight> LinkedListB = new LinkedList<>();
+//        ArrayList<Flight> ArrayListB = new ArrayList<>();
 //
-//        LinkedListB.add(myFlight);
-//        LinkedListB.add(mySecFlight);
+//        ArrayListB.add(myFlight);
+//        ArrayListB.add(mySecFlight);
 //
 //        Booking booking = new Booking(2,
 //                LocalDateTime.of(2023, 3, 23, 10, 30),
 //                5);
 //        Booking booking2 = new Booking(3,
 //                LocalDateTime.of(2022, 3, 23, 10, 30),
-//                5, LinkedListB);
+//                5, ArrayListB);
 //
 //        BookingDB bookingDB = new BookingDB();
 //        bookingDB.resetDatabase();
@@ -300,7 +298,7 @@ public class DatabaseTesting {
 //        clientDB.addObject(client, true);
 //        System.out.println(clientDB.retrieveAll());
 //
-//        LinkedList<Seat> newerSeats = new LinkedList<>();
+//        ArrayList<Seat> newerSeats = new ArrayList<>();
 //        newerSeats.add(new Seat("A1", ClassType.Economy));
 //        newerSeats.add(new Seat("A2", ClassType.FirstClass));
 //        newerSeats.add(new Seat("A3", ClassType.Business));
@@ -316,9 +314,9 @@ public class DatabaseTesting {
 //        Flight mahmoudFlight = (Flight) newflightDB.retrieveAll().get(0);
 //
 //
-//        LinkedList<Flight> LinkedList2 = new LinkedList<>();
-//        LinkedList2.add(mahmoudFlight);
-//        Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, LinkedList2 );
+//        ArrayList<Flight> ArrayList2 = new ArrayList<>();
+//        ArrayList2.add(mahmoudFlight);
+//        Booking bookingM = new Booking(222, LocalDateTime.of(2023, 3, 23, 10, 30),50, ArrayList2 );
 //        BookingDB bookingDB = new BookingDB();
 //
 //

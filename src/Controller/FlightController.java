@@ -24,10 +24,9 @@ public class FlightController {
 
 
     // Create a list of seats according to their count
-    public static LinkedList<Seat> generateSeats(int seatsNum) {
+    public static ArrayList<Seat> generateSeats(int seatsNum) {
         // Create a new linked list to store the seats
-        LinkedList<Seat> seats = new LinkedList<>();
-
+        ArrayList<Seat> seats = new ArrayList<>();
         // If there is only one seat, create it and add it to the list with economy class type
         if (seatsNum == 1)
             seats.add(new Seat("A1", ClassType.Economy));
@@ -133,7 +132,7 @@ public class FlightController {
         return flightDB.deleteFlight(flightID);
     }
 
-    public static Flight addFlight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, LinkedList<Seat> seats){
+    public static Flight addFlight(String origin, String destination, LocalDateTime flightTime, float duration, double ticketPrice, Airline airline, ArrayList<Seat> seats){
 
         if (currentStaff == null) {
             System.out.println("Error 403 - Access denied");

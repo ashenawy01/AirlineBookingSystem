@@ -90,7 +90,7 @@ public class AdminController {
             if (this.currentAdmin.isActive()) { // validation check to check admin if admin is not banned
                 Admin admin=new Admin( firstName, lastName, email, password,isGlobal, isActive); // A new admin object is created.
                 if(admindb.addObject(admin,true)){ // to check admin is added.
-                    System.out.println("welcome admin"+" "+admin.getFirstName()); // A welcome message to the new admin
+                    System.out.println("Admin : "+admin.getFirstName() + " was added successfully"); // A welcome message to the new admin
                     return admin; // function ends here after admin is added to database
                 }
 
