@@ -87,18 +87,7 @@ public class ClientController {
         }
     }
 
-    public static ArrayList<Booking> listMyBookings(){
-        ArrayList<Booking> myBookings = new ArrayList<>();
-        ArrayList<Object> bookings = bookingDB.retrieveAll();
-        Booking booking;
-        for(int i=0; i < bookings.size(); i++){ // a for loop to store each "book" into "Book"
-            booking = (Booking) bookings.get(i);
-            if (booking.getClintID() == currentClient.getId()) {
-                myBookings.add(booking);
-            }
-        }
-        return myBookings; // function ends here with Book returned
-    }
+
 
     public static boolean isValidEmail(String email)
     {

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class ControllerTesting {
     static AdminController adminController = new AdminController();
@@ -28,7 +29,7 @@ public class ControllerTesting {
 
         // create account for Rodina Ahmed as a global Admin
         adminController.CreateAdmin("Rodina", "Ahmed",
-                "rodina.ahmed@bue.edu.eg", "Test123",
+                "rodina.ahmed@bue.edu.eg", "test123",
                 true, true);
 
         // login by rodina account
@@ -37,8 +38,8 @@ public class ControllerTesting {
 
 
         // Update password
-        System.out.println(admin.getPassword());
-        System.out.println(adminController.UpdatePassword("test123", "test123"));
+//        System.out.println(admin.getPassword());
+//        System.out.println(adminController.UpdatePassword("test123", "test123"));
 
         //Create a new staff account
         adminController.CreateStaff("Noura", "Ahmed", "noura123@bue.edu.eg", "test123", "Flight Manager", Department.Reservations);
@@ -89,15 +90,14 @@ public class ControllerTesting {
         clientController.signUp("Nour", "El-said", "nour123@gmail.com", "test123");
 
         // sigh in with the created account
-        client = clientController.signIn("nour123@gmail.com", "test123");
+        client = clientController.signIn("moutasem219140@bue.edu.eg", "test123");
 
         // display the current client info
         System.out.println(client);
 
         // display Client booking
         System.out.println(" *************  My Bookings  *************  ");
-        System.out.println(clientController.listMyBookings());
-        ;
+
 
 
 //        #################  Flight controller testing  #################
@@ -158,51 +158,43 @@ public class ControllerTesting {
 
         //create a list of included flights
         LinkedList<Flight> bookFlights = new LinkedList<>();
-        bookFlights.add(flightController.findFlightByID(6));
+        bookFlights.add(flightController.findFlightByID(4));
 
         // crete the booking
-        if (bookingController.CreateBooking(1, ClassType.FirstClass, bookFlights) != null) {
+        if (bookingController.CreateBooking(1, ClassType.Economy, bookFlights) != null) {
             System.out.println("Booking is added successfully!");
+        } else {
+            System.out.println("Booking is failed. please, try again");
         }
 
-
-
-        // display all bookings details
+////
+////
+////        // display all bookings details
+////        System.out.println("\n *************  My Bookings  *************  ");
+////         bookingController.listMyBookings().forEach(myBook -> {
+////            double totalPrice = 0.0;
+////            for (Flight flight : myBook.getFlights()) {
+////                totalPrice += flight.getTicketPrice();
+////            }
+////            System.out.println(" Booking ID { "+myBook.getBookingID() +
+////                    " } Client ID { " + myBook.getClintID() + " }"+
+////                    " Date { " + myBook.getDate() + " }"+
+////                    " Travelers " + myBook.getTravelers() + "\n" +
+////                    " AllFlights { " + myBook.getFlights() + " } " +"\n"+
+////                    " Total Fare { " + totalPrice + " $ } " +
+////                    "\n============================================\n\n");
+////        });
+////
+//        // Delete booking
+//        System.out.println("Deleting the duplicated booking {ID = 3}....");
+//        bookingController.deleteBooking(3);
+//
+//
+//
         System.out.println("\n *************  My Bookings  *************  ");
-        clientController.listMyBookings().forEach(myBook -> {
-            double totalPrice = 0.0;
-            for (Flight flight : myBook.getFlights()) {
-                totalPrice += flight.getTicketPrice();
-            }
-            System.out.println(" Booking ID { "+myBook.getBookingID() +
-                    " } Client ID { " + myBook.getClintID() + " }"+
-                    " Date { " + myBook.getDate() + " }"+
-                    " Travelers " + myBook.getTravelers() + "\n" +
-                    " AllFlights { " + myBook.getFlights() + " } " +"\n"+
-                    " Total Fare { " + totalPrice + " $ } " +
-                    "\n============================================\n\n");
-        });
-
-        // Delete booking
-        System.out.println("Deleting the duplicated booking {ID = 3}....");
-        bookingController.deleteBooking(3);
-
-
-
-        System.out.println("\n *************  My Bookings  *************  ");
-        clientController.listMyBookings().forEach(myBook -> {
-            double totalPrice = 0.0;
-            for (Flight flight : myBook.getFlights()) {
-                totalPrice += flight.getTicketPrice();
-            }
-            System.out.println(" Booking ID { "+myBook.getBookingID() +
-                    " } Client ID { " + myBook.getClintID() + " }"+
-                    " Date { " + myBook.getDate() + " }"+
-                    " Travelers " + myBook.getTravelers() + "\n" +
-                    " AllFlights { " + myBook.getFlights() + " } " +"\n"+
-                    " Total Fare { " + totalPrice + " $ } " +
-                    "\n============================================\n\n");
-        });
+        System.out.println(bookingController.displayBooking(6));
+//
+//
 
 
 

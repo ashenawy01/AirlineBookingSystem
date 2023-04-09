@@ -106,7 +106,7 @@ public class ClientView {
                     }
                 }
                 case 2 -> {
-                    System.out.println(clientController.listMyBookings());
+                    System.out.println(bookingController.listMyBookings());
                     return;
                 }
                 case 3 -> {

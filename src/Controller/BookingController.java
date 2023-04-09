@@ -87,9 +87,11 @@ public class BookingController {
 
         } else {
             // book the required seats for each flight
-            flights.forEach(flight -> {
-                bookSeats(flight.getFlightID(), travelers, classType);
-            });
+            for (Flight flight: flights) {
+                if (!(bookSeats(flight.getFlightID(), travelers, classType))) {
+                    return null;
+                }
+            }
             Booking booking = new Booking(currentClient.getId(), LocalDateTime.now(), travelers, flights);
             bookingDB.addObject(booking, true);
             return booking;
@@ -114,6 +116,7 @@ public class BookingController {
                     seatsForClass.add(seat);
                 }
             });
+            System.out.println(seatsForClass);
             // check if the available seats are enough for the travelers
             if (travelers > seatsForClass.size()) {
                 System.out.println("Sorry, insufficient available seats");
@@ -122,9 +125,10 @@ public class BookingController {
                 for (int i = 0; i < travelers; i++){
                     // Book seats in the flight in order
                     flight.bookSeat(seatsForClass.get(i).getSeatNumber(), currentClient.getId());
-                    // update the flight in the file {database}
-                    flightDB.updateFlight(flight.getFlightID(), flight);
                 }
+
+                // update the flight in the file {database}
+                flightDB.updateFlight(flight.getFlightID(), flight);
                 return true;  // Seats are booked successfully
             }
         }
@@ -192,21 +196,50 @@ public class BookingController {
         if (myBook == null) {
             System.out.println("Error 404 - Booking not found");
         } else {
-            double totalPrice = 0.0;
-            for (Flight flight : myBook.getFlights()) {
-                totalPrice += flight.getTicketPrice();
-            }
-            stringBuilder.append(" Booking ID { "+myBook.getBookingID() +
-                    " } Client ID { " + myBook.getClintID() + " }"+
+
+            stringBuilder.append("Booking ID { "+myBook.getBookingID() + " }\n" +
+                    "Client ID { " + myBook.getClintID() + " }"+
                     " Date { " + myBook.getDate() + " }"+
-                    " Travelers " + myBook.getTravelers() + "\n" +
-                    " AllFlights { " + myBook.getFlights() + " } " +"\n"+
-                    " Total Fare { " + totalPrice + " $ } " +
-                    "============================================\n\n");
+                    " Travelers " + myBook.getTravelers() + "\n");
+
+            double totalPrice = 0.0;
+            int clientID = myBook.getClintID();
+
+            for (Flight flight : myBook.getFlights()) {
+                stringBuilder.append("Flight : " + flight + "\n");
+                totalPrice += flight.getTicketPrice();
+
+                stringBuilder.append("Seats : {{{ ");
+                flight.getSeats().forEach(seat -> {
+                    if (seat.isBooked() && seat.getClientID() == clientID){
+                        stringBuilder.append(" " + seat + " ");
+                    }
+                });
+                stringBuilder.append(" }}}\n");
+
+            }
+            stringBuilder.append(
+                    "Total Fare { " + totalPrice + " $ } " +
+                    "\n============================================\n\n");
         }
         return stringBuilder;
     }
 
+    public static ArrayList<Booking> listMyBookings(){
+        ArrayList<Booking> myBookings = new ArrayList<>();
+        ArrayList<Object> bookings = bookingDB.retrieveAll();
+        Booking booking;
+        for(int i=0; i < bookings.size(); i++){ // a for loop to store each "book" into "Book"
+            booking = (Booking) bookings.get(i);
+            if (booking.getClintID() == currentClient.getId()) {
+                myBookings.add(booking);
+            }
+        }
+        return myBookings; // function ends here with Book returned
+    }
+
+
+    // *********************** Should delete ********************
     public static boolean bookSeat (int flightID, String seatNum) {
         Flight flight = (Flight) flightDB.findFlight(flightID);
         if (flight == null) {

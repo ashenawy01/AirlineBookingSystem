@@ -62,7 +62,7 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
     public LinkedList<Seat> getAvailableSeats () {
         LinkedList<Seat> avSeats = new LinkedList<>();
         seats.forEach(seat -> {
-            if (seat.isBooked())
+            if (!seat.isBooked())
                 avSeats.add(seat);
         });
         return avSeats;
@@ -139,7 +139,7 @@ public class Flight implements Serializable, Comparator<Flight>, Comparable<Flig
     public boolean bookSeat(String seatNumber, int clientID) //This function book a seat into Database
     {
         for (Seat seat : seats){
-            if( seat.getSeatNumber() == seatNumber){
+            if( seat.getSeatNumber().equals(seatNumber)){
                 seat.book(clientID);
                 return true;
             }
