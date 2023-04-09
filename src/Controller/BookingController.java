@@ -23,49 +23,6 @@ public class BookingController {
         BookingController.currentClient = currentClient;
     }
 
-    public static LinkedList<FlightTrip> findBooking(String origin, String destination, LocalDate flightDate){
-        LinkedList<FlightTrip> results = new LinkedList<>();
-        ArrayList<Object> allFlights = flightDB.retrieveAll();
-        int maxFlights = 3;
-
-        allFlights.forEach(f -> {
-            FlightTrip flightTrip = new FlightTrip();
-            Flight flight = (Flight) f;
-            if (flight.getOrigin().equalsIgnoreCase(origin) && flight.getFlightTime().getDayOfYear() == flightDate.getDayOfYear()) {
-                flightTrip.add(flight);
-
-                if (flight.getDestination().equalsIgnoreCase(destination)) {
-                    results.add(flightTrip);
-                } else {
-                    String nextOrigin = flight.getDestination();
-                    LocalDateTime nextFlightTime = flight.getFlightTime().plusHours(1);
-                    Flight nextFlight = new Flight();
-                    int flightsCounter = 1;
-                    for (int i = 0; i < allFlights.size(); i++) {
-                        nextFlight = (Flight) allFlights.get(i);
-                        if (nextFlight.getOrigin().equalsIgnoreCase(nextOrigin)
-                                && nextFlight.getFlightTime().getDayOfYear() == nextFlightTime.getDayOfYear()){
-                            flightTrip.add(nextFlight);
-                            if (nextFlight.getDestination().equalsIgnoreCase(destination)) {
-                                results.add(flightTrip);
-                                break;
-                            } else {
-                                nextOrigin = nextFlight.getDestination();
-                                i = 0;
-                                flightsCounter++;
-                            }
-                        }
-                        if (flightsCounter >= maxFlights) {
-                            break;
-                        }
-                    }
-                }
-            }
-
-        });
-
-        return results;
-    }
 
 
     // Create a  new booking for the current client
@@ -81,9 +38,14 @@ public class BookingController {
             // Map to store each flight(Key) with the booked seats in that flight (value)
             Map<Flight, ArrayList<Seat>> bookedFlights = new HashMap<>();
             // book the required seats for each flight
+            ArrayList<Seat> seats = new ArrayList<>();
             for (Flight flight: flights) {
+                seats = bookSeats(flight.getFlightID(), travelers, classType);
+                if (seats == null) {
+                    return false;
+                }
                 // add the flight with its seats to the map
-                bookedFlights.put(flight, bookSeats(flight.getFlightID(), travelers, classType));
+                bookedFlights.put(flight, seats);
                 if (bookedFlights.get(flight).size() == 0){ // Error with adding seats
                     return false;
                 }
@@ -137,56 +99,22 @@ public class BookingController {
         return bookingDB.findBooking(bookingID);
     }
 
-    public static Booking updateBookingDate(int bookingId, LocalDateTime newDate){
-        Booking booking = bookingDB.findBooking(bookingId);
-        if (booking == null) {
-            System.out.println("Error 404 - ID is not found....please try again ");
-            return null;
-        }
-        booking.setDate(newDate);
-        bookingDB.updateBooking(bookingId, booking);
-        return booking;
-    }
-
-    public static Booking updateBookingTraveler(int bookingId, int travelers){
-        Booking booking = bookingDB.findBooking(bookingId);
-        if (booking == null) {
-            System.out.println("Error 404 - ID is not found....please try again ");
-            return null;
-        }
-        booking.setTravelers(travelers);
-        bookingDB.updateBooking(bookingId, booking);
-        return booking;
-    }
-
-    public static Booking addFlightToBooking(int bookingId, Flight newFlight, ArrayList<Seat>seats){
-        Booking booking = bookingDB.findBooking(bookingId);
-        if (booking == null) {
-            System.out.println("Error 404 - ID is not found....please try again ");
-            return null;
-        }
-        booking.addFlight(newFlight, seats);
-        bookingDB.updateBooking(bookingId, booking);
-        return booking;
-    }
-
-    public static Booking removeFlightFromBooking(int bookingId, int flightID){
-        Booking booking = bookingDB.findBooking(bookingId);
-        if (booking == null) {
-            System.out.println("Error 404 - ID is not found....please try again ");
-            return null;
-        }
-        Flight flight = flightDB.findFlight(flightID);
-        booking.deleteFlight(flight);
-        bookingDB.updateBooking(bookingId, booking);
-        return booking;
-    }
-
     public static boolean deleteBooking(int id) {
         if (findBookingById(id) == null) {
             System.out.println("Error 404 - Booking Id is not found");
             return false;
         }
+        Booking booking = bookingDB.findBooking(id);
+        // Cancel seats booking
+        booking.getFlights().keySet().forEach(flight -> {
+            ArrayList<Seat> flightSeats = flight.getSeats();
+            ArrayList<Seat> bookedSeats = booking.getFlights().get(flight);
+            flightSeats.forEach(seat -> {
+                if (bookedSeats.contains(seat)) {
+                    seat.cancelBook();
+                }
+            });
+        });
         return bookingDB.deleteBooking(id);
     }
 
@@ -235,16 +163,20 @@ public class BookingController {
         return stringBuilder;
     }
     public static ArrayList<Booking> listMyBookings(){
+        if (currentClient == null) {
+            System.out.println("Error 403 - Access denied. Please, login first");
+            return null;
+        }
         ArrayList<Booking> myBookings = new ArrayList<>();
         ArrayList<Object> bookings = bookingDB.retrieveAll();
         Booking booking;
-        for(int i=0; i < bookings.size(); i++){ // a for loop to store each "book" into "Book"
+        for(int i=0; i < bookings.size(); i++){
             booking = (Booking) bookings.get(i);
             if (booking.getClintID() == currentClient.getId()) {
                 myBookings.add(booking);
             }
         }
-        return myBookings; // function ends here with Book returned
+        return myBookings;
     }
 
 }

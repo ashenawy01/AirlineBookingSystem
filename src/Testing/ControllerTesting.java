@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class ControllerTesting {
@@ -52,7 +53,6 @@ public class ControllerTesting {
         //create a list of included flights
         ArrayList<Flight> bookFlights = new ArrayList<>();
         bookFlights.add(flightController.findFlightByID(4));
-        bookFlights.add(flightController.findFlightByID(5));
 
 
         // crete the booking
@@ -77,8 +77,6 @@ public class ControllerTesting {
         // display all bookings details After deleting Booking with id 3
         System.out.println("\n *************  My Bookings  *************  ");
         System.out.println(bookingController.displayClientBookings());
-
-
 
 
 
