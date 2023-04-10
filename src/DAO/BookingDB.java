@@ -72,7 +72,7 @@ public class BookingDB implements IDatabase {
         } catch (EOFException e) {
             // return all bookings objects
             return bookings;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | IOException e) {
             // Print stack trace for any exceptions
             e.printStackTrace();
             return new ArrayList<>();
