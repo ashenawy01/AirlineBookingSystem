@@ -102,7 +102,7 @@ public class StaffDB implements UsersDatabase, IDatabase {
         } catch (EOFException e) {
             // return all staffs objects
             return staffs;
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException e) {
             // Print stack trace for any exceptions
             e.printStackTrace();
             return new ArrayList<>();

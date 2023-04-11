@@ -103,7 +103,7 @@ public class ClientDB implements UsersDatabase, IDatabase {
         } catch (EOFException e) {
             // return all clients objects
             return clients;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | IOException e) {
             // Print stack trace for any exceptions
             e.printStackTrace();
             return new ArrayList<>();

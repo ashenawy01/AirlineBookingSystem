@@ -6,8 +6,8 @@ import DAO.StaffDB;
 import java.util.ArrayList;
 public class StaffController {
    private static final StaffDB staffdb = new StaffDB();
-   private static final FlightDB flightdb=new FlightDB();
-   private static final BookingDB bookingDB=new BookingDB();
+   private static final FlightDB flightdb = new FlightDB();
+   private static final BookingDB bookingDB = new BookingDB();
    private static Staff currentStaff = null;
 
    public static Staff signIn(String Email, String pass) {

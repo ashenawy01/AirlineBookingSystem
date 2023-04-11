@@ -102,7 +102,7 @@ public class AdminDB implements UsersDatabase, IDatabase {
         } catch (EOFException e) {
             // return all admins objects
             return admins;
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException e) {
             // Print stack trace for any exceptions
             e.printStackTrace();
             return new ArrayList<>();

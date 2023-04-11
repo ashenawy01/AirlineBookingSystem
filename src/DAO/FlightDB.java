@@ -69,7 +69,7 @@ public class FlightDB implements IDatabase {
         } catch (EOFException e) {
             // return all flights objects
             return flights;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | IOException e) {
             // Print stack trace for any exceptions
             e.printStackTrace();
             return new ArrayList<>();
